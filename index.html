@@ -330,7 +330,7 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
 
 .card-text{
   flex:1;min-width:0;padding:4px 16px 4px 12px;display:flex;flex-direction:column;justify-content:center;
-  background:linear-gradient(180deg, var(--btn-c1, #2A9BB8), var(--btn-c2, #0C4B5C));
+  background:linear-gradient(180deg, #43A7C0, #29606F);
   border-radius:0 10px 0 0;
   clip-path:polygon(5px 0, 100% 0, 100% 100%, 0 100%);
 }
@@ -662,24 +662,6 @@ toggleLabelsBtn.addEventListener('click', ()=>{
   toggleLabelsBtn.setAttribute('aria-pressed', nowHidden ? 'true' : 'false');
   toggleLabelsBtn.title = nowHidden ? 'Show state names' : 'Hide state names';
 });
-
-// ============================================================
-// LINK BUTTON COLOUR — randomised once per page load
-// Every site-card button shares the same gradient (not a per-card
-// color), and which of the three options is used is picked at
-// random each time the page loads, via CSS custom properties read
-// by .card-text's background.
-// ============================================================
-const BUTTON_COLOR_PAIRS = [
-  ['#2A9BB8', '#0C4B5C'],
-  ['#FEDB41', '#6B5C1B'],
-  ['#7FB834', '#354D16'],
-];
-(function pickRandomButtonColor(){
-  const [c1, c2] = BUTTON_COLOR_PAIRS[Math.floor(Math.random() * BUTTON_COLOR_PAIRS.length)];
-  document.documentElement.style.setProperty('--btn-c1', c1);
-  document.documentElement.style.setProperty('--btn-c2', c2);
-})();
 
 const CAT_LABELS = {
   portal: "Government Portal",
