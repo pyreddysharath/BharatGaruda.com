@@ -234,7 +234,7 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
 .site-search-dropdown{
   position:absolute;left:24px;right:24px;top:calc(100% - 4px);
   background:var(--white);border:1.5px solid var(--ink);border-radius:8px;
-  max-height:min(420px, 60vh);overflow-y:auto;
+  max-height:min(420px, 60vh);overflow-y:auto;overscroll-behavior:contain;
   box-shadow:4px 4px 0 rgba(0,0,0,.4);
   display:none;
 }
@@ -1141,7 +1141,7 @@ function openFeedbackForm(){
       <h2 class="state-name">Feedback</h2>
       <p class="feedback-note">Have a suggestion, spotted a broken link, or just want to say hello? Leave a note below.</p>
       <form id="feedbackForm" class="feedback-form">
-        <input type="hidden" name="Website" value="BharatGaruda.in">
+        <input type="hidden" name="Website" value="BharatGaruda.com">
         <input type="hidden" name="Status" value="Open">
         <input type="text" id="fbName" name="Name" placeholder="Your name" required maxlength="80">
         <textarea id="fbMessage" name="Message" placeholder="Your feedback…" required maxlength="2000" rows="3"></textarea>
@@ -1371,7 +1371,9 @@ function searchSites(query){
   const matches = SEARCH_INDEX.filter(item=>
     (item.title && item.title.toLowerCase().includes(q)) ||
     (item.url && item.url.toLowerCase().includes(q)) ||
-    (item.desc && item.desc.toLowerCase().includes(q))
+    (item.desc && item.desc.toLowerCase().includes(q)) ||
+    (item.stateName && item.stateName.toLowerCase().includes(q)) ||
+    (item.sectionTitle && item.sectionTitle.toLowerCase().includes(q))
   );
   // Group: Pan-India first, then each state, preserving first-seen order.
   // Within each group, further split into sub-sections by category.
