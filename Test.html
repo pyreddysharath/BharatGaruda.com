@@ -45,9 +45,6 @@
     header h1 {
       font-size: 1.3rem;
       color: #1A202C;
-      display: flex;
-      align-items: center;
-      gap: 10px;
     }
 
     header p {
@@ -58,10 +55,11 @@
     .main-container {
       display: flex;
       flex: 1;
+      height: calc(100vh - 60px);
       overflow: hidden;
     }
 
-    /* Fixed Map Viewport - Ensures Full Map Visibility */
+    /* Fixed Map Viewport Container */
     .map-container {
       flex: 1;
       position: relative;
@@ -69,15 +67,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 15px;
-      overflow: hidden; /* Prevents overflow issues */
+      padding: 20px;
+      min-width: 0;
+      min-height: 0;
     }
 
     .map-wrapper {
       position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: inline-block;
       max-width: 100%;
       max-height: 100%;
       box-shadow: 0 10px 30px rgba(0,0,0,0.5);
@@ -87,36 +84,36 @@
 
     .map-wrapper img {
       display: block;
-      width: auto;
-      height: auto;
-      max-width: 100%;
-      max-height: calc(100vh - 80px); /* Fits inside viewport nicely */
+      width: 100%;
+      height: 100%;
+      max-height: calc(100vh - 100px);
       object-fit: contain;
     }
 
-    /* Clickable Hotspot Overlay */
+    /* Interactive State Hotspot Overlay */
     .hotspot {
       position: absolute;
-      border: 2px solid rgba(255, 255, 255, 0.8);
-      background: rgba(255, 153, 51, 0.45);
+      border: 2px solid rgba(255, 255, 255, 0.9);
+      background: rgba(255, 153, 51, 0.6);
       border-radius: 50%;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
       font-size: 11px;
       font-weight: bold;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.9);
-      box-shadow: 0 0 10px rgba(255,255,255,0.4);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.9);
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      z-index: 5;
     }
 
     .hotspot:hover, .hotspot.active {
-      background: rgba(19, 136, 8, 0.85);
-      transform: scale(1.25);
+      background: rgba(19, 136, 8, 0.9);
+      transform: scale(1.3);
       border-color: #fff;
-      box-shadow: 0 0 15px rgba(19, 136, 8, 0.9);
+      box-shadow: 0 0 15px rgba(19, 136, 8, 1);
     }
 
     /* Sidebar Links Section */
@@ -178,9 +175,6 @@
       margin: 10px 0 10px 0;
       padding-bottom: 5px;
       border-bottom: 2px solid var(--primary);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
     .section-title.pan-title {
@@ -235,28 +229,19 @@
       color: #A0AEC0;
     }
 
-    /* Scrollbar Styling */
-    .links-content::-webkit-scrollbar {
-      width: 6px;
-    }
-    .links-content::-webkit-scrollbar-thumb {
-      background-color: #CBD5E0;
-      border-radius: 3px;
-    }
-
     @media (max-width: 900px) {
       body {
         overflow: auto;
       }
       .main-container {
         flex-direction: column;
+        height: auto;
       }
       .sidebar {
         width: 100%;
-        height: auto;
       }
       .map-container {
-        height: 60vh;
+        height: 50vh;
       }
     }
   </style>
@@ -265,31 +250,34 @@
 
   <header>
     <h1>🏛️ India Governance Portal</h1>
-    <p>Click on any state to view state government links</p>
+    <p>Click on any state button on the map to filter government services</p>
   </header>
 
   <div class="main-container">
     <!-- Map Canvas Area -->
     <div class="map-container">
       <div class="map-wrapper">
-        <!-- 3D Map Image -->
-        <img src="watermarked_img_5936598452792174252.png" alt="3D Map of India" id="map-img">
+        <!-- Make sure 'watermarked_img_5936598452792174252.png' is saved in the exact same folder as this HTML file -->
+        <img src="watermarked_img_5936598452792174252.png" 
+             alt="3D Map of India" 
+             id="map-img"
+             onerror="this.onerror=null; this.src='https://via.placeholder.com/600x650/222222/ffffff?text=Image+Not+Found+-+Check+File+Path';">
 
         <!-- Hotspot Overlay -->
-        <div class="hotspot" style="top: 15%; left: 32%; width: 28px; height: 28px;" onclick="selectState('J&K')" title="Jammu & Kashmir">JK</div>
-        <div class="hotspot" style="top: 25%; left: 30%; width: 28px; height: 28px;" onclick="selectState('Punjab')" title="Punjab">PB</div>
-        <div class="hotspot" style="top: 36%; left: 24%; width: 32px; height: 32px;" onclick="selectState('Rajasthan')" title="Rajasthan">RJ</div>
-        <div class="hotspot" style="top: 35%; left: 45%; width: 32px; height: 32px;" onclick="selectState('UP')" title="Uttar Pradesh">UP</div>
-        <div class="hotspot" style="top: 48%; left: 20%; width: 32px; height: 32px;" onclick="selectState('Gujarat')" title="Gujarat">GJ</div>
-        <div class="hotspot" style="top: 48%; left: 40%; width: 32px; height: 32px;" onclick="selectState('MP')" title="Madhya Pradesh">MP</div>
-        <div class="hotspot" style="top: 59%; left: 30%; width: 32px; height: 32px;" onclick="selectState('Maharashtra')" title="Maharashtra">MH</div>
-        <div class="hotspot" style="top: 66%; left: 40%; width: 32px; height: 32px;" onclick="selectState('Telangana')" title="Telangana">TG</div>
-        <div class="hotspot" style="top: 72%; left: 33%; width: 32px; height: 32px;" onclick="selectState('Karnataka')" title="Karnataka">KA</div>
-        <div class="hotspot" style="top: 83%; left: 32%; width: 28px; height: 28px;" onclick="selectState('Kerala')" title="Kerala">KL</div>
-        <div class="hotspot" style="top: 82%; left: 40%; width: 32px; height: 32px;" onclick="selectState('TN')" title="Tamil Nadu">TN</div>
-        <div class="hotspot" style="top: 72%; left: 43%; width: 32px; height: 32px;" onclick="selectState('AP')" title="Andhra Pradesh">AP</div>
-        <div class="hotspot" style="top: 45%; left: 60%; width: 32px; height: 32px;" onclick="selectState('WB')" title="West Bengal">WB</div>
-        <div class="hotspot" style="top: 38%; left: 82%; width: 28px; height: 28px;" onclick="selectState('Assam')" title="Assam">AS</div>
+        <div class="hotspot" style="top: 15%; left: 32%; width: 28px; height: 28px;" onclick="selectState('J&K', event)" title="Jammu & Kashmir">JK</div>
+        <div class="hotspot" style="top: 25%; left: 30%; width: 28px; height: 28px;" onclick="selectState('Punjab', event)" title="Punjab">PB</div>
+        <div class="hotspot" style="top: 36%; left: 24%; width: 32px; height: 32px;" onclick="selectState('Rajasthan', event)" title="Rajasthan">RJ</div>
+        <div class="hotspot" style="top: 35%; left: 45%; width: 32px; height: 32px;" onclick="selectState('UP', event)" title="Uttar Pradesh">UP</div>
+        <div class="hotspot" style="top: 48%; left: 20%; width: 32px; height: 32px;" onclick="selectState('Gujarat', event)" title="Gujarat">GJ</div>
+        <div class="hotspot" style="top: 48%; left: 40%; width: 32px; height: 32px;" onclick="selectState('MP', event)" title="Madhya Pradesh">MP</div>
+        <div class="hotspot" style="top: 59%; left: 30%; width: 32px; height: 32px;" onclick="selectState('Maharashtra', event)" title="Maharashtra">MH</div>
+        <div class="hotspot" style="top: 66%; left: 40%; width: 32px; height: 32px;" onclick="selectState('Telangana', event)" title="Telangana">TG</div>
+        <div class="hotspot" style="top: 72%; left: 33%; width: 32px; height: 32px;" onclick="selectState('Karnataka', event)" title="Karnataka">KA</div>
+        <div class="hotspot" style="top: 83%; left: 32%; width: 28px; height: 28px;" onclick="selectState('Kerala', event)" title="Kerala">KL</div>
+        <div class="hotspot" style="top: 82%; left: 40%; width: 32px; height: 32px;" onclick="selectState('TN', event)" title="Tamil Nadu">TN</div>
+        <div class="hotspot" style="top: 72%; left: 43%; width: 32px; height: 32px;" onclick="selectState('AP', event)" title="Andhra Pradesh">AP</div>
+        <div class="hotspot" style="top: 45%; left: 60%; width: 32px; height: 32px;" onclick="selectState('WB', event)" title="West Bengal">WB</div>
+        <div class="hotspot" style="top: 38%; left: 82%; width: 28px; height: 28px;" onclick="selectState('Assam', event)" title="Assam">AS</div>
       </div>
     </div>
 
@@ -381,14 +369,6 @@
             { name: "Aaple Sarkar Services", url: "https://aaplesarkar.mahaonline.gov.in" },
             { name: "MahaBhumi (Land Records)", url: "https://mahabhumi.gov.in" }
           ]
-        },
-        {
-          category: "Municipal & Police",
-          icon: "🏙️",
-          links: [
-            { name: "Brihanmumbai Municipal Corp (BMC)", url: "https://www.mcgm.gov.in" },
-            { name: "Maharashtra Police", url: "https://www.mahapolice.gov.in" }
-          ]
         }
       ],
       "Karnataka": [
@@ -449,10 +429,10 @@
       `).join('');
     }
 
-    function selectState(stateKey) {
+    function selectState(stateKey, e) {
       document.querySelectorAll('.hotspot').forEach(el => el.classList.remove('active'));
-      if(event && event.target) {
-        event.target.classList.add('active');
+      if(e && e.target) {
+        e.target.classList.add('active');
       }
 
       const stateSection = document.getElementById('state-section');
