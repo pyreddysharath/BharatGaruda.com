@@ -232,10 +232,10 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
   88%, 100%{transform:translateX(var(--scroll-distance, 0px))}
 }
 .site-search-dropdown{
-  position:absolute;left:24px;right:24px;top:calc(100% - 4px);
+  margin:0 24px 12px;
   background:var(--white);border:1.5px solid var(--ink);border-radius:8px;
-  max-height:min(420px, 60vh);overflow-y:auto;overscroll-behavior:contain;
   box-shadow:4px 4px 0 rgba(0,0,0,.4);
+  max-height:min(420px, calc(100vh - 160px));overflow-y:auto;
   display:none;
 }
 .site-search-dropdown.show{display:block}
@@ -590,8 +590,8 @@ footer.foot a{color:var(--teal-light)}
           <span class="search-placeholder-clip"><span id="searchPlaceholderText" class="search-placeholder-text">Search government sites by name, purpose or URL</span></span>
         </span>
       </div>
-      <div id="siteSearchResults" class="site-search-dropdown"></div>
     </div>
+    <div id="siteSearchResults" class="site-search-dropdown"></div>
     <div id="detailContent"></div>
   </section>
 </div>
@@ -1094,6 +1094,19 @@ document.getElementById('cookieDecline').addEventListener('click', (e)=>{
 const FEEDBACK_KEY = 'feedbackEntries';
 const FEEDBACK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxPwZpVM9hxNnVcH_nPoFLH4pUhcsJhqQlo3IB9OwLLHgFqYvS_NLCN9aCxztz0fkK2/exec'; // <-- paste your Apps Script Web App URL here, e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
 
+// Explicit formatting (not toLocaleString) so the result is the same
+// regardless of the visitor's browser/locale: "dd-MMM-yyyy HH:mm",
+// 24-hour, no seconds, space (not comma) between date and time.
+function formatFeedbackTimestamp(date){
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dd = String(date.getDate()).padStart(2,'0');
+  const mmm = MONTHS[date.getMonth()];
+  const yyyy = date.getFullYear();
+  const HH = String(date.getHours()).padStart(2,'0');
+  const MM = String(date.getMinutes()).padStart(2,'0');
+  return `${dd}-${mmm}-${yyyy} ${HH}:${MM}`;
+}
+
 function getFeedbackEntries(){
   try{ return JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || []; }
   catch(e){ return []; }
@@ -1162,7 +1175,7 @@ function openFeedbackForm(){
     // Field order matters here — it controls the order the data
     // arrives in on the receiving end (e.g. spreadsheet columns).
     const entry = {
-      Date: new Date().toISOString().slice(0,19).replace('T',' '),
+      Date: formatFeedbackTimestamp(new Date()),
       Website: form.querySelector('[name="Website"]').value,
       Name: name,
       Message: message,
