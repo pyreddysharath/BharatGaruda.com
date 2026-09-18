@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-      India Government Services Directory & Map
-    </title>
-    <style>
-      :root {
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>India Government Services Directory & Map</title>
+  <style>
+    :root {
       --primary: #FF9933;
       --secondary: #138808;
       --accent: #000080;
@@ -35,16 +33,17 @@
 
     header {
       background: linear-gradient(135deg, var(--primary), #ffffff, var(--secondary));
-      padding: 15px 30px;
+      padding: 12px 25px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       z-index: 10;
+      flex-shrink: 0;
     }
 
     header h1 {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       color: #1A202C;
       display: flex;
       align-items: center;
@@ -62,40 +61,44 @@
       overflow: hidden;
     }
 
-    /* Map Viewport */
+    /* Fixed Map Viewport - Ensures Full Map Visibility */
     .map-container {
       flex: 1;
       position: relative;
-      background-color: #2b2b2b;
+      background-color: #1a1a1a;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: auto;
-      padding: 20px;
+      padding: 15px;
+      overflow: hidden; /* Prevents overflow issues */
     }
 
     .map-wrapper {
       position: relative;
-      display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       max-width: 100%;
       max-height: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
       border-radius: 12px;
       overflow: hidden;
     }
 
     .map-wrapper img {
       display: block;
-      max-width: 100%;
+      width: auto;
       height: auto;
-      max-height: 80vh;
+      max-width: 100%;
+      max-height: calc(100vh - 80px); /* Fits inside viewport nicely */
+      object-fit: contain;
     }
 
     /* Clickable Hotspot Overlay */
     .hotspot {
       position: absolute;
-      border: 2px solid rgba(255, 255, 255, 0.6);
-      background: rgba(255, 153, 51, 0.35);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      background: rgba(255, 153, 51, 0.45);
       border-radius: 50%;
       cursor: pointer;
       transition: all 0.3s ease;
@@ -105,41 +108,42 @@
       color: white;
       font-size: 11px;
       font-weight: bold;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.9);
       box-shadow: 0 0 10px rgba(255,255,255,0.4);
     }
 
     .hotspot:hover, .hotspot.active {
-      background: rgba(19, 136, 8, 0.7);
-      transform: scale(1.2);
+      background: rgba(19, 136, 8, 0.85);
+      transform: scale(1.25);
       border-color: #fff;
-      box-shadow: 0 0 15px rgba(19, 136, 8, 0.8);
+      box-shadow: 0 0 15px rgba(19, 136, 8, 0.9);
     }
 
     /* Sidebar Links Section */
     .sidebar {
-      width: 450px;
+      width: 420px;
       background: var(--card-bg);
       border-left: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       box-shadow: -4px 0 15px rgba(0,0,0,0.05);
+      flex-shrink: 0;
     }
 
     .sidebar-header {
-      padding: 20px;
+      padding: 18px;
       border-bottom: 1px solid var(--border);
       background-color: #FAFAFA;
     }
 
     .sidebar-header h2 {
-      font-size: 1.2rem;
+      font-size: 1.15rem;
       color: var(--accent);
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .sidebar-header p {
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: #718096;
     }
 
@@ -161,17 +165,17 @@
 
     .links-content {
       flex: 1;
-      padding: 20px;
+      padding: 18px;
       overflow-y: auto;
     }
 
     .section-title {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: #2D3748;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin: 15px 0 10px 0;
+      margin: 10px 0 10px 0;
       padding-bottom: 5px;
       border-bottom: 2px solid var(--primary);
       display: flex;
@@ -181,7 +185,7 @@
 
     .section-title.pan-title {
       border-bottom-color: var(--secondary);
-      margin-top: 25px;
+      margin-top: 20px;
     }
 
     .category-group {
@@ -241,116 +245,81 @@
     }
 
     @media (max-width: 900px) {
+      body {
+        overflow: auto;
+      }
       .main-container {
         flex-direction: column;
       }
       .sidebar {
         width: 100%;
-        height: 50vh;
+        height: auto;
       }
       .map-container {
-        height: 50vh;
+        height: 60vh;
       }
     }
-    </style>
-  </head>
-  <body>
-    <header>
-      <h1>
-        🏛️ India Governance Portal
-      </h1>
-      <p>
-        Select any state on the map to filter state-specific services
-      </p>
-    </header>
-    <div class="main-container">
-      <!-- Map Canvas Area -->
-      <div class="map-container">
-        <div class="map-wrapper">
-          <!-- Local 3D Map Image -->
-          <img src="watermarked_img_5936598452792174252.png" alt="3D Map of India" id="map-img">
-          <!-- Clickable Regions (Positioned over key states) -->
-          <div class="hotspot" style="top: 15%; left: 32%; width: 28px; height: 28px;" onclick="selectState('J&K')" title="Jammu & Kashmir">
-            JK
-          </div>
-          <div class="hotspot" style="top: 25%; left: 30%; width: 28px; height: 28px;" onclick="selectState('Punjab')" title="Punjab">
-            PB
-          </div>
-          <div class="hotspot" style="top: 36%; left: 24%; width: 34px; height: 34px;" onclick="selectState('Rajasthan')" title="Rajasthan">
-            RJ
-          </div>
-          <div class="hotspot" style="top: 35%; left: 45%; width: 34px; height: 34px;" onclick="selectState('UP')" title="Uttar Pradesh">
-            UP
-          </div>
-          <div class="hotspot" style="top: 48%; left: 20%; width: 32px; height: 32px;" onclick="selectState('Gujarat')" title="Gujarat">
-            GJ
-          </div>
-          <div class="hotspot" style="top: 48%; left: 40%; width: 34px; height: 34px;" onclick="selectState('MP')" title="Madhya Pradesh">
-            MP
-          </div>
-          <div class="hotspot" style="top: 59%; left: 30%; width: 34px; height: 34px;" onclick="selectState('Maharashtra')" title="Maharashtra">
-            MH
-          </div>
-          <div class="hotspot" style="top: 66%; left: 40%; width: 34px; height: 34px;" onclick="selectState('Telangana')" title="Telangana">
-            TG
-          </div>
-          <div class="hotspot" style="top: 72%; left: 33%; width: 32px; height: 32px;" onclick="selectState('Karnataka')" title="Karnataka">
-            KA
-          </div>
-          <div class="hotspot" style="top: 83%; left: 32%; width: 28px; height: 28px;" onclick="selectState('Kerala')" title="Kerala">
-            KL
-          </div>
-          <div class="hotspot" style="top: 82%; left: 40%; width: 32px; height: 32px;" onclick="selectState('TN')" title="Tamil Nadu">
-            TN
-          </div>
-          <div class="hotspot" style="top: 72%; left: 43%; width: 32px; height: 32px;" onclick="selectState('AP')" title="Andhra Pradesh">
-            AP
-          </div>
-          <div class="hotspot" style="top: 45%; left: 60%; width: 32px; height: 32px;" onclick="selectState('WB')" title="West Bengal">
-            WB
-          </div>
-          <div class="hotspot" style="top: 38%; left: 82%; width: 30px; height: 30px;" onclick="selectState('Assam')" title="Assam">
-            AS
-          </div>
-        </div>
-      </div>
-      <!-- Dynamic Sidebar -->
-      <div class="sidebar">
-        <div class="sidebar-header">
-          <h2 id="view-title">
-            Pan-India Official Portals
-          </h2>
-          <p id="view-subtitle">
-            Showing central government services and national portals
-          </p>
-          <button class="reset-btn" id="reset-btn" onclick="resetView()">
-            Show All Pan-India Links
-          </button>
-        </div>
-        <div class="links-content">
-          <!-- Dynamic State Links Section -->
-          <div id="state-section" style="display: none;">
-            <div class="section-title">
-              <span id="state-name-heading">
-                State Government Links
-              </span>
-            </div>
-            <div id="state-links-container">
-            </div>
-          </div>
-          <!-- Pan India Links Section -->
-          <div class="section-title pan-title">
-            <span>
-              Pan-India Services
-            </span>
-          </div>
-          <div id="pan-links-container">
-          </div>
-        </div>
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🏛️ India Governance Portal</h1>
+    <p>Click on any state to view state government links</p>
+  </header>
+
+  <div class="main-container">
+    <!-- Map Canvas Area -->
+    <div class="map-container">
+      <div class="map-wrapper">
+        <!-- 3D Map Image -->
+        <img src="watermarked_img_5936598452792174252.png" alt="3D Map of India" id="map-img">
+
+        <!-- Hotspot Overlay -->
+        <div class="hotspot" style="top: 15%; left: 32%; width: 28px; height: 28px;" onclick="selectState('J&K')" title="Jammu & Kashmir">JK</div>
+        <div class="hotspot" style="top: 25%; left: 30%; width: 28px; height: 28px;" onclick="selectState('Punjab')" title="Punjab">PB</div>
+        <div class="hotspot" style="top: 36%; left: 24%; width: 32px; height: 32px;" onclick="selectState('Rajasthan')" title="Rajasthan">RJ</div>
+        <div class="hotspot" style="top: 35%; left: 45%; width: 32px; height: 32px;" onclick="selectState('UP')" title="Uttar Pradesh">UP</div>
+        <div class="hotspot" style="top: 48%; left: 20%; width: 32px; height: 32px;" onclick="selectState('Gujarat')" title="Gujarat">GJ</div>
+        <div class="hotspot" style="top: 48%; left: 40%; width: 32px; height: 32px;" onclick="selectState('MP')" title="Madhya Pradesh">MP</div>
+        <div class="hotspot" style="top: 59%; left: 30%; width: 32px; height: 32px;" onclick="selectState('Maharashtra')" title="Maharashtra">MH</div>
+        <div class="hotspot" style="top: 66%; left: 40%; width: 32px; height: 32px;" onclick="selectState('Telangana')" title="Telangana">TG</div>
+        <div class="hotspot" style="top: 72%; left: 33%; width: 32px; height: 32px;" onclick="selectState('Karnataka')" title="Karnataka">KA</div>
+        <div class="hotspot" style="top: 83%; left: 32%; width: 28px; height: 28px;" onclick="selectState('Kerala')" title="Kerala">KL</div>
+        <div class="hotspot" style="top: 82%; left: 40%; width: 32px; height: 32px;" onclick="selectState('TN')" title="Tamil Nadu">TN</div>
+        <div class="hotspot" style="top: 72%; left: 43%; width: 32px; height: 32px;" onclick="selectState('AP')" title="Andhra Pradesh">AP</div>
+        <div class="hotspot" style="top: 45%; left: 60%; width: 32px; height: 32px;" onclick="selectState('WB')" title="West Bengal">WB</div>
+        <div class="hotspot" style="top: 38%; left: 82%; width: 28px; height: 28px;" onclick="selectState('Assam')" title="Assam">AS</div>
       </div>
     </div>
-    <script>
-      // Link Data Organized by Category
+
+    <!-- Dynamic Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2 id="view-title">Pan-India Official Portals</h2>
+        <p id="view-subtitle">Showing central government services and national portals</p>
+        <button class="reset-btn" id="reset-btn" onclick="resetView()">Show All Pan-India Links</button>
+      </div>
+
+      <div class="links-content">
+        <!-- Dynamic State Links Section -->
+        <div id="state-section" style="display: none;">
+          <div class="section-title">
+            <span id="state-name-heading">State Government Links</span>
+          </div>
+          <div id="state-links-container"></div>
+        </div>
+
+        <!-- Pan India Links Section -->
+        <div class="section-title pan-title">
+          <span>Pan-India Services</span>
+        </div>
+        <div id="pan-links-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
     const panIndiaData = [
       {
         category: "Essential & Identity Services",
@@ -457,43 +426,34 @@
       ]
     };
 
-    // Render Pan-India Links
     function renderPanLinks() {
       const container = document.getElementById('pan-links-container');
       container.innerHTML = createCategoryHTML(panIndiaData);
     }
 
-    // Helper to generate list HTML
     function createCategoryHTML(categories) {
       return categories.map(cat => `
-      <div class="category-group">
-        <div class="category-name">
-          <span>
-            ${cat.icon}
-          </span>
-          ${cat.category}
+        <div class="category-group">
+          <div class="category-name"><span>${cat.icon}</span> ${cat.category}</div>
+          <ul class="link-list">
+            ${cat.links.map(l => `
+              <li class="link-item">
+                <a href="${l.url}" target="_blank" rel="noopener">
+                  ${l.name}
+                  <span class="icon">↗</span>
+                </a>
+              </li>
+            `).join('')}
+          </ul>
         </div>
-        <ul class="link-list">
-          ${cat.links.map(l => `
-          <li class="link-item">
-            <a href="${l.url}" target="_blank" rel="noopener">
-              ${l.name}
-              <span class="icon">
-                ↗
-              </span>
-            </a>
-          </li>
-          `).join('')}
-        </ul>
-      </div>
       `).join('');
     }
 
-    // State Selection Trigger
     function selectState(stateKey) {
-      // Highlight active hotspot
       document.querySelectorAll('.hotspot').forEach(el => el.classList.remove('active'));
-      event.target.classList.add('active');
+      if(event && event.target) {
+        event.target.classList.add('active');
+      }
 
       const stateSection = document.getElementById('state-section');
       const stateContainer = document.getElementById('state-links-container');
@@ -513,18 +473,13 @@
       } else {
         viewTitle.innerText = `${stateKey} Selected`;
         viewSubtitle.innerText = `Specific state links coming soon. Displaying Pan-India links.`;
-        stateContainer.innerHTML = `
-      <p style="font-size: 0.85rem; color: #718096; padding: 10px 0;">
-        Official state portal directory updating soon.
-      </p>
-      `;
+        stateContainer.innerHTML = `<p style="font-size: 0.85rem; color: #718096; padding: 10px 0;">Official state portal directory updating soon.</p>`;
         stateSection.style.display = 'block';
       }
 
       resetBtn.style.display = 'inline-block';
     }
 
-    // Reset back to initial load view
     function resetView() {
       document.querySelectorAll('.hotspot').forEach(el => el.classList.remove('active'));
       document.getElementById('state-section').style.display = 'none';
@@ -533,10 +488,9 @@
       document.getElementById('reset-btn').style.display = 'none';
     }
 
-    // Initialize application
     window.onload = function() {
       renderPanLinks();
     };
-    </script>
-  </body>
+  </script>
+</body>
 </html>
