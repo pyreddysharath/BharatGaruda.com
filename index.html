@@ -167,17 +167,19 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
 }
 
 .hover-tip{
-  position:fixed;pointer-events:none;z-index:60;
+  position:absolute;pointer-events:none;z-index:60;
   background:#ADD8E6;color:#1A1A1A;
   font-family:'IBM Plex Mono',monospace;font-size:.72rem;
   padding:6px 10px;border-radius:4px;
   transform:translate(-50%,-130%);
   opacity:0;transition:opacity .1s;
-  white-space:nowrap;text-align:center;
+  max-width:min(240px, calc(100vw - 24px));
+  box-sizing:border-box;
+  white-space:normal;text-align:center;
 }
 .hover-tip.show{opacity:1}
 .hover-tip .tip-name{font-size:.78rem;font-weight:700}
-.hover-tip .tip-sub{font-size:.64rem;color:#1A1A1A;opacity:.75;margin-top:2px}
+.hover-tip .tip-sub{font-size:.64rem;color:inherit;opacity:.75;margin-top:2px}
 .hover-tip .tip-sub + .tip-sub{margin-top:1px}
 
 /* ---------- Detail column ---------- */
@@ -748,6 +750,63 @@ function tipHtmlFor(s){
   return html;
 }
 
+// The tooltip's background now matches the state's own map colour
+// instead of a single fixed shade, with the text flipped between
+// dark and light so it stays readable against every state's colour
+// (including the near-white ones, which also get a thin border so
+// the popup doesn't disappear into the page background).
+function tipColorsFor(hex){
+  const {r,g,b} = hexToRgb(hex || '#ADD8E6');
+  const lum = relativeLuminance({r,g,b});
+  const text = lum > 0.55 ? '#1A1A1A' : '#FFFFFF';
+  const border = lum > 0.9 ? '1px solid rgba(0,0,0,.25)' : 'none';
+  return { bg: hex, text, border };
+}
+function showTipFor(s){
+  tip.innerHTML = tipHtmlFor(s);
+  const { bg, text, border } = tipColorsFor(s.mapColor);
+  tip.style.background = bg;
+  tip.style.color = text;
+  tip.style.border = border;
+  tip.classList.add('show');
+}
+function hideTip(){ tip.classList.remove('show'); }
+
+// Keep the popup fully on-screen horizontally (e.g. long names like
+// "Chhattisgarh" near the left/right edge of a narrow phone screen
+// would otherwise overflow past the viewport), and anchor it to the
+// *document* rather than the viewport. `position:fixed` would stay
+// glued to the screen when the page itself is scrolled (the map sits
+// in normal page flow, so scrolling the page moves it — a fixed
+// popup would then drift away from the state it belongs to). Using
+// `position:absolute` with page coordinates (client coords + the
+// current scroll offset) makes the popup scroll together with the
+// map, exactly like any other content anchored at that point.
+function positionTip(clientX, clientY){
+  const rect = tip.getBoundingClientRect();
+  const halfW = rect.width / 2;
+  const margin = 8;
+  const minLeft = halfW + margin;
+  const maxLeft = window.innerWidth - halfW - margin;
+  let x = clientX;
+  if(maxLeft > minLeft){
+    x = Math.min(Math.max(x, minLeft), maxLeft);
+  }
+  tip.style.left = (x + window.scrollX) + 'px';
+  tip.style.top = (clientY + window.scrollY) + 'px';
+}
+
+// The popup should stay put — pinned in place, scrolling naturally
+// with the page — once a state has been clicked/tapped, and only
+// change or disappear when a *different* click/tap happens: another
+// state (which shows its own popup) or anywhere outside the map
+// (which dismisses it). It should never be dismissed just because
+// the page was scrolled.
+document.addEventListener('click', (e)=>{
+  const onState = e.target instanceof Element && e.target.closest('path[data-id]');
+  if(!onState) hideTip();
+});
+
 let visited = new Set();
 let selectedId = null;
 const pathById = {};
@@ -771,10 +830,22 @@ ids.forEach((id, i) => {
   svg.appendChild(p);
   pathById[id] = p;
 
-  p.addEventListener('mouseenter', ()=>{ tip.innerHTML = tipHtmlFor(s); tip.classList.add('show'); });
-  p.addEventListener('mousemove', (e)=>{ tip.style.left = e.clientX + 'px'; tip.style.top = e.clientY + 'px'; });
-  p.addEventListener('mouseleave', ()=> tip.classList.remove('show'));
-  p.addEventListener('click', ()=> selectState(id));
+  p.addEventListener('mouseenter', (e)=>{ showTipFor(s); positionTip(e.clientX, e.clientY); });
+  p.addEventListener('mousemove', (e)=>{ positionTip(e.clientX, e.clientY); });
+  // Only dismiss on mouse-out if this state isn't the one that's
+  // currently pinned by a click/tap — a pinned popup stays until a
+  // different click changes the selection.
+  p.addEventListener('mouseleave', ()=>{ if(id !== selectedId) hideTip(); });
+  p.addEventListener('click', (e)=>{
+    selectState(id);
+    // Re-show (and reposition) on every click, including a repeat
+    // click on the same state, using the click's own coordinates so
+    // touch taps — which may not fire a preceding mousemove — still
+    // land the popup at the tapped point.
+    const pt = (e.changedTouches && e.changedTouches[0]) || e;
+    showTipFor(s);
+    positionTip(pt.clientX, pt.clientY);
+  });
   p.addEventListener('keypress', (e)=>{ if(e.key==='Enter') selectState(id); });
 });
 
@@ -912,6 +983,7 @@ function renderDefault(){
 function deselectState(clearHash){
   Object.values(pathById).forEach(p=>p.classList.remove('active'));
   selectedId = null;
+  hideTip();
   renderDefault();
   if(clearHash !== false){
     history.pushState({stateId:null}, '', location.pathname + location.search);
