@@ -106,16 +106,26 @@ body{
 .map-heading h2{font-family:'Spectral',serif;font-size:1.5rem;margin:0 0 6px;line-height:1.25}
 .map-heading p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.5;max-width:52ch}
 
-.map-shell{
+/* Shared stage: both the real interactive map and the decorative
+   illustrated view are absolutely positioned to fill this exact same
+   box, so toggling between them never changes the page's size/layout —
+   it's a plain visibility swap, not a resize. The aspect-ratio matches
+   the real map's own SVG viewBox so the real map renders pixel-identical
+   to how it always has. */
+.map-stage{
   width:min(1400px, calc((100vh - 90px) * 0.91));
-  margin: 0 auto 0;
+  margin:0 auto 0;
   max-width:100%;
   position:relative;
+  aspect-ratio:1000 / 1136;
+}
+.map-shell{
+  position:absolute;inset:0;
   perspective:1400px;
   padding:0 10px 10px;
 }
 svg#india{
-  width:100%;height:auto;display:block;
+  width:100%;height:100%;display:block;
   transform:rotateX(16deg) rotateZ(0deg);
   transform-origin:center bottom;
   transform-style:preserve-3d;
@@ -556,16 +566,18 @@ footer.foot a{color:var(--teal-light)}
 .decorative-map-toggle:hover{transform:translateY(-2px)}
 
 .decorative-map-view{
-  width:min(1400px, calc((100vh - 90px) * 0.91));
-  margin:0 auto 0;
-  max-width:100%;
-  position:relative;
+  position:absolute;inset:0;
 }
 /* The artwork is cropped tight to the illustrated India shape itself
    (its surrounding wooden board/frame has been removed from the image),
-   so it's shown plain — no box, border or shadow of our own. */
+   so it's shown plain — no box, border or shadow of our own. It fills
+   the exact same stage box as the real map (see .map-stage) so toggling
+   between the two views never shifts the page's size or position; since
+   the artwork's own proportions aren't identical to the real map's, it's
+   stretched slightly to match rather than letterboxed, keeping the two
+   views pixel-for-pixel the same size/position at all times. */
 .decorative-map-view img{
-  width:100%;height:auto;display:block;
+  width:100%;height:100%;object-fit:fill;display:block;
 }
 .decorative-overlay-svg{
   position:absolute;inset:0;width:100%;height:100%;
@@ -574,6 +586,7 @@ footer.foot a{color:var(--teal-light)}
   fill:transparent;stroke:none;cursor:pointer;
   transition:fill .15s ease;
 }
+.decorative-overlay-svg path:focus{outline:none}
 .decorative-overlay-svg path:hover,
 .decorative-overlay-svg path.active{
   fill:rgba(255,255,255,.22);
@@ -646,6 +659,7 @@ footer.foot a{color:var(--teal-light)}
     </button>
     <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
 
+    <div class="map-stage">
     <div class="map-shell">
       <svg id="india" class="labels-hidden" viewBox="0 0 1000 1136" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of India">
         <defs>
@@ -679,7 +693,7 @@ footer.foot a{color:var(--teal-light)}
          image purely so each state area is clickable/hoverable — the
          image itself is never modified. -->
     <div class="decorative-map-view" id="decorativeMapView" hidden>
-      <img src="images/decorative-3d-map.png?v=3" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
+      <img src="images/decorative-3d-map.png?v=4" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
       <svg id="decorativeOverlay" class="decorative-overlay-svg" viewBox="0 0 1000 1136" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div class="decorative-map-icons">
         <button id="decorativeThemeToggle" class="decorative-icon-btn" title="Switch light/dark mode" aria-label="Toggle light/dark mode">
@@ -701,6 +715,7 @@ footer.foot a{color:var(--teal-light)}
           </svg>
         </button>
       </div>
+    </div>
     </div>
     <!-- ===== DECORATIVE 3D MAP TOGGLE — end ===== -->
   </section>
@@ -1077,19 +1092,21 @@ ids.forEach(id => {
   svg.appendChild(label);
 });
 
-// Lakshadweep's true shape is a scattered cluster of tiny coral
-// islands — even with a strong fill color, the actual filled area on
-// the map is too small to see or click reliably. Rather than draw a
-// synthetic marker in its place, scale its real shape up around its
-// own centroid so the actual islands become visible right where they
-// are, without moving or zooming the rest of the map.
-(function enlargeTinyState(id, factor){
+// Some union territories' true shapes are scattered/very thin slivers —
+// even with a strong fill color, the actual filled area on the map is
+// too small (or too narrow) to see or click reliably. Rather than draw
+// synthetic markers in their place, scale each real shape up around its
+// own centroid so it becomes visible and clickable right where it is,
+// without moving or zooming the rest of the map.
+function enlargeTinyState(id, factor){
   const s = STATES[id];
   const p = pathById[id];
   if(!s || !p || s.cx == null || s.cy == null) return;
   p.setAttribute('transform', `translate(${s.cx} ${s.cy}) scale(${factor}) translate(${-s.cx} ${-s.cy})`);
   p.style.transformOrigin = ''; // ensure the SVG transform attribute above is what's used, not CSS transform-origin
-})('Lakshadweep', 2.0);
+}
+enlargeTinyState('Lakshadweep', 2.2);
+enlargeTinyState('Andaman and Nicobar', 1.6);
 
 // ===== DECORATIVE 3D MAP TOGGLE — overlay build. Draws the exact same
 // state shapes used by the real interactive map above, invisibly, on
