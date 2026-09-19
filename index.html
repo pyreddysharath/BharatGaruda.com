@@ -165,19 +165,6 @@ svg#india path.active{
   stroke:var(--map-stroke-active);stroke-width:1.8;
 }
 svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
-svg#india path[data-id="Lakshadweep"],
-svg#india path[data-id="Andaman and Nicobar"]{
-  vector-effect:non-scaling-stroke;
-  stroke:currentColor;
-  stroke-width:2.6px;
-  stroke-linejoin:round;
-  stroke-linecap:round;
-  color:#138808;
-}
-svg#india path[data-id="Lakshadweep"].active,
-svg#india path[data-id="Andaman and Nicobar"].active{
-  color:var(--map-stroke-active,#138808);
-}
 @keyframes pathIn{
   from{opacity:0;transform:scale(.92) translateY(6px)}
   to{opacity:1;transform:scale(1) translateY(0)}
@@ -705,7 +692,7 @@ footer.foot a{color:var(--teal-light)}
          image purely so each state area is clickable/hoverable — the
          image itself is never modified. -->
     <div class="decorative-map-view" id="decorativeMapView" hidden>
-      <img src="images/decorative-3d-map.png?v=4" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
+      <img src="images/decorative-3d-map.png?v=5" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
       <svg id="decorativeOverlay" class="decorative-overlay-svg" viewBox="0 0 1000 1136" preserveAspectRatio="none" aria-hidden="true"></svg>
       <div class="decorative-map-icons">
         <button id="decorativeThemeToggle" class="decorative-icon-btn" title="Switch light/dark mode" aria-label="Toggle light/dark mode">
@@ -1104,33 +1091,14 @@ ids.forEach(id => {
   svg.appendChild(label);
 });
 
-// Some union territories' true shapes are scattered/very thin slivers —
-// even with a strong fill color, the actual filled area on the map is
-// too small (or too narrow) to see or click reliably. Rather than draw
-// synthetic markers in their place, scale each real shape up around its
-// own centroid so it becomes visible and clickable right where it is,
-// without moving or zooming the rest of the map.
-//
-// The scale is applied via a wrapping <g>, not a transform on the path
-// itself: svg#india path already has its own CSS transform (the pathIn
-// entrance animation, plus :hover/.active), and CSS transform on an
-// element always wins over an SVG transform ATTRIBUTE on that same
-// element — so setting the attribute directly on the path gets silently
-// discarded once the entrance animation finishes. Wrapping the path in a
-// <g> puts the enlargement on an element none of those CSS rules target,
-// so it always sticks, while the path's own hover/active feedback still
-// works exactly as before.
-function enlargeTinyState(id, factor){
-  const s = STATES[id];
-  const p = pathById[id];
-  if(!s || !p || s.cx == null || s.cy == null) return;
-  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-  g.setAttribute('transform', `translate(${s.cx} ${s.cy}) scale(${factor}) translate(${-s.cx} ${-s.cy})`);
-  p.parentNode.insertBefore(g, p);
-  g.appendChild(p);
-}
-enlargeTinyState('Lakshadweep', 2.5);
-enlargeTinyState('Andaman and Nicobar', 2.0);
+// Lakshadweep and Andaman & Nicobar are scattered island groups whose
+// real-world shapes are a mix of tiny dots and a thin chain — too small
+// individually to see or click reliably at the map's normal scale. Their
+// geometry (entities/*/meta.json "d") has been pre-processed (rasterized,
+// dilated and re-traced) so each island reads as a solid, clickable blob
+// and the Andaman chain reads as one connected landmass, matching the
+// illustrated map's look — so no runtime scaling hack is needed here;
+// these two render and behave exactly like every other state/UT.
 
 // ===== DECORATIVE 3D MAP TOGGLE — overlay build. Draws the exact same
 // state shapes used by the real interactive map above, invisibly, on
