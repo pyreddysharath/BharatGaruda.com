@@ -770,7 +770,11 @@ function showTipFor(s){
   tip.style.border = border;
   tip.classList.add('show');
 }
-function hideTip(){ tip.classList.remove('show'); }
+// Tracks which state's popup is currently shown via a click/tap, so
+// a repeat click on that same state can toggle it off again rather
+// than just re-showing the same content.
+let tipShownFor = null;
+function hideTip(){ tip.classList.remove('show'); tipShownFor = null; }
 
 // Keep the popup fully on-screen horizontally (e.g. long names like
 // "Chhattisgarh" near the left/right edge of a narrow phone screen
@@ -837,14 +841,22 @@ ids.forEach((id, i) => {
   // different click changes the selection.
   p.addEventListener('mouseleave', ()=>{ if(id !== selectedId) hideTip(); });
   p.addEventListener('click', (e)=>{
-    selectState(id);
-    // Re-show (and reposition) on every click, including a repeat
-    // click on the same state, using the click's own coordinates so
-    // touch taps — which may not fire a preceding mousemove — still
-    // land the popup at the tapped point.
-    const pt = (e.changedTouches && e.changedTouches[0]) || e;
-    showTipFor(s);
-    positionTip(pt.clientX, pt.clientY);
+    // A repeat click on the state whose popup is already showing
+    // toggles the whole selection closed — popup, map highlight and
+    // the results panel all reset together, just like Escape/reset.
+    // Any other click (a different state, or this one after it was
+    // closed) selects it and shows its popup, using the click's own
+    // coordinates so touch taps — which may not fire a preceding
+    // mousemove — still land the popup at the tapped point.
+    if(tipShownFor === id){
+      deselectState();
+    } else {
+      selectState(id);
+      const pt = (e.changedTouches && e.changedTouches[0]) || e;
+      showTipFor(s);
+      positionTip(pt.clientX, pt.clientY);
+      tipShownFor = id;
+    }
   });
   p.addEventListener('keypress', (e)=>{ if(e.key==='Enter') selectState(id); });
 });
