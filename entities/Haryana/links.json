@@ -1,0 +1,116 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Haryana Government Departments",
+        "url": "https://igod.gov.in/sg/HR/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Haryana/icons/all-haryana-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Haryana Government Portal",
+        "url": "https://haryana.gov.in/",
+        "desc": "State departments and Saral e-services portal.",
+        "image": "entities/Haryana/icons/haryana-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Haryana Police",
+        "url": "https://haryanapolice.gov.in/",
+        "desc": "Citizen services and emergency helplines.",
+        "image": "entities/Haryana/icons/haryana-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Haryana Tourism",
+        "url": "https://haryanatourism.gov.in/",
+        "desc": "Kurukshetra heritage and highway resort information.",
+        "image": "entities/Haryana/icons/haryana-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Agriculture Department Haryana",
+        "url": "https://agriharyana.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Haryana/icons/agriculture-department-haryana.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "Board of School Education Haryana (BSEH)",
+        "url": "http://www.bseh.org.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Haryana/icons/board-of-school-education-haryana-bseh.svg"
+      },
+      {
+        "title": "NIT Kurukshetra",
+        "url": "http://www.nitkkr.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Haryana/icons/nit-kurukshetra.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "DHBVN",
+        "url": "https://www.dhbvn.org.in/",
+        "desc": "Dakshin Haryana Bijli Vitran Nigam services.",
+        "image": "entities/Haryana/icons/dhbvn.svg"
+      },
+      {
+        "title": "UHBVN",
+        "url": "https://www.uhbvn.org.in/",
+        "desc": "Uttar Haryana Bijli Vitran Nigam services.",
+        "image": "entities/Haryana/icons/uhbvn.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "HPSC – Haryana Public Service Commission",
+        "url": "https://hpsc.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Haryana Public Service Commission (HPSC)",
+        "image": "entities/Haryana/icons/hpsc-haryana-public-service-commission.svg"
+      }
+    ],
+    "Property Tax & Municipality": [
+      {
+        "title": "Urban Local Bodies Haryana",
+        "url": "https://ulbharyana.gov.in/",
+        "desc": "Municipal administration and property tax services.",
+        "image": "entities/Haryana/icons/urban-local-bodies-haryana.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "HRERA – Haryana RERA",
+        "url": "https://haryanarera.gov.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "abbrFull": "Haryana RERA (HRERA)",
+        "image": "entities/Haryana/icons/hrera-haryana-rera.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "Antyodaya Saral Haryana",
+        "url": "https://saralharyana.gov.in/",
+        "desc": "Unified citizen services and certificate portal.",
+        "image": "entities/Haryana/icons/antyodaya-saral-haryana.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "e-Challan – Traffic Violation Payment",
+        "url": "https://echallan.parivahan.gov.in/",
+        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
+        "image": "entities/Haryana/icons/e-challan-traffic-violation-payment.svg"
+      }
+    ]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Nagaland Government Departments",
+        "url": "https://igod.gov.in/sg/NL/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Nagaland/icons/all-nagaland-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Nagaland Government Portal",
+        "url": "https://nagaland.gov.in/",
+        "desc": "State departments and citizen e-services.",
+        "image": "entities/Nagaland/icons/nagaland-government-portal.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Nagaland Tourism",
+        "url": "https://tourism.nagaland.gov.in/",
+        "desc": "Hornbill Festival and tribal-village travel guides.",
+        "image": "entities/Nagaland/icons/nagaland-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Education": [
+      {
+        "title": "Nagaland Board of School Education (NBSE)",
+        "url": "http://www.nbsenagaland.com/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Nagaland/icons/nagaland-board-of-school-education-nbse.svg"
+      },
+      {
+        "title": "NIT Nagaland",
+        "url": "http://nitnagaland.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Nagaland/icons/nit-nagaland.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "NPSC – Nagaland Public Service Commission",
+        "url": "https://npsc.nagaland.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Nagaland Public Service Commission (NPSC)",
+        "image": "entities/Nagaland/icons/npsc-nagaland-public-service-commission.svg"
+      }
+    ],
+    "Services": [
+      {
+        "title": "Nagaland e-District",
+        "url": "https://edistrict.nagaland.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Nagaland/icons/nagaland-e-district.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "e-Challan – Traffic Violation Payment",
+        "url": "https://echallan.parivahan.gov.in/",
+        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
+        "image": "entities/Nagaland/icons/e-challan-traffic-violation-payment.svg"
+      }
+    ]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Kerala Government Departments",
+        "url": "https://igod.gov.in/sg/KL/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Kerala/icons/all-kerala-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Kerala Government Portal",
+        "url": "https://kerala.gov.in/",
+        "desc": "State departments and e-governance services.",
+        "image": "entities/Kerala/icons/kerala-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Kerala Police",
+        "url": "https://keralapolice.gov.in/",
+        "desc": "Citizen services, FIR and emergency helplines.",
+        "image": "entities/Kerala/icons/kerala-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Kerala Tourism",
+        "url": "https://www.keralatourism.org/",
+        "desc": "Backwaters, hill stations and Ayurveda travel planning.",
+        "image": "entities/Kerala/icons/kerala-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Kerala Agriculture Department",
+        "url": "https://keralaagriculture.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Kerala/icons/kerala-agriculture-department.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "Directorate of Higher Secondary Education, Kerala",
+        "url": "https://dhsekerala.gov.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Kerala/icons/directorate-of-higher-secondary-education-kerala.svg"
+      },
+      {
+        "title": "IIT Palakkad",
+        "url": "https://www.iitpkd.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Kerala/icons/iit-palakkad.svg"
+      },
+      {
+        "title": "NIT Calicut",
+        "url": "http://www.nitc.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Kerala/icons/nit-calicut.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "KSEB",
+        "url": "https://www.kseb.in/",
+        "desc": "Kerala State Electricity Board bill payment and services.",
+        "image": "entities/Kerala/icons/kseb.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "Kerala Public Service Commission",
+        "url": "https://www.keralapsc.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "image": "entities/Kerala/icons/kerala-public-service-commission.svg"
+      }
+    ],
+    "Property Tax & Municipality": [
+      {
+        "title": "Sevana (Local Self Government)",
+        "url": "https://lsgkerala.gov.in/",
+        "desc": "Local body services including property tax.",
+        "image": "entities/Kerala/icons/sevana-local-self-government.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "K-RERA – Kerala RERA",
+        "url": "https://rera.kerala.gov.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "abbrFull": "Kerala RERA (K-RERA)",
+        "image": "entities/Kerala/icons/k-rera-kerala-rera.svg"
+      },
+      {
+        "title": "Registration Department Kerala",
+        "url": "https://registration.kerala.gov.in/",
+        "desc": "Property registration and stamp duty services.",
+        "image": "entities/Kerala/icons/registration-department-kerala.svg"
+      }
+    ],
+    "Services": [
+      {
+        "title": "e-District Kerala",
+        "url": "https://edistrict.kerala.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Kerala/icons/e-district-kerala.svg"
+      }
+    ],
+    "Toll-Free Numbers": [
+      {
+        "title": "Kerala CM Helpline (1076)",
+        "url": "https://cmo.kerala.gov.in/",
+        "desc": "State-specific 24x7 toll-free grievance and information helpline direct to the Chief Minister's Office.",
+        "image": "entities/Kerala/icons/kerala-cm-helpline-1076.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "e-Challan – Traffic Violation Payment",
+        "url": "https://echallan.parivahan.gov.in/",
+        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
+        "image": "entities/Kerala/icons/e-challan-traffic-violation-payment.svg"
+      }
+    ]
+  }
+}

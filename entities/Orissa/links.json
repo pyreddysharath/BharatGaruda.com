@@ -1,0 +1,125 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Odisha Government Departments",
+        "url": "https://igod.gov.in/sg/OD/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Orissa/icons/all-odisha-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Odisha Government Portal",
+        "url": "https://odisha.gov.in/",
+        "desc": "State departments, schemes and e-services.",
+        "image": "entities/Orissa/icons/odisha-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Odisha Police",
+        "url": "https://odishapolice.gov.in/",
+        "desc": "Citizen services and emergency contacts.",
+        "image": "entities/Orissa/icons/odisha-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Odisha Tourism",
+        "url": "https://odishatourism.gov.in/",
+        "desc": "Temple towns, lagoons and coastal travel information.",
+        "image": "entities/Orissa/icons/odisha-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Agriculture & Farmers' Empowerment Dept., Odisha",
+        "url": "https://agriodisha.nic.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Orissa/icons/agriculture-and-farmers-empowerment-dept-odisha.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "Board of Secondary Education, Odisha (BSE)",
+        "url": "http://www.bseodisha.ac.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Orissa/icons/board-of-secondary-education-odisha-bse.svg"
+      },
+      {
+        "title": "IIT Bhubaneswar",
+        "url": "https://www.iitbbs.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Orissa/icons/iit-bhubaneswar.svg"
+      },
+      {
+        "title": "NIT Rourkela",
+        "url": "http://www.nitrkl.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Orissa/icons/nit-rourkela.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "TPCODL",
+        "url": "https://www.tpcodl.com/",
+        "desc": "Central Odisha electricity distribution services.",
+        "image": "entities/Orissa/icons/tpcodl.svg"
+      },
+      {
+        "title": "TPNODL",
+        "url": "https://www.tpnodl.com/",
+        "desc": "North Odisha electricity distribution services.",
+        "image": "entities/Orissa/icons/tpnodl.svg"
+      },
+      {
+        "title": "TPSODL",
+        "url": "https://www.tpsodl.com/",
+        "desc": "Southern Odisha electricity distribution services.",
+        "image": "entities/Orissa/icons/tpsodl.svg"
+      },
+      {
+        "title": "TPWODL",
+        "url": "https://www.tpwodl.com/",
+        "desc": "Western Odisha electricity distribution services.",
+        "image": "entities/Orissa/icons/tpwodl.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "OPSC – Odisha Public Service Commission",
+        "url": "https://opsc.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Odisha Public Service Commission (OPSC)",
+        "image": "entities/Orissa/icons/opsc-odisha-public-service-commission.svg"
+      }
+    ],
+    "Property Tax & Municipality": [
+      {
+        "title": "Mo Urban Odisha",
+        "url": "https://urbanodisha.gov.in/",
+        "desc": "Urban development and municipal services department.",
+        "image": "entities/Orissa/icons/mo-urban-odisha.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "Odisha Service Plus",
+        "url": "https://serviceonline.odisha.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Orissa/icons/odisha-service-plus.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "e-Challan – Traffic Violation Payment",
+        "url": "https://echallan.parivahan.gov.in/",
+        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
+        "image": "entities/Orissa/icons/e-challan-traffic-violation-payment.svg"
+      }
+    ]
+  }
+}

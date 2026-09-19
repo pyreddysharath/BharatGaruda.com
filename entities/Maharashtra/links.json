@@ -1,0 +1,132 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Maharashtra Government Departments",
+        "url": "https://igod.gov.in/sg/MH/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Maharashtra/icons/all-maharashtra-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Maharashtra Government Portal",
+        "url": "https://www.maharashtra.gov.in/",
+        "desc": "State departments, schemes and Aaple Sarkar e-services.",
+        "image": "entities/Maharashtra/icons/maharashtra-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Maharashtra Police",
+        "url": "https://mahapolice.gov.in/",
+        "desc": "Citizen services, FIR and emergency helplines.",
+        "image": "entities/Maharashtra/icons/maharashtra-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Maharashtra Tourism (MTDC)",
+        "url": "https://www.maharashtratourism.gov.in/",
+        "desc": "Caves, forts and coastal travel information.",
+        "abbrFull": "Maharashtra Tourism Development Corporation (MTDC)",
+        "image": "entities/Maharashtra/icons/maharashtra-tourism-mtdc.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Krishi Maharashtra (Agriculture Dept.)",
+        "url": "https://krishi.maharashtra.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Maharashtra/icons/krishi-maharashtra-agriculture-dept.svg"
+      }
+    ],
+    "Anti-Corruption": [
+      {
+        "title": "Anti-Corruption Bureau, Maharashtra",
+        "url": "https://acbmaharashtra.gov.in/",
+        "desc": "File or track complaints about corruption or bribery involving state government officials.",
+        "image": "entities/Maharashtra/icons/anti-corruption-bureau-maharashtra.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "IIT Bombay",
+        "url": "https://www.iitb.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Maharashtra/icons/iit-bombay.svg"
+      },
+      {
+        "title": "Maharashtra State Board (MSBSHSE)",
+        "url": "http://www.msbshse.ac.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Maharashtra/icons/maharashtra-state-board-msbshse.svg"
+      },
+      {
+        "title": "VNIT Nagpur",
+        "url": "http://www.vnit.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Maharashtra/icons/vnit-nagpur.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "MSEDCL (Mahavitran)",
+        "url": "https://www.mahadiscom.in/",
+        "desc": "Maharashtra State Electricity Distribution bill payment.",
+        "abbrFull": "Maharashtra State Electricity Distribution Company Limited (MSEDCL)",
+        "image": "entities/Maharashtra/icons/msedcl-mahavitran.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "MPSC – Maharashtra Public Service Commission",
+        "url": "https://mpsc.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Maharashtra Public Service Commission (MPSC)",
+        "image": "entities/Maharashtra/icons/mpsc-maharashtra-public-service-commission.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "IGR Maharashtra",
+        "url": "https://igrmaharashtra.gov.in/",
+        "desc": "Property registration and stamp duty services.",
+        "abbrFull": "Inspector General of Registration (IGR)",
+        "image": "entities/Maharashtra/icons/igr-maharashtra.svg"
+      },
+      {
+        "title": "MahaRERA",
+        "url": "https://maharera.maharashtra.gov.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "image": "entities/Maharashtra/icons/maharera.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "Aaple Sarkar",
+        "url": "https://aaplesarkar.mahaonline.gov.in/",
+        "desc": "Unified citizen services and certificate portal.",
+        "image": "entities/Maharashtra/icons/aaple-sarkar.svg"
+      }
+    ],
+    "Toll-Free Numbers": [
+      {
+        "title": "Maharashtra CM Helpline (1800 120 8040)",
+        "url": "https://aaplesarkar.maharashtra.gov.in/en/",
+        "desc": "State-specific toll-free helpline for information on schemes and services, alongside the Aaple Sarkar citizen services portal.",
+        "image": "entities/Maharashtra/icons/maharashtra-cm-helpline-1800-120-8040.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "e-Challan – Traffic Violation Payment",
+        "url": "https://echallan.parivahan.gov.in/",
+        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
+        "image": "entities/Maharashtra/icons/e-challan-traffic-violation-payment.svg"
+      }
+    ]
+  }
+}

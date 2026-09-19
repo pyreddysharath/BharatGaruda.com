@@ -1,0 +1,90 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Goa Government Departments",
+        "url": "https://igod.gov.in/sg/GA/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Goa/icons/all-goa-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Goa Government Portal",
+        "url": "https://www.goa.gov.in/",
+        "desc": "State departments and online citizen services.",
+        "image": "entities/Goa/icons/goa-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Goa Police",
+        "url": "https://www.goapolice.gov.in/",
+        "desc": "Citizen services, FIR and tourist helpline.",
+        "image": "entities/Goa/icons/goa-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Goa Tourism",
+        "url": "https://www.goa-tourism.com/",
+        "desc": "Beaches, heritage churches and travel planning.",
+        "image": "entities/Goa/icons/goa-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Education": [
+      {
+        "title": "Goa Board of Secondary & Higher Secondary Education",
+        "url": "http://www.gbshse.gov.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Goa/icons/goa-board-of-secondary-and-higher-secondary-education.svg"
+      },
+      {
+        "title": "IIT Goa",
+        "url": "https://www.iitgoa.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Goa/icons/iit-goa.svg"
+      },
+      {
+        "title": "NIT Goa",
+        "url": "http://www.nitgoa.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Goa/icons/nit-goa.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "Electricity Department Goa",
+        "url": "https://egoa.gov.in/Department/electricity",
+        "desc": "State electricity department services.",
+        "image": "entities/Goa/icons/electricity-department-goa.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "Goa Public Service Commission",
+        "url": "https://gpsc.goa.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "image": "entities/Goa/icons/goa-public-service-commission.svg"
+      }
+    ],
+    "Services": [
+      {
+        "title": "Goa Online Services",
+        "url": "https://goaonline.gov.in/",
+        "desc": "Unified citizen services and certificate portal.",
+        "image": "entities/Goa/icons/goa-online-services.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "e-Challan – Traffic Violation Payment",
+        "url": "https://echallan.parivahan.gov.in/",
+        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
+        "image": "entities/Goa/icons/e-challan-traffic-violation-payment.svg"
+      }
+    ]
+  }
+}

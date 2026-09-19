@@ -1,0 +1,69 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Mizoram Government Departments",
+        "url": "https://igod.gov.in/sg/MZ/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Mizoram/icons/all-mizoram-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Mizoram Government Portal",
+        "url": "https://mizoram.gov.in/",
+        "desc": "State departments and citizen e-services.",
+        "image": "entities/Mizoram/icons/mizoram-government-portal.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Mizoram Tourism",
+        "url": "https://tourism.mizoram.gov.in/",
+        "desc": "Hill-ridge trekking and festival travel information.",
+        "image": "entities/Mizoram/icons/mizoram-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Education": [
+      {
+        "title": "Mizoram Board of School Education (MBSE)",
+        "url": "http://www.mbse.edu.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Mizoram/icons/mizoram-board-of-school-education-mbse.svg"
+      },
+      {
+        "title": "NIT Mizoram",
+        "url": "http://www.nitmz.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Mizoram/icons/nit-mizoram.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "MPSC – Mizoram Public Service Commission",
+        "url": "https://mpsc.mizoram.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Mizoram Public Service Commission (MPSC)",
+        "image": "entities/Mizoram/icons/mpsc-mizoram-public-service-commission.svg"
+      }
+    ],
+    "Services": [
+      {
+        "title": "mSeva Mizoram",
+        "url": "https://mseva.mizoram.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Mizoram/icons/mseva-mizoram.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "e-Challan – Traffic Violation Payment",
+        "url": "https://echallan.parivahan.gov.in/",
+        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
+        "image": "entities/Mizoram/icons/e-challan-traffic-violation-payment.svg"
+      }
+    ]
+  }
+}

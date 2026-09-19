@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>India States & Union Territories — Interactive Explorer</title>
+<meta name="description" content="An interactive 3D map of India's 28 states and 8 union territories. Click any state for its official government websites, citizen services, and more — Aadhaar, passport, voter registration, and hundreds of state-specific portals in one place.">
+<meta property="og:title" content="India States & Union Territories — Interactive Explorer">
+<meta property="og:description" content="Click any state on an interactive 3D map to find its official government websites and citizen services, all in one place.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#232323">
+<link rel="icon" href="favicons/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="favicons/favicon-48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="favicons/favicon-96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="favicons/favicon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="favicons/favicon-192.png">
+
+<!-- ============================================================
+  GOOGLE ADSENSE — SITE VERIFICATION / AD LOADER SCRIPT
+  Ad loading is gated behind cookie consent — see loadAdsenseScript()
+  near the bottom of the page script, which inserts the AdSense
+  script tag dynamically only after the visitor accepts cookies.
+  The real publisher ID is set on ADSENSE_CLIENT_ID further down —
+  search for that to change it. Do not add a static <script>/<ins>
+  AdSense tag here in <head>: browsers relocate stray <ins> tags out
+  of <head> to the very top of <body>, ahead of everything else on
+  the page (including the map), which is exactly what caused the
+  visible gap above the map that this comment used to sit above.
+============================================================ -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&family=Noto+Sans+Devanagari&family=Noto+Sans+Telugu&family=Noto+Sans+Tamil&family=Noto+Sans+Kannada&family=Noto+Sans+Malayalam&family=Noto+Sans+Bengali&family=Noto+Sans+Gujarati&family=Noto+Sans+Gurmukhi&family=Noto+Sans+Oriya&family=Noto+Sans+Meetei+Mayek&family=Noto+Sans+Tibetan&family=Noto+Nastaliq+Urdu&display=swap');
+
+:root{
+  --ink:#FFFFFF;
+  --paper:#232323;
+  --paper-dim:#333333;
+  --seal:#7A7A7A;
+  --seal-dark:#5C5C5C;
+  --teal:#3A3A3A;
+  --teal-light:#E4E4E4;
+  --line:#5C5C5C;
+  --white:#2E2E2E;
+  --muted:#C4C4C4;
+  --map-fill:#A8D08D;
+  --map-fill-hover:#8FBF6E;
+  --map-bg:#000000;
+  --map-border:#3A3A3A;
+  --map-stroke:#2A2A2A;
+  --map-stroke-active:#FFFFFF;
+}
+html[data-theme="light"]{
+  --ink:#1A1A1A;
+  --paper:#E4E4E4;
+  --paper-dim:#D2D2D2;
+  --seal:#A6303C;
+  --seal-dark:#7c1f28;
+  --teal:#CFCFCF;
+  --teal-light:#2C6E6E;
+  --line:#B3B3B3;
+  --white:#FFFFFF;
+  --muted:#4A4A4A;
+  --map-bg:#FFFFFF;
+  --map-border:#B3B3B3;
+  --map-stroke:#C7C7C7;
+  --map-stroke-active:#FFFFFF;
+}
+*{box-sizing:border-box}
+a:focus:not(:focus-visible), button:focus:not(:focus-visible){outline:none}
+html{margin:0;padding:0;overflow-x:hidden;max-width:100%}
+body{
+  margin:0;padding:0;max-width:100%;
+  background:var(--paper);
+  color:var(--ink);
+  transition:background .3s ease, color .3s ease;
+  font-family:'Inter','Noto Sans Devanagari','Noto Sans Telugu','Noto Sans Tamil','Noto Sans Kannada','Noto Sans Malayalam','Noto Sans Bengali','Noto Sans Gujarati','Noto Sans Gurmukhi','Noto Sans Oriya','Noto Sans Meetei Mayek','Noto Sans Tibetan','Noto Nastaliq Urdu',sans-serif;
+}
+::selection{background:#43A7C0;color:#FFFFFF}
+
+/* ---------- Layout ---------- */
+.wrap{
+  display:grid;
+  grid-template-columns: minmax(420px, 1.5fr) minmax(360px, 1fr);
+  align-items:start;
+  gap:0;
+  min-height:0vh;
+}
+@media (max-width: 940px){
+  .wrap{grid-template-columns:1fr}
+}
+
+/* ---------- Map column ---------- */
+.map-col{
+  padding:0 6px 10px;
+  position:relative;
+  background:var(--map-bg);
+  transition:background .3s ease, border-color .3s ease;
+  min-width:0;
+}
+
+.map-heading{max-width:560px;margin:0 auto 14px;padding:0 6px}
+.map-heading .kicker{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--seal);
+  display:flex;align-items:center;gap:8px;margin-bottom:6px;
+}
+.map-heading .kicker::before{content:"";width:22px;height:1.5px;background:var(--seal);display:inline-block}
+.map-heading h2{font-family:'Spectral',serif;font-size:1.5rem;margin:0 0 6px;line-height:1.25}
+.map-heading p{margin:0;color:var(--muted);font-size:.92rem;line-height:1.5;max-width:52ch}
+
+.map-shell{
+  width:min(1400px, calc((100vh - 90px) * 0.91));
+  margin: 0 auto 0;
+  max-width:100%;
+  position:relative;
+  perspective:1400px;
+  padding:0 10px 10px;
+}
+svg#india{
+  width:100%;height:auto;display:block;
+  transform:rotateX(16deg) rotateZ(0deg);
+  transform-origin:center bottom;
+  transform-style:preserve-3d;
+  filter:drop-shadow(0 20px 24px rgba(0,0,0,.7));
+  transition:transform .5s cubic-bezier(.2,.8,.3,1);
+}
+svg#india path{
+  stroke:#E0E0E0;
+  stroke-width:1.3;
+  cursor:pointer;
+  transition:filter .18s ease, transform .18s ease;
+  transform-origin:center;
+  transform-box:fill-box;
+  opacity:0;
+  animation:pathIn .5s ease forwards;
+  filter:drop-shadow(0 2px 2px rgba(0,0,0,.22));
+}
+svg#india path:hover{
+  filter:drop-shadow(0 5px 6px rgba(0,0,0,.25)) brightness(0.94);
+  transform:translateY(-7px) scale(1.035);
+}
+svg#india path:focus{outline:none}
+svg#india text.state-label{
+  font-family:'Helvetica','Arial',sans-serif;font-size:15px;font-weight:700;
+  fill:#000000;
+  text-transform:uppercase;
+  text-anchor:middle;dominant-baseline:middle;
+  pointer-events:none;user-select:none;
+}
+html:not([data-theme="light"]) svg#india text.state-label{fill:#757575}
+svg#india.labels-hidden text.state-label{display:none}
+svg#india path:focus-visible{
+  outline:3px solid var(--seal);outline-offset:2px;
+}
+svg#india path.active{
+  filter:drop-shadow(0 8px 10px rgba(0,0,0,.3)) brightness(0.82);
+  transform:translateY(-11px) scale(1.06);
+  stroke:var(--map-stroke-active);stroke-width:1.8;
+}
+svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
+@keyframes pathIn{
+  from{opacity:0;transform:scale(.92) translateY(6px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+@keyframes stampIn{
+  0%{transform:translateY(-11px) scale(1.0) rotate(0deg)}
+  35%{transform:translateY(-13px) scale(1.09) rotate(-1deg)}
+  100%{transform:translateY(-11px) scale(1.06) rotate(0deg)}
+}
+
+.hover-tip{
+  position:absolute;pointer-events:none;z-index:60;
+  background:#ADD8E6;color:#1A1A1A;
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;
+  padding:6px 10px;border-radius:4px;
+  transform:translate(-50%,-130%);
+  opacity:0;transition:opacity .1s;
+  max-width:min(240px, calc(100vw - 24px));
+  box-sizing:border-box;
+  white-space:normal;text-align:center;
+}
+.hover-tip.show{opacity:1}
+.hover-tip .tip-name{font-size:.78rem;font-weight:700}
+.hover-tip .tip-sub{font-size:.64rem;color:inherit;opacity:.75;margin-top:2px}
+.hover-tip .tip-sub + .tip-sub{margin-top:1px}
+
+/* ---------- Detail column ---------- */
+.detail-col{
+  padding:0;
+  overflow-y:auto;
+  max-height:calc(100vh - 90px);
+  position:relative;
+  min-width:0;
+}
+.detail-col::-webkit-scrollbar{width:10px}
+.detail-col::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
+
+.site-search-wrap{
+  position:sticky;top:0;z-index:15;
+  background:var(--paper);
+  padding:16px 24px 10px;
+  border-bottom:1px solid var(--line);
+}
+.site-search-input-box{position:relative}
+.site-search-input{
+  width:100%;font-family:'Inter',sans-serif;font-size:.88rem;
+  background:#E6EEF8;color:#0F2537;
+  border:1.5px solid var(--line);border-radius:8px;
+  padding:10px 14px;outline:none;
+  transition:border-color .15s;
+}
+.site-search-input:focus{border-color:#43A7C0}
+.site-search-input::placeholder{color:transparent}
+.search-placeholder-overlay{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  display:flex;align-items:center;gap:6px;
+  width:calc(100% - 28px);
+  pointer-events:none;
+}
+.search-placeholder-overlay.hide{display:none}
+.search-placeholder-icon{
+  width:16px;height:16px;flex:none;color:#0F2537;
+}
+.search-placeholder-clip{
+  flex:1;min-width:0;overflow:hidden;display:block;
+}
+.search-placeholder-text{
+  display:inline-block;white-space:nowrap;
+  font-family:'Inter',sans-serif;font-size:.88rem;color:#5A7284;
+}
+.search-placeholder-clip.scrolling .search-placeholder-text{
+  animation:placeholderScroll 7s linear infinite;
+}
+@keyframes placeholderScroll{
+  0%, 12%{transform:translateX(0)}
+  88%, 100%{transform:translateX(var(--scroll-distance, 0px))}
+}
+.site-search-dropdown{
+  margin:0 24px 12px;
+  background:var(--white);border:1.5px solid var(--ink);border-radius:8px;
+  box-shadow:4px 4px 0 rgba(0,0,0,.4);
+  max-height:min(420px, calc(100vh - 160px));overflow-y:auto;
+  display:none;
+}
+.site-search-dropdown.show{display:block}
+.site-search-group-label{
+  font-family:'IBM Plex Mono',monospace;font-size:.9rem;text-transform:uppercase;letter-spacing:.08em;
+  font-weight:700;color:var(--teal-light);padding:9px 14px 5px;
+  margin-top:10px;
+  position:relative;
+}
+.site-search-group-label .label-text{white-space:normal}
+.site-search-group-label .label-divider{position:absolute;right:14px;height:1px;background:var(--teal-light);opacity:.4;display:none}
+.site-search-group-label .label-divider.ready{display:block}
+.site-search-group-label:first-child{margin-top:0}
+.site-search-section-label{
+  font-family:'IBM Plex Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.06em;
+  font-weight:700;color:var(--ink);padding:4px 14px 3px 20px;
+  display:flex;align-items:center;gap:6px;
+}
+.site-search-section-label .dot{width:4px;height:4px;border-radius:50%;display:inline-block;flex:none}
+.site-search-dropdown .site-card{margin:2px 10px 6px}
+
+.site-search-empty{padding:14px;font-size:.82rem;color:var(--muted);text-align:center}
+
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;min-height:400px;text-align:center;padding:40px;color:var(--muted);
+}
+.empty-state .glyph{font-size:2.6rem;margin-bottom:14px;opacity:.6}
+.empty-state h3{font-family:'Spectral',serif;font-size:1.3rem;color:var(--ink);margin:0 0 8px}
+.empty-state p{max-width:34ch;margin:0;font-size:.9rem;line-height:1.5}
+
+.state-panel{padding:30px 34px 70px;animation:fadeUp .3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.state-images{
+  display:flex;gap:14px;margin-bottom:16px;
+}
+.medallion{
+  flex:none;width:76px;height:76px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  animation:medallionIn .45s cubic-bezier(.2,1.4,.4,1);
+}
+.medallion .ring{position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(255,255,255,.55)}
+.medallion svg{width:38px;height:38px;color:#fff;position:relative;z-index:1}
+@keyframes medallionIn{
+  from{opacity:0;transform:scale(.4) rotate(-25deg)}
+  to{opacity:1;transform:scale(1) rotate(0deg)}
+}
+
+.state-name{
+  font-family:'Spectral',serif;font-size:2.1rem;margin:0 0 6px;line-height:1.1;
+  border-bottom:2px solid var(--ink);padding-bottom:18px;margin-bottom:8px;
+}
+.state-name.section-gap{margin-top:40px}
+.state-name .state-name-native{
+  font-size:1.3rem;color:var(--muted);font-weight:400;
+}
+
+.section-label{
+  font-family:'IBM Plex Mono',monospace;font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--teal-light);margin:26px 0 10px;display:flex;align-items:center;gap:8px;
+}
+.section-label::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.cat-block{margin-bottom:6px}
+.cat-title{
+  font-weight:700;font-size:.88rem;color:var(--ink);margin:16px 0 8px;
+  display:flex;align-items:flex-start;gap:8px;
+}
+.cat-title .dot{width:6px;height:6px;border-radius:50%;background:var(--seal);display:inline-block;margin-top:6px;flex:none}
+
+.site-card{
+  position:relative;display:flex;align-items:stretch;gap:0;
+  border-radius:0 12px 0 12px;overflow:hidden;
+  background:var(--paper);
+  min-height:36px;margin-bottom:8px;
+  text-decoration:none;cursor:pointer;
+  transition:transform .15s;
+}
+.site-card:link, .site-card:visited, .site-card:hover, .site-card:active, .site-card:focus{
+  text-decoration:none;color:inherit;
+}
+.site-card:hover{transform:translate(-1px,-1px)}
+
+.card-visual{
+  width:30px;flex:none;background:#FFFFFF;
+  display:flex;align-items:center;justify-content:center;
+  clip-path:polygon(0 0, 100% 0, calc(100% - 5px) 100%, 0 100%);
+  border-radius:0 0 0 10px;
+  position:relative;
+  transition:background .15s;
+}
+.card-visual[role="button"]{cursor:pointer}
+.card-visual[role="button"]:hover{background:#EAF4FC}
+.site-card.desc-open .card-visual[role="button"]{background:#D6ECFB}
+.card-icon{font-size:1.05rem}
+.card-icon.img-icon{width:18px;height:18px;font-size:0;display:block}
+
+.card-text{
+  flex:1;min-width:0;padding:4px 16px 4px 12px;display:flex;flex-direction:column;justify-content:center;
+  background:linear-gradient(180deg, #43A7C0, #29606F);
+  border-radius:0 10px 0 0;
+  clip-path:polygon(5px 0, 100% 0, 100% 100%, 0 100%);
+}
+.card-text h4{margin:0;min-width:0}
+.card-text .title-text{
+  font-size:.88rem;font-weight:700;color:#fff;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;
+  text-shadow:0 1px 2px rgba(0,0,0,.25);
+}
+.site-card.desc-open .card-text .title-text{white-space:normal}
+.card-url{
+  display:block;font-size:.7rem;color:rgba(255,255,255,.75);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  margin-top:1px;
+}
+.site-desc{
+  display:none;margin:4px 0 0;font-size:.76rem;line-height:1.4;color:rgba(255,255,255,.88);
+}
+.site-card.desc-open .site-desc{display:block}
+.site-desc-abbr{
+  display:none;font-size:.72rem;font-weight:700;font-style:italic;
+  color:#fff;line-height:1.35;margin:4px 0 2px;
+}
+.site-card.desc-open .site-desc-abbr{display:block}
+
+
+.national-note{
+  font-size:.78rem;color:var(--muted);margin:4px 0 4px;line-height:1.5;
+}
+
+footer.foot{
+  padding:12px 32px 0;font-size:.78rem;color:var(--muted);
+  position:sticky;top:0;z-index:100;background:var(--paper);
+}
+footer.foot a{color:var(--teal-light)}
+#feedbackContainer{scroll-margin-top:0}
+.footer-disclaimer{
+  font-size:.72rem;line-height:1.5;color:var(--muted);
+  margin:0 0 10px;max-width:900px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.footer-disclaimer a{color:var(--seal);font-weight:600;white-space:nowrap}
+.footer-row{
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:16px;width:100%;
+}
+.footer-copyright{font-weight:700;color:var(--ink);white-space:nowrap}
+.footer-icons-row{display:flex;align-items:center;gap:16px;flex:none}
+@media (max-width:600px){
+  .footer-row{gap:8px}
+  .footer-icons-row{gap:8px}
+  .footer-copyright{font-size:.72rem}
+}
+.footer-icon{
+  display:flex;align-items:center;justify-content:center;
+  text-decoration:none;cursor:pointer;
+  transition:transform .15s ease;
+  flex:none;
+  padding:2px;
+}
+.footer-icon .icon-glyph{font-size:1.3rem;line-height:1;display:block}
+.footer-icon:hover{transform:translateY(-2px)}
+.footer-icon.active .icon-glyph{filter:drop-shadow(0 0 4px var(--seal))}
+
+/* Approximate flag-colour tinting on the emoji glyphs themselves.
+   CSS filters can only shift an emoji's existing native colours —
+   they can't repaint it to an exact hex value the way a plain SVG
+   can, so these are a best-effort push toward saffron / white /
+   green / navy, not a guaranteed precise match. */
+.icon-info .icon-glyph{filter:hue-rotate(-25deg) saturate(1.3)}
+.icon-feedback .icon-glyph{filter:saturate(.15) brightness(1.15)}
+.icon-privacy .icon-glyph{filter:saturate(4) hue-rotate(80deg) brightness(.95)}
+.icon-cookies .icon-glyph{filter:hue-rotate(180deg) saturate(1.5) brightness(.85)}
+/* Active state needs the color filter AND the glow combined in one
+   declaration — filter doesn't merge across separate rules, so a
+   second plain "filter:drop-shadow(...)" rule would silently wipe
+   out the tint above instead of adding to it. */
+.icon-info.active .icon-glyph{filter:hue-rotate(-25deg) saturate(1.3) drop-shadow(0 0 4px var(--seal))}
+.icon-feedback.active .icon-glyph{filter:saturate(.15) brightness(1.15) drop-shadow(0 0 4px var(--seal))}
+.icon-privacy.active .icon-glyph{filter:saturate(4) hue-rotate(80deg) brightness(.95) drop-shadow(0 0 4px var(--seal))}
+.icon-cookies.active .icon-glyph{filter:hue-rotate(180deg) saturate(1.5) brightness(.85) drop-shadow(0 0 4px var(--seal))}
+
+/* Animated icons — animating the emoji glyph as a single unit renders
+   reliably everywhere. */
+@keyframes iconPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
+.icon-info .icon-glyph{animation:iconPulse 1.6s ease-in-out infinite}
+
+@keyframes iconBounce{0%,100%{transform:translateY(0)}25%{transform:translateY(-3px)}50%{transform:translateY(0)}75%{transform:translateY(-1.5px)}}
+.icon-feedback .icon-glyph{animation:iconBounce 1.8s ease-in-out infinite}
+
+@keyframes iconSwing{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-18deg)}40%{transform:rotate(6deg)}60%{transform:rotate(0deg)}}
+.icon-privacy .icon-glyph{animation:iconSwing 3s ease-in-out infinite;transform-origin:50% 85%}
+
+@keyframes iconWobble{0%,100%{transform:rotate(0deg) scale(1)}25%{transform:rotate(-8deg) scale(1.05)}75%{transform:rotate(8deg) scale(1.05)}}
+.icon-cookies .icon-glyph{animation:iconWobble 2.4s ease-in-out infinite}
+
+.info-panel-body p{margin:0 0 12px}
+.info-panel-body p:last-child{margin-bottom:0}
+.info-panel-body a{color:var(--seal)}
+.info-panel-body code{font-family:'IBM Plex Mono',monospace;font-size:.85em;background:var(--paper-dim);padding:1px 5px;border-radius:4px}
+
+/* ---------- Feedback section ---------- */
+.feedback-section{
+  max-width:640px;margin:0 auto;padding:24px 24px 8px;
+}
+.feedback-note{font-size:.9rem;color:var(--muted);margin:0 0 16px;line-height:1.5}
+.feedback-note.small{font-size:.76rem;margin-top:10px}
+.feedback-form{display:flex;flex-direction:column;gap:10px}
+.feedback-form input,
+.feedback-form textarea{
+  font-family:'Inter',sans-serif;font-size:.9rem;
+  background:var(--white);border:1.5px solid var(--line);border-radius:8px;
+  padding:10px 12px;color:var(--ink);outline:none;resize:vertical;
+}
+.feedback-form input:focus,
+.feedback-form textarea:focus{border-color:var(--seal)}
+.feedback-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.feedback-actions .fb-btn{
+  font-family:'Inter',sans-serif;font-size:.82rem;font-weight:600;
+  border-radius:6px;border:1.5px solid var(--ink);background:var(--white);color:var(--ink);
+  padding:9px 16px;cursor:pointer;transition:background .15s,transform .15s;white-space:nowrap;
+}
+.feedback-actions .fb-btn:hover{background:var(--paper-dim);transform:translateY(-1px)}
+.feedback-actions .fb-btn.primary{background:var(--ink);color:var(--paper-dim);border-color:var(--ink)}
+.feedback-actions .fb-btn.primary:hover{background:var(--seal);border-color:var(--seal);color:#fff}
+.feedback-status{font-size:.8rem;color:var(--muted)}
+.feedback-status.ok{color:#2FA83F}
+.feedback-confirm{
+  font-family:'Spectral',serif;font-size:1.15rem;color:#696868;
+  margin:0;padding:18px 0;text-align:center;
+  animation:pathIn .4s ease forwards;
+}
+
+/* ---------- Cookie notice (slim, non-blocking) ---------- */
+.cookie-notice-slim{
+  position:fixed;left:0;right:0;bottom:0;z-index:200;
+  background:var(--paper-dim);border-top:1px solid var(--line);
+  padding:10px 18px;
+  display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;
+  font-size:.78rem;color:var(--muted);
+  transform:translateY(100%);opacity:0;transition:transform .3s ease, opacity .3s ease;
+}
+.cookie-notice-slim.show{transform:translateY(0);opacity:1}
+.cookie-notice-slim a{color:var(--teal-light)}
+.cookie-notice-actions{display:flex;align-items:center;gap:14px;flex:none}
+.cookie-notice-actions a{color:var(--muted);text-decoration:underline;cursor:pointer}
+.cookie-notice-actions a:hover{color:var(--ink)}
+.cookie-notice-actions button{
+  font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;
+  border-radius:5px;border:1.5px solid var(--ink);background:var(--ink);color:var(--paper-dim);
+  padding:5px 14px;cursor:pointer;transition:background .15s;
+}
+.cookie-notice-actions button:hover{background:var(--seal);border-color:var(--seal);color:#fff}
+@media (max-width:600px){
+  .cookie-notice-slim{flex-direction:column;gap:8px;text-align:center;padding:12px}
+}
+
+@media (max-width:600px){
+  .state-panel{padding:22px 18px 50px}
+}
+
+/* ---------- Theme toggle ---------- */
+.theme-toggle{
+  position:absolute;top:6px;right:4px;z-index:250;
+  width:32px;height:32px;
+  border:none;background:transparent;color:#FF9933;
+  cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s ease;
+}
+.theme-toggle svg{width:22px;height:22px;stroke:currentColor}
+.theme-toggle:hover{transform:translateY(-2px) rotate(12deg)}
+
+.toggle-labels-btn{
+  position:absolute;top:38px;right:4px;z-index:250;
+  width:32px;height:32px;
+  border:none;background:transparent;color:#757575;
+  cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s ease, opacity .2s ease;
+}
+.toggle-labels-btn svg{width:22px;height:22px;stroke:currentColor}
+.toggle-labels-btn:hover{transform:translateY(-2px)}
+.toggle-labels-btn[aria-pressed="true"]{opacity:.4}
+
+.page-reset{
+  position:absolute;top:70px;right:8px;z-index:250;
+  width:24px;height:24px;
+  border:none;background:transparent;color:#138808;
+  cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s ease;
+}
+.page-reset svg{width:16px;height:16px;stroke:currentColor}
+.page-reset:hover{transform:translateY(-2px) rotate(-90deg)}
+
+/* ===== DECORATIVE 3D MAP TOGGLE — start. Self-contained visual/CSS for
+   the optional illustrated-map toggle. Delete this whole block (plus
+   its two markup blocks and its JS block) to remove the feature. ===== */
+.decorative-map-toggle{
+  position:absolute;top:104px;right:2px;z-index:250;
+  width:44px;height:24px;
+  border:none;background:transparent;padding:0;cursor:pointer;
+}
+.decorative-map-toggle .toggle-track{
+  display:block;width:44px;height:24px;border-radius:12px;
+  background:var(--line);position:relative;transition:background .2s ease;
+}
+.decorative-map-toggle .toggle-thumb{
+  position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;
+  background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,.45);transition:left .2s ease;
+}
+.decorative-map-toggle[aria-pressed="true"] .toggle-track{background:var(--seal)}
+.decorative-map-toggle[aria-pressed="true"] .toggle-thumb{left:22px}
+.decorative-map-toggle:hover{transform:translateY(-2px)}
+
+.decorative-map-view{
+  width:min(1400px, calc((100vh - 90px) * 0.91));
+  margin:0 auto 0;
+  max-width:100%;
+  padding:0 10px 10px;
+}
+.decorative-map-view img{
+  width:100%;height:auto;display:block;border-radius:14px;
+  filter:drop-shadow(0 20px 24px rgba(0,0,0,.5));
+}
+/* ===== DECORATIVE 3D MAP TOGGLE — end ===== */
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <section class="map-col">
+    <button id="themeToggle" class="theme-toggle" title="Switch to light mode" aria-label="Toggle light/dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4.5"/>
+        <path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+      </svg>
+    </button>
+    <button id="toggleLabels" class="toggle-labels-btn" title="Show state names" aria-label="Toggle state name labels" aria-pressed="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/>
+        <circle cx="12" cy="10" r="2.5"/>
+      </svg>
+    </button>
+    <button id="pageReset" class="page-reset" title="Reset to nationwide view" aria-label="Reset">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 1 3.3 6.95"/>
+        <path d="M3 21v-6h6"/>
+      </svg>
+    </button>
+
+    <!-- ===== DECORATIVE 3D MAP TOGGLE — start. This whole feature (this
+         button, the .decorative-map-view below, its CSS block, and its
+         JS block) is self-contained and additive to the interactive map
+         above: none of the existing map/search/state-select code reads
+         from or depends on it. Delete all four pieces to remove it. ===== -->
+    <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show illustrated 3D map view" aria-label="Toggle illustrated 3D map view" aria-pressed="false">
+      <span class="toggle-track"><span class="toggle-thumb"></span></span>
+    </button>
+    <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
+
+    <div class="map-shell">
+      <svg id="india" class="labels-hidden" viewBox="0 0 1000 1136" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of India">
+        <defs>
+          <symbol id="ic-dome" viewBox="0 0 48 48"><path d="M12 38h24M16 38V26a8 8 0 0 1 16 0v12M20 26a4 4 0 0 1 8 0M24 10v6M20 10h8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-temple" viewBox="0 0 48 48"><path d="M24 6l4 6h-8l4-6zM18 12h12v4H18zM16 16h16l3 22H13l3-22zM13 38h22M20 24v10M28 24v10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-mountain" viewBox="0 0 48 48"><path d="M6 36 18 16l6 9 4-6 14 17H6zM16 22l2 3M28 16l1.6 2.4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-leaf" viewBox="0 0 48 48"><path d="M12 34C10 20 20 10 36 10c0 16-10 26-24 24zM14 32 30 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-boat" viewBox="0 0 48 48"><path d="M8 28h32l-4 8H12l-4-8zM24 28V10M24 12l8 4-8 4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-paw" viewBox="0 0 48 48"><circle cx="24" cy="30" r="7" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="14" cy="18" r="3.4" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="24" cy="14" r="3.4" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="34" cy="18" r="3.4" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol>
+          <symbol id="ic-fort" viewBox="0 0 48 48"><path d="M10 40V20h4v-4h4v4h4v-6h4v6h4v-4h4v4h4v20M10 20h28" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-palm" viewBox="0 0 48 48"><path d="M24 40V22M24 22c-4-6-12-6-14-2 4 0 8 1 14 2zm0 0c4-6 12-6 14-2-4 0-8 1-14 2zm0 0c-2-4-2-9 2-13M8 40h32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-waterfall" viewBox="0 0 48 48"><path d="M14 8h20M16 14v6M22 14v10M28 14v6M34 14v14M12 38c2-4 4-4 6 0s4 4 6 0 4-4 6 0 4 4 6 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-bridge" viewBox="0 0 48 48"><path d="M6 30c4-10 32-10 36 0M12 30v6M36 30v6M6 36h36M18 30v4M30 30v4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-stupa" viewBox="0 0 48 48"><path d="M24 6v10M24 8l10 4-10 3M16 40h16l-2-14H18l-2 14zM20 26h8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-skyline" viewBox="0 0 48 48"><path d="M8 40V18h8v22M20 40V10h8v30M32 40V22h8v18M8 40h32" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-atoll" viewBox="0 0 48 48"><path d="M6 30c4-4 8 4 12 0s8 4 12 0 8 4 12 0M22 26c0-6 2-10 6-12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="30" cy="12" r="2.6" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+          <symbol id="ic-lotus" viewBox="0 0 48 48"><path d="M24 40c-10-6-10-16-10-16s6 2 10 8c4-6 10-8 10-8s0 10-10 16zM24 24c-6-4-6-12-6-12s6 0 10 6M24 24c6-4 6-12 6-12s-6 0-10 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-sun" viewBox="0 0 48 48"><circle cx="24" cy="24" r="9" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M24 4v6M24 38v6M4 24h6M38 24h6M9.5 9.5l4.2 4.2M34.3 34.3l4.2 4.2M9.5 38.5l4.2-4.2M34.3 13.7l4.2-4.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></symbol>
+          <symbol id="ic-snow" viewBox="0 0 48 48"><path d="M24 6v36M8 15l32 18M8 33l32-18M17 10l7 6 7-6M17 38l7-6 7 6M11 20l6 4-6 4M37 20l-6 4 6 4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-desert" viewBox="0 0 48 48"><circle cx="36" cy="11" r="4.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M4 32c5-7 9-7 13 0s9 7 13 0 9-7 13 0M4 40c5-6 9-6 13 0s9 6 13 0 9-6 13 0" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+          <symbol id="ic-tree" viewBox="0 0 48 48"><path d="M24 44V30M24 12l-8 11h5l-6 8h9M24 12l8 11h-5l6 8h-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- ===== DECORATIVE 3D MAP TOGGLE — view markup. Hidden by default;
+         shown (and .map-shell hidden) only while the toggle above is on.
+         Delete this div + the button above + their CSS/JS blocks to
+         remove the feature entirely. ===== -->
+    <div class="decorative-map-view" id="decorativeMapView" hidden>
+      <img src="images/decorative-3d-map.png" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
+    </div>
+    <!-- ===== DECORATIVE 3D MAP TOGGLE — end ===== -->
+  </section>
+
+  <section class="detail-col" id="detailCol">
+    <div class="site-search-wrap">
+      <div class="site-search-input-box">
+        <input type="text" id="siteSearchInput" class="site-search-input" placeholder="🔎 Search government sites by name, purpose or URL" autocomplete="off" aria-label="Search government sites">
+        <span id="searchPlaceholderOverlay" class="search-placeholder-overlay" aria-hidden="true">
+          <svg class="search-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span class="search-placeholder-clip"><span id="searchPlaceholderText" class="search-placeholder-text">Search government sites by name, purpose or URL</span></span>
+        </span>
+      </div>
+    </div>
+    <div id="siteSearchResults" class="site-search-dropdown"></div>
+    <div id="detailContent"></div>
+  </section>
+</div>
+
+<!-- ============================================================
+  FEEDBACK
+  The "Feedback" footer link toggles a form into this container.
+  Submissions accumulate in this browser's localStorage, and each
+  submission re-downloads an updated Feedback.xlsx containing every
+  entry saved so far in this browser (old + new), so it behaves like
+  the file is being appended to. There is no server here, so this
+  can't collect feedback from every visitor into one shared file
+  automatically — each visitor's browser keeps its own local copy.
+  For a real shared inbox, point submitFeedback() at a backend
+  instead (e.g. a Google Sheets Apps Script web app, Airtable, or
+  Formspree) — search "FEEDBACK_ENDPOINT" below for where to wire
+  that in.
+============================================================ -->
+
+<footer class="foot">
+  <p class="footer-disclaimer"><strong>Disclaimer:</strong> BharatGaruda.in is an independent directory, not affiliated with any government body. <a href="#" id="readFullDisclaimerLink">[Read Full Disclaimer]</a></p>
+  <div class="footer-row">
+    <span class="footer-copyright">© <span id="footerYear"></span> BharatGaruda</span>
+    <div class="footer-icons-row">
+      <a href="#" id="disclaimerLink" class="footer-icon icon-info" title="Disclaimer" aria-label="Disclaimer" aria-expanded="false">
+        <span class="icon-glyph">⚠️</span>
+      </a>
+      <a href="#" id="feedbackLink" class="footer-icon icon-feedback" title="Feedback" aria-label="Feedback" aria-expanded="false">
+        <span class="icon-glyph">💬</span>
+      </a>
+      <a href="#" id="privacyLink" class="footer-icon icon-privacy" title="Privacy Policy" aria-label="Privacy Policy" aria-expanded="false">
+        <span class="icon-glyph">🔒</span>
+      </a>
+      <a href="#" id="cookiesLink" class="footer-icon icon-cookies" title="Cookies" aria-label="Cookies" aria-expanded="false">
+        <span class="icon-glyph">🍪</span>
+      </a>
+    </div>
+  </div>
+</footer>
+<div id="feedbackContainer"></div>
+
+<!-- ============================================================
+  COOKIE NOTICE (lightweight)
+  Shown only to visitors detected as being in the US, UK, or India,
+  and only until they make a choice. A slim, non-blocking strip
+  rather than a full banner — it doesn't cover content and can be
+  dismissed with a single click. Ad loading (loadAdsenseScript, near
+  the bottom of the script) only runs after "Accept" for these
+  regions; everywhere else ads load directly. See
+  REGIONS_REQUIRING_CONSENT in the script.
+============================================================ -->
+<div id="cookieNotice" class="cookie-notice-slim" role="dialog" aria-live="polite" aria-label="Cookie notice">
+  <span>This site uses cookies to show ads and improve your experience. <a href="privacy.html">Privacy Policy</a></span>
+  <span class="cookie-notice-actions">
+    <a href="#" id="cookieDecline">Decline</a>
+    <button id="cookieAccept">Accept</button>
+  </span>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// ============================================================
+// DATA LOADING
+// Every state/UT (and Pan-India) is its own self-contained folder
+// under entities/ — index.json lists every state/UT id, and each
+// entities/<id>/ folder holds:
+//   meta.json    map/geography data for that state (color, shape,
+//                capital, language, etc.) — practically never edited
+//   links.json   its links, grouped by section — the file you'll
+//                actually open to add or fix a government link
+//   icons/       one icon image per link, unique to that folder
+// Pan-India has no map shape, so its folder holds only links.json +
+// icons/. Adding a brand-new state/UT is just: add its
+// entities/<id>/ folder and one line to index.json — no HTML edits,
+// and no other state's files are ever touched.
+// Everything is fetched once here and cached (in memory for this page
+// view, and in sessionStorage so a reload in the same tab doesn't
+// re-fetch over the network), then assembled back into the same
+// STATES shape the rest of this script already expects.
+// ============================================================
+let STATE_IDS = [];
+let STATES = {};
+let PAN_INDIA = null;
+
+async function fetchJsonCached(url){
+  const cacheKey = 'bgDataCache:' + url;
+  try{
+    const cached = sessionStorage.getItem(cacheKey);
+    if(cached) return JSON.parse(cached);
+  }catch(e){ /* sessionStorage unavailable (private mode, etc.) — fall through to fetch */ }
+  const res = await fetch(url);
+  if(!res.ok) throw new Error('Failed to load ' + url + ' (' + res.status + ')');
+  const json = await res.json();
+  try{ sessionStorage.setItem(cacheKey, JSON.stringify(json)); }catch(e){ /* quota/private mode — fine, just skip caching */ }
+  return json;
+}
+
+async function loadAllData(){
+  STATE_IDS = await fetchJsonCached('index.json');
+  const [panLinks, ...stateFiles] = await Promise.all([
+    fetchJsonCached('entities/Pan-India/links.json'),
+    ...STATE_IDS.map(id => Promise.all([
+      fetchJsonCached('entities/' + encodeURIComponent(id) + '/meta.json'),
+      fetchJsonCached('entities/' + encodeURIComponent(id) + '/links.json')
+    ]))
+  ]);
+  PAN_INDIA = panLinks;
+  STATE_IDS.forEach((id, i) => {
+    const [meta, links] = stateFiles[i];
+    STATES[id] = Object.assign({}, meta, {
+      stateWebsites: links.stateWebsites,
+      stateServices: links.stateServices
+    });
+  });
+}
+
+// Everything below reads STATES / PAN_INDIA (built by loadAllData()
+// above), so it's all wrapped in one async function that awaits the
+// data first, then runs exactly the same map/UI setup as before.
+async function main(){
+await loadAllData();
+
+// ---- Light / Dark theme toggle (default: dark) ----
+const THEME_KEY = 'themePreference';
+const themeToggleBtn = document.getElementById('themeToggle');
+function applyTheme(theme){
+  if(theme === 'light'){
+    document.documentElement.setAttribute('data-theme', 'light');
+    themeToggleBtn.title = 'Switch to dark mode';
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+    themeToggleBtn.title = 'Switch to light mode';
+  }
+}
+applyTheme(localStorage.getItem(THEME_KEY) || 'light');
+themeToggleBtn.addEventListener('click', ()=>{
+  const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  localStorage.setItem(THEME_KEY, next);
+  applyTheme(next);
+});
+
+document.getElementById('pageReset').addEventListener('click', ()=>{
+  if(selectedId){ deselectState(); }
+  else { window.scrollTo({top:0, behavior:'smooth'}); }
+});
+
+// ===== DECORATIVE 3D MAP TOGGLE — start. Purely visual: swaps the
+// interactive map for a static illustrated image and back. Doesn't
+// touch selectedId, STATES, search, or any other state — safe to
+// delete this whole block (plus its two HTML blocks and CSS block)
+// to remove the feature without affecting anything else.
+const decorativeMapToggleBtn = document.getElementById('decorativeMapToggle');
+const decorativeMapView = document.getElementById('decorativeMapView');
+const mapShellEl = document.querySelector('.map-shell');
+decorativeMapToggleBtn.addEventListener('click', ()=>{
+  const showing = decorativeMapToggleBtn.getAttribute('aria-pressed') === 'true';
+  const next = !showing;
+  decorativeMapToggleBtn.setAttribute('aria-pressed', String(next));
+  decorativeMapToggleBtn.title = next ? 'Show interactive map' : 'Show illustrated 3D map view';
+  mapShellEl.hidden = next;
+  decorativeMapView.hidden = !next;
+});
+// ===== DECORATIVE 3D MAP TOGGLE — end =====
+
+const toggleLabelsBtn = document.getElementById('toggleLabels');
+toggleLabelsBtn.addEventListener('click', ()=>{
+  const svgMap = document.getElementById('india');
+  const nowHidden = svgMap.classList.toggle('labels-hidden');
+  toggleLabelsBtn.setAttribute('aria-pressed', nowHidden ? 'true' : 'false');
+  toggleLabelsBtn.title = nowHidden ? 'Show state names' : 'Hide state names';
+});
+
+const LINK_BLUE = '#43A7C0'; // matches the link button color, used for Pan-India dots/labels
+const CAT_LABELS = {
+  portal: "Government Portal",
+  tourism: "Tourism Department",
+  police: "Police &amp; Public Safety",
+  directory: "All Departments Directory"
+};
+const CAT_ORDER = ["portal","tourism","police","directory"];
+
+// Category-label translations, by language, for the languages we have
+// confident coverage for. Languages not listed here (English, Khasi,
+// Mizo, Manipuri, Ladakhi) simply show the English label with no
+// bracketed translation, rather than risk an inaccurate one.
+const LABEL_TRANSLATIONS = {
+  Hindi: {stateWebsites:"राज्य सरकार की वेबसाइटें", portal:"सरकारी पोर्टल", tourism:"पर्यटन विभाग", police:"पुलिस और सार्वजनिक सुरक्षा", directory:"सभी विभागों की निर्देशिका", stateServices:"राज्य सेवा पोर्टल", citizenId:"नागरिक पहचान और दस्तावेज़", nationalServices:"राष्ट्रीय नागरिक सेवाएं"},
+  Telugu: {stateWebsites:"రాష్ట్ర ప్రభుత్వ వెబ్‌సైట్‌లు", portal:"ప్రభుత్వ పోర్టల్", tourism:"పర్యాటక శాఖ", police:"పోలీసు & ప్రజా భద్రత", directory:"అన్ని శాఖల డైరెక్టరీ", stateServices:"రాష్ట్ర సేవా పోర్టళ్లు", citizenId:"పౌర గుర్తింపు & పత్రాలు", nationalServices:"జాతీయ పౌర సేవలు"},
+  Assamese: {stateWebsites:"ৰাজ্য চৰকাৰী ৱেবছাইটসমূহ", portal:"চৰকাৰী প\u2019ৰ্টেল", tourism:"পৰ্যটন বিভাগ", police:"আৰক্ষী আৰু ৰাজহুৱা সুৰক্ষা", directory:"সকলো বিভাগৰ প্ৰকাশিকা", stateServices:"ৰাজ্য সেৱা প\u2019ৰ্টেল", citizenId:"নাগৰিক পৰিচয় আৰু নথিপত্ৰ", nationalServices:"ৰাষ্ট্ৰীয় নাগৰিক সেৱা"},
+  Konkani: {stateWebsites:"राज्य सरकाराच्या वेबसायटी", portal:"सरकारी पोर्टल", tourism:"पर्यटन खातें", police:"पोलीस आनी सार्वजनीक सुरक्षा", directory:"सगल्या खात्यांची वळेरी", stateServices:"राज्य सेवा पोर्टल", citizenId:"नागरीक वळख आनी कागदपत्र", nationalServices:"राष्ट्रीय नागरीक सेवा"},
+  Gujarati: {stateWebsites:"રાજ્ય સરકારની વેબસાઇટ્સ", portal:"સરકારી પોર્ટલ", tourism:"પ્રવાસન વિભાગ", police:"પોલીસ અને જાહેર સલામતી", directory:"તમામ વિભાગોની ડિરેક્ટરી", stateServices:"રાજ્ય સેવા પોર્ટલ", citizenId:"નાગરિક ઓળખ અને દસ્તાવેજો", nationalServices:"રાષ્ટ્રીય નાગરિક સેવાઓ"},
+  Kannada: {stateWebsites:"ರಾಜ್ಯ ಸರ್ಕಾರದ ವೆಬ್‌ಸೈಟ್‌ಗಳು", portal:"ಸರ್ಕಾರಿ ಪೋರ್ಟಲ್", tourism:"ಪ್ರವಾಸೋದ್ಯಮ ಇಲಾಖೆ", police:"ಪೊಲೀಸ್ ಮತ್ತು ಸಾರ್ವಜನಿಕ ಸುರಕ್ಷತೆ", directory:"ಎಲ್ಲಾ ಇಲಾಖೆಗಳ ಡೈರೆಕ್ಟರಿ", stateServices:"ರಾಜ್ಯ ಸೇವಾ ಪೋರ್ಟಲ್‌ಗಳು", citizenId:"ನಾಗರಿಕ ಗುರುತು ಮತ್ತು ದಾಖಲೆಗಳು", nationalServices:"ರಾಷ್ಟ್ರೀಯ ನಾಗರಿಕ ಸೇವೆಗಳು"},
+  Malayalam: {stateWebsites:"സംസ്ഥാന സർക്കാർ വെബ്സൈറ്റുകൾ", portal:"സർക്കാർ പോർട്ടൽ", tourism:"ടൂറിസം വകുപ്പ്", police:"പോലീസും പൊതു സുരക്ഷയും", directory:"എല്ലാ വകുപ്പുകളുടെയും ഡയറക്ടറി", stateServices:"സംസ്ഥാന സേവന പോർട്ടലുകൾ", citizenId:"പൗര തിരിച്ചറിയലും രേഖകളും", nationalServices:"ദേശീയ പൗര സേവനങ്ങൾ"},
+  Marathi: {stateWebsites:"राज्य सरकारच्या वेबसाइट्स", portal:"सरकारी पोर्टल", tourism:"पर्यटन विभाग", police:"पोलीस आणि सार्वजनिक सुरक्षा", directory:"सर्व विभागांची निर्देशिका", stateServices:"राज्य सेवा पोर्टल", citizenId:"नागरिक ओळख आणि कागदपत्रे", nationalServices:"राष्ट्रीय नागरिक सेवा"},
+  Odia: {stateWebsites:"ରାଜ୍ୟ ସରକାରୀ ୱେବସାଇଟ୍", portal:"ସରକାରୀ ପୋର୍ଟାଲ", tourism:"ପର୍ଯ୍ୟଟନ ବିଭାଗ", police:"ପୋଲିସ ଏବଂ ଜନ ସୁରକ୍ଷା", directory:"ସମସ୍ତ ବିଭାଗର ଡିରେକ୍ଟୋରୀ", stateServices:"ରାଜ୍ୟ ସେବା ପୋର୍ଟାଲ", citizenId:"ନାଗରିକ ପରିଚୟ ଏବଂ ଡକ୍ୟୁମେଣ୍ଟ", nationalServices:"ଜାତୀୟ ନାଗରିକ ସେବା"},
+  "Tamil": {stateWebsites:"மாநில அரசு இணையதளங்கள்", portal:"அரசு போர்டல்", tourism:"சுற்றுலாத் துறை", police:"காவல் மற்றும் பொது பாதுகாப்பு", directory:"அனைத்து துறைகளின் அடைவு", stateServices:"மாநில சேவை போர்டல்கள்", citizenId:"குடிமக்கள் அடையாளம் & ஆவணங்கள்", nationalServices:"தேசிய குடிமக்கள் சேவைகள்"},
+  Punjabi: {stateWebsites:"ਰਾਜ ਸਰਕਾਰ ਦੀਆਂ ਵੈੱਬਸਾਈਟਾਂ", portal:"ਸਰਕਾਰੀ ਪੋਰਟਲ", tourism:"ਸੈਰ-ਸਪਾਟਾ ਵਿਭਾਗ", police:"ਪੁਲਿਸ ਅਤੇ ਜਨਤਕ ਸੁਰੱਖਿਆ", directory:"ਸਾਰੇ ਵਿਭਾਗਾਂ ਦੀ ਡਾਇਰੈਕਟਰੀ", stateServices:"ਰਾਜ ਸੇਵਾ ਪੋਰਟਲ", citizenId:"ਨਾਗਰਿਕ ਪਛਾਣ ਅਤੇ ਦਸਤਾਵੇਜ਼", nationalServices:"ਰਾਸ਼ਟਰੀ ਨਾਗਰਿਕ ਸੇਵਾਵਾਂ"},
+  Nepali: {stateWebsites:"राज्य सरकारका वेबसाइटहरू", portal:"सरकारी पोर्टल", tourism:"पर्यटन विभाग", police:"प्रहरी र सार्वजनिक सुरक्षा", directory:"सबै विभागहरूको डाइरेक्टरी", stateServices:"राज्य सेवा पोर्टलहरू", citizenId:"नागरिक परिचय र कागजातहरू", nationalServices:"राष्ट्रिय नागरिक सेवाहरू"},
+  Bengali: {stateWebsites:"রাজ্য সরকারের ওয়েবসাইট", portal:"সরকারি পোর্টাল", tourism:"পর্যটন দপ্তর", police:"পুলিশ ও জনসুরক্ষা", directory:"সমস্ত দপ্তরের ডিরেক্টরি", stateServices:"রাজ্য পরিষেবা পোর্টাল", citizenId:"নাগরিক পরিচয় ও নথি", nationalServices:"জাতীয় নাগরিক পরিষেবা"},
+  Urdu: {stateWebsites:"ریاستی حکومت کی ویب سائٹس", portal:"سرکاری پورٹل", tourism:"محکمہ سیاحت", police:"پولیس اور عوامی تحفظ", directory:"تمام محکموں کی ڈائریکٹری", stateServices:"ریاستی خدمات پورٹل", citizenId:"شہری شناخت اور دستاویزات", nationalServices:"قومی شہری خدمات"}
+};
+function tLabel(language, key, englishText){
+  const t = LABEL_TRANSLATIONS[language];
+  return t && t[key] ? `${englishText} (${t[key]})` : englishText;
+}
+
+const svg = document.getElementById('india');
+const SVG_NS = 'http://www.w3.org/2000/svg';
+
+// ---- Static climate imagery (hot / cool / desert / forest) ----
+const CLIMATE_META = {
+  hot:    {icon:'ic-sun',    c1:'#FFB347', c2:'#E8492B', label:'Hot / Tropical'},
+  cool:   {icon:'ic-snow',   c1:'#BFE3F5', c2:'#3B6EA5', label:'Cool / Snow'},
+  desert: {icon:'ic-desert', c1:'#E9C98A', c2:'#B9803F', label:'Arid / Desert'},
+  forest: {icon:'ic-tree',   c1:'#8FCB7A', c2:'#2F7D42', label:'Forested / Green'}
+};
+function climateVariant(climateType){
+  return CLIMATE_META[climateType] || CLIMATE_META.hot;
+}
+
+// ---- Build the SVG map ----
+const tip = document.createElement('div');
+tip.className = 'hover-tip';
+document.body.appendChild(tip);
+
+function tipHtmlFor(s){
+  const nameLine = s.stateNameNative === s.name ? s.name : (s.name + ' · ' + s.stateNameNative);
+  let html = `<div class="tip-name">${nameLine}</div>`;
+  if(s.capital) html += `<div class="tip-sub">Capital: ${s.capital}</div>`;
+  if(s.language) html += `<div class="tip-sub">Language: ${s.language}</div>`;
+  return html;
+}
+
+// The tooltip's background now matches the state's own map colour
+// instead of a single fixed shade, with the text flipped between
+// dark and light so it stays readable against every state's colour
+// (including the near-white ones, which also get a thin border so
+// the popup doesn't disappear into the page background).
+function tipColorsFor(hex){
+  const {r,g,b} = hexToRgb(hex || '#ADD8E6');
+  const lum = relativeLuminance({r,g,b});
+  const text = lum > 0.55 ? '#1A1A1A' : '#FFFFFF';
+  const border = lum > 0.9 ? '1px solid rgba(0,0,0,.25)' : 'none';
+  return { bg: hex, text, border };
+}
+function showTipFor(s){
+  tip.innerHTML = tipHtmlFor(s);
+  const { bg, text, border } = tipColorsFor(s.mapColor);
+  tip.style.background = bg;
+  tip.style.color = text;
+  tip.style.border = border;
+  tip.classList.add('show');
+}
+// Tracks which state's popup is currently shown via a click/tap, so
+// a repeat click on that same state can toggle it off again rather
+// than just re-showing the same content.
+let tipShownFor = null;
+function hideTip(){ tip.classList.remove('show'); tipShownFor = null; }
+
+// Keep the popup fully on-screen horizontally (e.g. long names like
+// "Chhattisgarh" near the left/right edge of a narrow phone screen
+// would otherwise overflow past the viewport), and anchor it to the
+// *document* rather than the viewport. `position:fixed` would stay
+// glued to the screen when the page itself is scrolled (the map sits
+// in normal page flow, so scrolling the page moves it — a fixed
+// popup would then drift away from the state it belongs to). Using
+// `position:absolute` with page coordinates (client coords + the
+// current scroll offset) makes the popup scroll together with the
+// map, exactly like any other content anchored at that point.
+function positionTip(clientX, clientY){
+  const rect = tip.getBoundingClientRect();
+  const halfW = rect.width / 2;
+  const margin = 8;
+  const minLeft = halfW + margin;
+  const maxLeft = window.innerWidth - halfW - margin;
+  let x = clientX;
+  if(maxLeft > minLeft){
+    x = Math.min(Math.max(x, minLeft), maxLeft);
+  }
+  tip.style.left = (x + window.scrollX) + 'px';
+  tip.style.top = (clientY + window.scrollY) + 'px';
+}
+
+// The popup should stay put — pinned in place, scrolling naturally
+// with the page — once a state has been clicked/tapped, and only
+// change or disappear when a *different* click/tap happens: another
+// state (which shows its own popup) or anywhere outside the map
+// (which dismisses it). It should never be dismissed just because
+// the page was scrolled.
+document.addEventListener('click', (e)=>{
+  const onState = e.target instanceof Element && e.target.closest('path[data-id]');
+  if(!onState) hideTip();
+});
+
+let visited = new Set();
+let selectedId = null;
+const pathById = {};
+const ids = Object.keys(STATES);
+
+ids.forEach((id, i) => {
+  const s = STATES[id];
+  const p = document.createElementNS(SVG_NS,'path');
+  p.setAttribute('d', s.d);
+  p.setAttribute('data-id', id);
+  p.setAttribute('tabindex','0');
+  p.setAttribute('aria-label', s.name);
+  p.setAttribute('fill', s.mapColor);
+  if(s.mapColor === '#FFFFFF'){
+    // A white fill is otherwise invisible against the white map
+    // background and the white borders between states — give these
+    // states a dark outline so their shape stays visible.
+    p.style.stroke = '#333333';
+  }
+  p.style.animationDelay = (i * 16) + 'ms';
+  svg.appendChild(p);
+  pathById[id] = p;
+
+  p.addEventListener('mouseenter', (e)=>{ showTipFor(s); positionTip(e.clientX, e.clientY); });
+  p.addEventListener('mousemove', (e)=>{ positionTip(e.clientX, e.clientY); });
+  // Only dismiss on mouse-out if this state isn't the one that's
+  // currently pinned by a click/tap — a pinned popup stays until a
+  // different click changes the selection.
+  p.addEventListener('mouseleave', ()=>{ if(id !== selectedId) hideTip(); });
+  p.addEventListener('click', (e)=>{
+    // A repeat click on the state whose popup is already showing
+    // toggles the whole selection closed — popup, map highlight and
+    // the results panel all reset together, just like Escape/reset.
+    // Any other click (a different state, or this one after it was
+    // closed) selects it and shows its popup, using the click's own
+    // coordinates so touch taps — which may not fire a preceding
+    // mousemove — still land the popup at the tapped point.
+    if(tipShownFor === id){
+      deselectState();
+    } else {
+      selectState(id);
+      const pt = (e.changedTouches && e.changedTouches[0]) || e;
+      showTipFor(s);
+      positionTip(pt.clientX, pt.clientY);
+      tipShownFor = id;
+    }
+  });
+  p.addEventListener('keypress', (e)=>{ if(e.key==='Enter') selectState(id); });
+});
+
+// English name labels, added after every path exists so labels
+// always render above every state's fill (not hidden under a
+// neighbouring state). A white halo (paint-order + stroke) keeps
+// each label legible regardless of which of the three flag colours
+// sits underneath it.
+ids.forEach(id => {
+  const s = STATES[id];
+  if(s.cx == null || s.cy == null) return;
+  const label = document.createElementNS(SVG_NS, 'text');
+  label.setAttribute('x', s.cx);
+  label.setAttribute('y', s.cy);
+  label.setAttribute('class', 'state-label');
+  label.setAttribute('pointer-events', 'none');
+  label.textContent = s.name;
+  svg.appendChild(label);
+});
+
+// Lakshadweep's true shape is a scattered cluster of tiny coral
+// islands — even with a strong fill color, the actual filled area on
+// the map is too small to see or click reliably. Rather than draw a
+// synthetic marker in its place, scale its real shape up around its
+// own centroid so the actual islands become visible right where they
+// are, without moving or zooming the rest of the map.
+(function enlargeTinyState(id, factor){
+  const s = STATES[id];
+  const p = pathById[id];
+  if(!s || !p || s.cx == null || s.cy == null) return;
+  p.setAttribute('transform', `translate(${s.cx} ${s.cy}) scale(${factor}) translate(${-s.cx} ${-s.cy})`);
+  p.style.transformOrigin = ''; // ensure the SVG transform attribute above is what's used, not CSS transform-origin
+})('Lakshadweep', 2.0);
+
+function selectState(id, skipHash){
+  Object.values(pathById).forEach(p=>p.classList.remove('active'));
+  const el = pathById[id]; if(el) el.classList.add('active');
+  selectedId = id;
+  visited.add(id);
+  renderDetail(id);
+  if(!skipHash){
+    history.pushState({stateId:id}, '', '#' + encodeURIComponent(id));
+  }
+}
+
+// The JSON data files already group each state's/Pan-India's links by
+// section name, so rendering is just: walk the sections in
+// alphabetical order and render each one's cards — no runtime
+// grouping-by-category needed any more.
+function sectionBlockHtml(sections, cardColor){
+  return Object.keys(sections).sort((a,b)=>a.localeCompare(b)).map(label => `<div class="cat-block">
+    <div class="cat-title"><span class="dot" style="background:var(--ink)"></span>${label}</div>
+    ${sections[label].map(site=>siteCardHtml(site, cardColor)).join('')}
+  </div>`).join('');
+}
+// Same idea, but keeps the explanatory note that sits under the
+// "Citizen ID & Documents" heading (previously hardcoded just for the
+// single "Identity Documents" section).
+function citizenIdBlockHtml(sections, cardColor){
+  return Object.keys(sections).sort((a,b)=>a.localeCompare(b)).map(label => `<div class="cat-block">
+    <div class="cat-title"><span class="dot" style="background:var(--ink)"></span>${label}</div>
+    <p class="national-note">Aadhaar, passport, voter and civil-registration services — available nationwide.</p>
+    ${sections[label].map(site=>siteCardHtml(site, cardColor)).join('')}
+  </div>`).join('');
+}
+
+function renderDetail(id){
+  const s = STATES[id];
+  const col = document.getElementById('detailContent');
+  const lang = s.language;
+
+  const sitesHtml = sectionBlockHtml(s.stateWebsites, s.mapColor);
+
+  let stateServicesHtml = '';
+  if(s.stateServices && Object.keys(s.stateServices).length){
+    stateServicesHtml = `<div class="section-label">${tLabel(lang, 'stateServices', 'State Service Portals')}</div>` +
+      sectionBlockHtml(s.stateServices, s.mapColor);
+  }
+
+  let idHtml = `<div class="section-label">${tLabel(lang, 'citizenId', 'Citizen ID &amp; Documents')}</div>
+  ${citizenIdBlockHtml(PAN_INDIA.citizenId, s.mapColor)}`;
+
+  let nationalHtml = `<div class="section-label">${tLabel(lang, 'nationalServices', 'National Citizen Services')}</div>` +
+    sectionBlockHtml(PAN_INDIA.nationalServices, s.mapColor);
+
+  col.innerHTML = `
+    <div class="state-panel">
+      <h2 class="state-name">${s.name}${s.stateNameNative && s.stateNameNative !== s.name ? ` <span class="state-name-native">${s.stateNameNative}</span>` : ''}</h2>
+
+      <div class="section-label">${tLabel(lang, 'stateWebsites', 'STATE GOVERNMENT WEBSITES')}</div>
+      ${sitesHtml}
+      ${stateServicesHtml}
+      <h2 class="state-name section-gap">Pan-India Services</h2>
+      ${idHtml}
+      ${nationalHtml}
+    </div>
+  `;
+  document.getElementById('detailCol').scrollTop = 0;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function renderDefault(){
+  const col = document.getElementById('detailContent');
+  col.innerHTML = `
+    <div class="state-panel">
+      <div class="state-images">
+        <div class="medallion" style="background:var(--paper-dim)">
+          <div class="ring"></div>
+          <span style="font-size:1.8rem">🇮🇳</span>
+        </div>
+      </div>
+      <h2 class="state-name">Pan-India Services</h2>
+
+      <div class="section-label">Citizen ID &amp; Documents</div>
+      ${citizenIdBlockHtml(PAN_INDIA.citizenId, LINK_BLUE)}
+
+      <div class="section-label">National Citizen Services</div>
+      ${sectionBlockHtml(PAN_INDIA.nationalServices, LINK_BLUE)}
+    </div>
+  `;
+}
+function deselectState(clearHash){
+  Object.values(pathById).forEach(p=>p.classList.remove('active'));
+  selectedId = null;
+  hideTip();
+  renderDefault();
+  if(clearHash !== false){
+    history.pushState({stateId:null}, '', location.pathname + location.search);
+  }
+}
+
+// ---- Deep-linking: open directly to a state via #StateName, and
+// support the browser's Back/Forward buttons. ----
+function stateIdFromHash(){
+  const raw = decodeURIComponent(location.hash.replace(/^#/, ''));
+  return ids.includes(raw) ? raw : null;
+}
+const initialId = stateIdFromHash();
+if(initialId){
+  selectState(initialId, true);
+} else {
+  renderDefault();
+}
+window.addEventListener('popstate', ()=>{
+  const hid = stateIdFromHash();
+  if(hid) selectState(hid, true);
+  else deselectState(false);
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape' && selectedId) deselectState();
+});
+
+function hexToRgb(hex){
+  const num = parseInt(hex.replace('#',''), 16);
+  return { r: (num >> 16) & 0xFF, g: (num >> 8) & 0xFF, b: num & 0xFF };
+}
+function relativeLuminance({r,g,b}){
+  const lin = v => { v/=255; return v <= 0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055, 2.4); };
+  return 0.2126*lin(r) + 0.7152*lin(g) + 0.0722*lin(b);
+}
+function cardColorsFor(hex){
+  // Some mapColors are very pale (designed to sit on the white map
+  // background), which would make white card text unreadable. Darken
+  // just enough to guarantee legible contrast, however light the
+  // source color is, while leaving already-dark colors untouched.
+  let {r,g,b} = hexToRgb(hex);
+  let lum = relativeLuminance({r,g,b});
+  let safety = 0;
+  while(lum > 0.16 && safety < 40){
+    r = Math.round(r*0.88); g = Math.round(g*0.88); b = Math.round(b*0.88);
+    lum = relativeLuminance({r,g,b});
+    safety++;
+  }
+  const c1 = `rgb(${r},${g},${b})`;
+  const c2 = `rgb(${Math.round(r*0.65)},${Math.round(g*0.65)},${Math.round(b*0.65)})`;
+  return [c1, c2];
+}
+
+function dotColorFor(hex){
+  // A plain white dot would be invisible against the light page
+  // background, so states whose mapColor is white (or near it) use a
+  // slightly darker shade of the link-button blue instead — distinct
+  // from LINK_BLUE itself, which is reserved for Pan-India sections.
+  const {r,g,b} = hexToRgb(hex);
+  const lum = relativeLuminance({r,g,b});
+  return lum > 0.85 ? '#358599' : hex;
+}
+
+function siteCardHtml(site, accent){
+  const safeUrl = site.url.replace(/"/g,'&quot;');
+  const safeDesc = (site.desc||'').replace(/"/g,'&quot;');
+  const hasDesc = !!(site.desc && site.desc.trim());
+  const [c1, c2] = cardColorsFor(accent || '#2C6E6E');
+  // Each site's icon now comes from an actual image file (one per
+  // section, under images/sections/) rather than an inline emoji
+  // character, so the JSON data can carry an "image" path. Older
+  // entries without one still fall back to the emoji/link glyph.
+  const iconHtml = site.image
+    ? `<img class="card-icon img-icon" src="${site.image}" alt="" loading="lazy">`
+    : `<span class="card-icon">${site.icon||'🔗'}</span>`;
+  return `<a class="site-card" href="${safeUrl}" target="_blank" rel="noopener" title="${safeDesc}" style="--card-c1:${c1};--card-c2:${c2}">
+    <div class="card-visual"${hasDesc ? ' role="button" aria-label="What is this site?" title="What is this site?"' : ''}>
+      ${iconHtml}
+    </div>
+    <div class="card-text">
+      <h4><span class="title-text">${site.title}</span></h4>
+      <span class="card-url">${site.url}</span>
+      ${hasDesc ? `${site.abbrFull ? `<span class="site-desc-abbr">${site.abbrFull}</span>` : ''}<p class="site-desc">${site.desc}</p>` : ''}
+    </div>
+  </a>`;
+}
+
+// ============================================================
+// COOKIE CONSENT (lightweight) + GATED AD LOADING
+// ============================================================
+const CONSENT_KEY = 'cookieConsent'; // stored value: 'accepted' | 'declined'
+const ADSENSE_CLIENT_ID = 'ca-pub-1251018920617954'; // real publisher ID, now used only by the consent-gated loadAdsenseScript() below
+
+// Only these regions are shown the notice before ads load.
+// Extend this list (e.g. add EU country codes) if you want broader coverage.
+const REGIONS_REQUIRING_CONSENT = ['US', 'GB', 'IN']; // IN: India's DPDP Act, 2023 makes consent the primary basis for processing personal data (including cookies) — added since this site's whole audience is Indian
+
+const cookieNotice = document.getElementById('cookieNotice');
+function showCookieNotice(){ cookieNotice.classList.add('show'); }
+function hideCookieNotice(){ cookieNotice.classList.remove('show'); }
+
+function loadAdsenseScript(){
+  // Safe to call more than once — it checks first so the script is
+  // never injected twice. With Auto Ads, simply having this script
+  // loaded is enough — Google automatically finds and inserts ad
+  // placements across the page; no manual <ins> ad units needed.
+  if(ADSENSE_CLIENT_ID.includes('XXXXXXXX')) return; // not configured yet
+  if(document.getElementById('adsbygoogle-js')) return; // already loaded
+  const s = document.createElement('script');
+  s.id = 'adsbygoogle-js';
+  s.async = true;
+  s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`;
+  s.crossOrigin = 'anonymous';
+  document.head.appendChild(s);
+}
+
+// ---- Geo-IP lookup (free, no API key) ----
+// Determines the visitor's country so the notice only interrupts
+// UK/US visitors. If the lookup fails (network error, ad-blocker,
+// offline, etc.) we fail safe and show the notice anyway rather than
+// silently loading ads with no consent step.
+async function detectCountryCode(){
+  try{
+    const res = await fetch('https://ipapi.co/json/', {cache: 'no-store'});
+    if(!res.ok) throw new Error('geo lookup failed');
+    const data = await res.json();
+    return (data && data.country_code) ? data.country_code.toUpperCase() : null;
+  }catch(e){
+    return null; // treated as "unknown" — safe fallback below
+  }
+}
+
+async function initCookieConsent(){
+  const stored = localStorage.getItem(CONSENT_KEY);
+  if(stored === 'accepted'){ loadAdsenseScript(); return; }
+  if(stored === 'declined'){ return; }
+
+  // No stored choice yet — check region before deciding whether to ask.
+  const cc = await detectCountryCode();
+  if(cc === null || REGIONS_REQUIRING_CONSENT.includes(cc)){
+    showCookieNotice(); // UK/US, or couldn't tell — ask first
+  } else {
+    loadAdsenseScript(); // outside the gated regions — load directly
+  }
+}
+initCookieConsent();
+
+document.getElementById('cookieAccept').addEventListener('click', ()=>{
+  localStorage.setItem(CONSENT_KEY, 'accepted');
+  hideCookieNotice();
+  loadAdsenseScript();
+});
+document.getElementById('cookieDecline').addEventListener('click', (e)=>{
+  e.preventDefault();
+  localStorage.setItem(CONSENT_KEY, 'declined');
+  hideCookieNotice();
+});
+
+// ============================================================
+// FEEDBACK
+// "Feedback" footer link toggles a small form into #feedbackContainer.
+// Each submission is added to this browser's localStorage, then the
+// FULL accumulated list (old + new) is re-downloaded as Feedback.xlsx —
+// same filename each time, so it behaves like the file is being
+// appended to, since every download replaces the last with one more
+// row added. That part always works, with no setup needed.
+//
+// On top of that, every submission is ALSO sent to FEEDBACK_ENDPOINT
+// below, if you set one — this is how you get ONE real shared sheet
+// that collects feedback from every visitor, not just your own
+// browser. The easiest option is a Google Sheets "Apps Script" web
+// app:
+//   1. Create a new Google Sheet. Add a header row: Date | Name | Message
+//   2. Extensions > Apps Script. Delete any starter code and paste in
+//      the contents of feedback_apps_script.gs (provided alongside
+//      this file) — it just appends each incoming submission as a
+//      new row.
+//   3. Deploy > New deployment > select type "Web app".
+//        - Execute as: Me
+//        - Who has access: Anyone
+//   4. Click Deploy, authorize it, then copy the Web App URL it gives
+//      you (ends in /exec).
+//   5. Paste that URL as the value of FEEDBACK_ENDPOINT below.
+// Every future submission will then also append a row to that sheet,
+// visible to you, in real time, from every visitor.
+// ============================================================
+const FEEDBACK_KEY = 'feedbackEntries';
+const FEEDBACK_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxPwZpVM9hxNnVcH_nPoFLH4pUhcsJhqQlo3IB9OwLLHgFqYvS_NLCN9aCxztz0fkK2/exec'; // <-- paste your Apps Script Web App URL here, e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
+
+// Explicit formatting (not toLocaleString) so the result is the same
+// regardless of the visitor's browser/locale: "dd-MMM-yyyy HH:mm",
+// 24-hour, no seconds, space (not comma) between date and time.
+function formatFeedbackTimestamp(date){
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const dd = String(date.getDate()).padStart(2,'0');
+  const mmm = MONTHS[date.getMonth()];
+  const yyyy = date.getFullYear();
+  const HH = String(date.getHours()).padStart(2,'0');
+  const MM = String(date.getMinutes()).padStart(2,'0');
+  return `${dd}-${mmm}-${yyyy} ${HH}:${MM}`;
+}
+
+function getFeedbackEntries(){
+  try{ return JSON.parse(localStorage.getItem(FEEDBACK_KEY)) || []; }
+  catch(e){ return []; }
+}
+function saveFeedbackEntries(list){
+  localStorage.setItem(FEEDBACK_KEY, JSON.stringify(list));
+}
+
+function setActiveFooterIcon(id){
+  document.querySelectorAll('.footer-icon').forEach(a=>{
+    a.classList.remove('active');
+    a.setAttribute('aria-expanded', 'false');
+  });
+  if(id){
+    const el = document.getElementById(id);
+    el.classList.add('active');
+    el.setAttribute('aria-expanded', 'true');
+  }
+}
+
+function closeFeedbackForm(){
+  document.getElementById('feedbackContainer').innerHTML = '';
+  setActiveFooterIcon(null);
+}
+function showFeedbackConfirmation(){
+  const container = document.getElementById('feedbackContainer');
+  container.innerHTML = `
+    <section class="feedback-section">
+      <p class="feedback-confirm">Your feedback has been fed back. Thanks!</p>
+    </section>
+  `;
+  setActiveFooterIcon(null);
+  setTimeout(()=>{
+    // only clear if the confirmation is still what's showing (user hasn't
+    // reopened the form again in the meantime)
+    if(container.querySelector('.feedback-confirm')) container.innerHTML = '';
+  }, 2000);
+}
+function openFeedbackForm(){
+  const container = document.getElementById('feedbackContainer');
+  if(container.querySelector('#feedbackForm')){ closeFeedbackForm(); return; } // toggle off if already open
+  setActiveFooterIcon('feedbackLink');
+  container.innerHTML = `
+    <section class="feedback-section">
+      <h2 class="state-name">Feedback</h2>
+      <p class="feedback-note">Have a suggestion, spotted a broken link, or just want to say hello? Leave a note below.</p>
+      <form id="feedbackForm" class="feedback-form">
+        <input type="hidden" name="Website" value="BharatGaruda.com">
+        <input type="hidden" name="Status" value="Open">
+        <input type="text" id="fbName" name="Name" placeholder="Your name" required maxlength="80">
+        <textarea id="fbMessage" name="Message" placeholder="Your feedback…" required maxlength="2000" rows="3"></textarea>
+        <div class="feedback-actions">
+          <button type="submit" class="fb-btn primary">Submit Feedback</button>
+          <span id="fbStatus" class="feedback-status"></span>
+        </div>
+      </form>
+    </section>
+  `;
+  document.getElementById('feedbackForm').addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    const form = e.target;
+    const name = document.getElementById('fbName').value.trim();
+    const message = document.getElementById('fbMessage').value.trim();
+    if(!name || !message) return;
+
+    // Field order matters here — it controls the order the data
+    // arrives in on the receiving end (e.g. spreadsheet columns).
+    const entry = {
+      Date: formatFeedbackTimestamp(new Date()),
+      Website: form.querySelector('[name="Website"]').value,
+      Name: name,
+      Message: message,
+      Status: form.querySelector('[name="Status"]').value
+    };
+    const entries = getFeedbackEntries();
+    entries.push(entry);
+    saveFeedbackEntries(entries);
+    
+    if(FEEDBACK_ENDPOINT){
+      try{
+        // Sent as form-encoded (not JSON) and without custom headers so this
+        // stays a CORS "simple request" — Google Apps Script web apps don't
+        // handle the pre-flight OPTIONS request that a JSON POST would
+        // trigger, so this avoids that entirely.
+        const res = await fetch(FEEDBACK_ENDPOINT, {
+          method: 'POST',
+          body: new URLSearchParams(entry)
+        });
+        // Apps Script web apps return HTTP 200 even on an internal
+        // script error, so the real success/failure signal is in the
+        // JSON body, not the HTTP status. Logged (not shown to the
+        // visitor) so it doesn't get in the way of their experience,
+        // but is there in devtools if a submission needs debugging.
+        try{
+          const body = await res.json();
+          if(body.status !== 'ok') console.error('Feedback sheet update failed:', body);
+        }catch(parseErr){ console.error('Feedback endpoint returned a non-JSON response — check the Apps Script deployment.'); }
+      }
+      catch(err){ console.error('Feedback request failed to reach the endpoint:', err); /* local copy + download already happened even if this fails */ }
+    }
+
+    showFeedbackConfirmation(); // replace the form with a thank-you message
+  });
+  try{ container.scrollIntoView({behavior:'smooth', block:'start'}); }catch(err){ /* not fatal if unsupported */ }
+}
+
+// ---- Privacy Policy, Cookies, and Disclaimer footer panels ----
+function privacyText(){
+  return `
+  <p>This site doesn't collect personal information directly — it's a static page with no account system or server-side database. The only thing stored locally is your cookie-consent choice and, if you've used it, your feedback submissions — both saved in this browser via <code>localStorage</code>.</p>
+  <p>If you accept cookies, this site loads <strong>Google AdSense</strong> to show ads, which may set cookies for ad personalisation. You can review or change your Google ad settings at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>.</p>
+  <p>Links to official government websites are covered by those sites' own privacy policies, not this one.</p>
+  <p><a href="privacy.html" target="_blank" rel="noopener">Read the full Privacy Policy →</a></p>
+`;
+}
+const COOKIES_TEXT = `
+  <p>This site uses cookies from <strong>Google AdSense</strong> to show and personalise ads, only after you accept. If you decline, no ad cookies are set.</p>
+  <p>You can change your choice at any time, just pick again below.</p>
+`;
+const DISCLAIMER_TEXT = `
+  <p><strong>1. Non-Government &amp; Independent Status</strong><br>
+  BharatGaruda.in is an independently owned and operated information directory. This website is not an official platform of the Government of India, any State Government, Union Territory administration, or public sector undertaking. We do not claim any official status, authorization, or partnership with any government department or statutory body.</p>
+  <p><strong>2. Scope of Services &amp; External Links</strong></p>
+  <ul>
+    <li>This website functions strictly as an information directory designed to help users locate publicly accessible government links, portals, and online services.</li>
+    <li>All outbound links on this site direct users to official government domain extensions (such as .gov.in, .nic.in, or official state domains).</li>
+    <li>We do not host, process, alter, or re-transmit official applications, certificates, forms, or public records.</li>
+  </ul>
+  <p><strong>3. Accuracy &amp; Verification</strong><br>
+  While we strive to maintain updated and accurate information, government schemes, portal addresses, and policies change frequently. BharatGaruda.in makes no representations or warranties regarding the completeness, timeliness, or accuracy of the information presented. Users are strongly advised to verify all details directly on the respective official government websites before proceeding with any application or transaction.</p>
+  <p><strong>4. No Collection of Personal Data or Fees</strong><br>
+  BharatGaruda.in will never ask for sensitive personal information (such as Aadhaar numbers, PAN details, bank credentials, or passwords) and will never charge any fees for providing links to government services. All official services should be accessed directly and securely through verified government web addresses.</p>
+  <p><strong>5. Limitation of Liability</strong><br>
+  BharatGaruda.in and its operators shall not be held liable for any loss, damage, inconvenience, or disruption resulting from the use of information or external links provided on this website.</p>
+`;
+
+function openInfoPanel(id, title, bodyHtml){
+  const container = document.getElementById('feedbackContainer');
+  if(container.querySelector(`[data-panel="${id}"]`)){ closeFeedbackForm(); return; } // toggle off
+  setActiveFooterIcon(id + 'Link');
+  container.innerHTML = `
+    <section class="feedback-section" data-panel="${id}">
+      <h2 class="state-name">${title}</h2>
+      <div class="feedback-note info-panel-body">${bodyHtml}</div>
+    </section>
+  `;
+  try{ container.scrollIntoView({behavior:'smooth', block:'start'}); }catch(err){ /* not fatal if unsupported */ }
+}
+function openPrivacyPanel(){
+  openInfoPanel('privacy', 'Privacy Policy', privacyText());
+}
+function openDisclaimerPanel(){
+  openInfoPanel('disclaimer', 'Disclaimer &amp; Terms of Use', DISCLAIMER_TEXT);
+}
+function openCookiesPanel(){
+  const container = document.getElementById('feedbackContainer');
+  if(container.querySelector('[data-panel="cookies"]')){ closeFeedbackForm(); return; }
+  setActiveFooterIcon('cookiesLink');
+  const current = localStorage.getItem(CONSENT_KEY);
+  const currentLine = current
+    ? `<p class="feedback-note small">Current choice: <strong>${current === 'accepted' ? 'Accepted' : 'Declined'}</strong></p>`
+    : `<p class="feedback-note small">No choice recorded yet in this browser.</p>`;
+  container.innerHTML = `
+    <section class="feedback-section" data-panel="cookies">
+      <h2 class="state-name">Cookies</h2>
+      <div class="feedback-note info-panel-body">${COOKIES_TEXT}</div>
+      ${currentLine}
+      <div class="feedback-actions">
+        <button type="button" id="cookiesPanelAccept" class="fb-btn primary">Accept</button>
+        <button type="button" id="cookiesPanelDecline" class="fb-btn">Decline</button>
+      </div>
+    </section>
+  `;
+  document.getElementById('cookiesPanelAccept').addEventListener('click', ()=>{
+    localStorage.setItem(CONSENT_KEY, 'accepted');
+    loadAdsenseScript();
+    closeFeedbackForm();
+  });
+  document.getElementById('cookiesPanelDecline').addEventListener('click', ()=>{
+    localStorage.setItem(CONSENT_KEY, 'declined');
+    closeFeedbackForm();
+  });
+  try{ container.scrollIntoView({behavior:'smooth', block:'start'}); }catch(err){ /* not fatal if unsupported */ }
+}
+
+document.getElementById('feedbackLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openFeedbackForm();
+});
+document.getElementById('privacyLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openPrivacyPanel();
+});
+document.getElementById('cookiesLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openCookiesPanel();
+});
+document.getElementById('disclaimerLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openDisclaimerPanel();
+});
+document.getElementById('readFullDisclaimerLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openDisclaimerPanel();
+});
+document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+// The footer is position:sticky and its height varies (the disclaimer
+// line wraps differently depending on screen width), so a fixed guess
+// for scroll-margin-top would drift out of sync and clip the top of
+// whatever panel opens beneath it. Measuring the real height instead
+// keeps this correct on every screen size and if the footer content
+// ever changes again.
+function syncFeedbackContainerScrollMargin(){
+  const footerEl = document.querySelector('footer.foot');
+  const container = document.getElementById('feedbackContainer');
+  if(footerEl && container){
+    container.style.scrollMarginTop = (footerEl.offsetHeight + 12) + 'px';
+  }
+}
+syncFeedbackContainerScrollMargin();
+window.addEventListener('resize', syncFeedbackContainerScrollMargin);
+
+// ============================================================
+// SITE DESCRIPTION TOGGLE (click the left icon panel on each card)
+// Delegated on document since site-cards are re-rendered on every
+// state selection. Prevents the click from also triggering the
+// card's own link navigation.
+// ============================================================
+document.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.card-visual[role="button"]');
+  if(!btn) return;
+  e.preventDefault();
+  e.stopPropagation();
+  const card = btn.closest('.site-card');
+  if(card) card.classList.toggle('desc-open');
+});
+
+// ============================================================
+// SITE SEARCH
+// A single search box above the results list. Typing filters across
+// every state's own links plus the shared Pan-India (national +
+// idServices) links, matching keyword against title, url, or desc.
+// Results are grouped: "India" first (deduplicated, since national
+// links are identical across every state), then one group per state
+// that has a match. Clicking a result opens that link directly, the
+// same as clicking a site-card.
+// ============================================================
+const SEARCH_INDEX = (function buildSearchIndex(){
+  const items = [];
+  Object.keys(STATES).forEach(stateId=>{
+    const s = STATES[stateId];
+    Object.keys(s.stateWebsites||{}).forEach(label=>{
+      s.stateWebsites[label].forEach(site=> items.push({ scope: stateId, stateName: s.name, sectionTitle: label, ...site }));
+    });
+    Object.keys(s.stateServices||{}).forEach(label=>{
+      s.stateServices[label].forEach(site=> items.push({ scope: stateId, stateName: s.name, sectionTitle: label, ...site }));
+    });
+  });
+  Object.keys(PAN_INDIA.citizenId||{}).forEach(label=>{
+    PAN_INDIA.citizenId[label].forEach(site=> items.push({ scope: 'india', stateName: 'India', sectionTitle: label, ...site }));
+  });
+  Object.keys(PAN_INDIA.nationalServices||{}).forEach(label=>{
+    PAN_INDIA.nationalServices[label].forEach(site=> items.push({ scope: 'india', stateName: 'India', sectionTitle: label, ...site }));
+  });
+  return items;
+})();
+
+function searchSites(query){
+  const q = query.trim().toLowerCase();
+  if(!q) return [];
+  const matches = SEARCH_INDEX.filter(item=>
+    (item.title && item.title.toLowerCase().includes(q)) ||
+    (item.url && item.url.toLowerCase().includes(q)) ||
+    (item.desc && item.desc.toLowerCase().includes(q)) ||
+    (item.stateName && item.stateName.toLowerCase().includes(q)) ||
+    (item.sectionTitle && item.sectionTitle.toLowerCase().includes(q))
+  );
+  // Group: Pan-India first, then each state, preserving first-seen order.
+  // Within each group, further split into sub-sections by category.
+  const groups = {};
+  const order = [];
+  matches.forEach(item=>{
+    const key = item.scope === 'india' ? 'Pan-India' : item.stateName;
+    if(!groups[key]){ groups[key] = { count:0, sections:{}, sectionOrder:[], scope:item.scope }; order.push(key); }
+    const g = groups[key];
+    if(g.count >= 8) return; // cap per group so the dropdown stays scannable
+    const secKey = item.sectionTitle || 'Other';
+    if(!g.sections[secKey]){ g.sections[secKey] = []; g.sectionOrder.push(secKey); }
+    g.sections[secKey].push(item);
+    g.count++;
+  });
+  order.sort((a,b)=>{
+    if(a === 'Pan-India') return -1;
+    if(b === 'Pan-India') return 1;
+    return a.localeCompare(b);
+  });
+  return order.map(key=>{
+    const g = groups[key];
+    const color = g.scope === 'india' ? LINK_BLUE : dotColorFor((STATES[g.scope] && STATES[g.scope].mapColor) || '#2C6E6E');
+    return {
+      label: key,
+      color,
+      sections: [...g.sectionOrder].sort((a,b)=>a.localeCompare(b)).map(secKey => ({ title: secKey, items: g.sections[secKey] }))
+    };
+  });
+}
+
+function renderSearchResults(query){
+  const dropdown = document.getElementById('siteSearchResults');
+  const grouped = searchSites(query);
+  if(!grouped.length){
+    dropdown.innerHTML = query.trim()
+      ? `<div class="site-search-empty">No matching sites found.</div>`
+      : '';
+    dropdown.classList.toggle('show', !!query.trim());
+    return;
+  }
+  dropdown.innerHTML = grouped.map(group=>`
+    <div class="site-search-group-label"><span class="label-text">${group.label}</span><span class="label-divider"></span></div>
+    ${group.sections.map(section => `
+      <div class="site-search-section-label"><span class="dot" style="background:var(--ink)"></span>${section.title}</div>
+      ${section.items.map(item=>siteCardHtml(item)).join('')}
+    `).join('')}
+  `).join('');
+  dropdown.classList.add('show');
+  sizeSearchGroupDividersWhenReady();
+}
+
+// Sizes each state/Pan-India label's trailing divider to fill the
+// exact remaining width on the LAST line of its (possibly wrapped)
+// text — a fixed or percentage width can't do this correctly since
+// how much room is left depends on how long that specific name is.
+function sizeSearchGroupDividers(){
+  document.querySelectorAll('.site-search-group-label').forEach(label=>{
+    const textEl = label.querySelector('.label-text');
+    const dividerEl = label.querySelector('.label-divider');
+    if(!textEl || !dividerEl) return;
+    try{
+      const range = document.createRange();
+      range.selectNodeContents(textEl);
+      const rects = range.getClientRects();
+      if(!rects.length) return;
+      const lastLineRect = rects[rects.length - 1]; // end of the last wrapped line
+      const labelRect = label.getBoundingClientRect();
+      // Absolute positioning means this can never wrap onto its own
+      // line the way an inline element could — it's simply placed at
+      // an exact point relative to the label, independent of text flow.
+      const top = lastLineRect.top - labelRect.top + (lastLineRect.height / 2);
+      const left = lastLineRect.right - labelRect.left + 10;
+      dividerEl.style.top = top + 'px';
+      dividerEl.style.left = left + 'px';
+      dividerEl.classList.add('ready');
+    }catch(err){ /* leave hidden (display:none default) if measurement fails */ }
+  });
+}
+function sizeSearchGroupDividersWhenReady(){
+  // Custom web fonts (IBM Plex Mono) may still be loading when results
+  // first render — measuring against a fallback font would give an
+  // inaccurate reading, so wait for fonts to be ready first.
+  if(document.fonts && document.fonts.ready){
+    document.fonts.ready.then(sizeSearchGroupDividers);
+  }
+  requestAnimationFrame(sizeSearchGroupDividers); // also run immediately, in case fonts were already loaded
+}
+window.addEventListener('resize', ()=>{
+  if(document.getElementById('siteSearchResults').classList.contains('show')) sizeSearchGroupDividers();
+});
+
+const searchInput = document.getElementById('siteSearchInput');
+searchInput.addEventListener('input', (e)=> renderSearchResults(e.target.value));
+searchInput.addEventListener('focus', (e)=>{ if(e.target.value.trim()) renderSearchResults(e.target.value); });
+
+// ============================================================
+// SEARCH PLACEHOLDER MARQUEE
+// The real <input placeholder="..."> can't scroll its own text if
+// it overflows, so a plain overlay span sits on top of the input
+// showing that same text — invisible when the input is focused or
+// has a value, and set to scroll only if it's actually too wide for
+// the box (narrow / mobile screens).
+// ============================================================
+const placeholderOverlay = document.getElementById('searchPlaceholderOverlay');
+const placeholderClip = placeholderOverlay.querySelector('.search-placeholder-clip');
+const placeholderText = document.getElementById('searchPlaceholderText');
+function updatePlaceholderOverlay(){
+  const hasContent = searchInput.value.trim().length > 0;
+  const isFocused = document.activeElement === searchInput;
+  placeholderOverlay.classList.toggle('hide', hasContent || isFocused);
+  if(hasContent || isFocused){
+    placeholderClip.classList.remove('scrolling');
+    return;
+  }
+  const overflow = placeholderText.scrollWidth - placeholderClip.clientWidth;
+  if(overflow > 4){
+    placeholderText.style.setProperty('--scroll-distance', (-overflow - 24) + 'px');
+    placeholderClip.classList.add('scrolling');
+  } else {
+    placeholderClip.classList.remove('scrolling');
+    placeholderText.style.removeProperty('--scroll-distance');
+  }
+}
+searchInput.addEventListener('input', updatePlaceholderOverlay);
+searchInput.addEventListener('focus', updatePlaceholderOverlay);
+searchInput.addEventListener('blur', updatePlaceholderOverlay);
+window.addEventListener('resize', updatePlaceholderOverlay);
+updatePlaceholderOverlay();
+
+document.addEventListener('click', (e)=>{
+  if(e.target.closest('.site-search-wrap')) return;
+  document.getElementById('siteSearchResults').classList.remove('show');
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){
+    document.getElementById('siteSearchResults').classList.remove('show');
+    searchInput.blur();
+  }
+});
+
+} // end main()
+main().catch(err=>{
+  console.error('Failed to load site data', err);
+  const col = document.getElementById('detailContent');
+  if(col) col.innerHTML = '<p style="padding:24px">Sorry — the site data failed to load. Please refresh the page.</p>';
+});
+</script>
+</body>
+</html>
