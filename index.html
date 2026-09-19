@@ -64,7 +64,7 @@ html[data-theme="light"]{
   --map-stroke:#C7C7C7;
   --map-stroke-active:#FFFFFF;
 }
-*{box-sizing:border-box}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 a:focus:not(:focus-visible), button:focus:not(:focus-visible){outline:none}
 html{margin:0;padding:0;overflow-x:hidden;max-width:100%}
 body{
@@ -122,7 +122,6 @@ body{
 .map-shell{
   position:absolute;inset:0;
   perspective:1400px;
-  padding:0 10px 10px;
 }
 svg#india{
   width:100%;height:100%;display:block;
@@ -166,6 +165,19 @@ svg#india path.active{
   stroke:var(--map-stroke-active);stroke-width:1.8;
 }
 svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
+svg#india path[data-id="Lakshadweep"],
+svg#india path[data-id="Andaman and Nicobar"]{
+  vector-effect:non-scaling-stroke;
+  stroke:currentColor;
+  stroke-width:2.6px;
+  stroke-linejoin:round;
+  stroke-linecap:round;
+  color:#138808;
+}
+svg#india path[data-id="Lakshadweep"].active,
+svg#india path[data-id="Andaman and Nicobar"].active{
+  color:var(--map-stroke-active,#138808);
+}
 @keyframes pathIn{
   from{opacity:0;transform:scale(.92) translateY(6px)}
   to{opacity:1;transform:scale(1) translateY(0)}
@@ -512,7 +524,7 @@ footer.foot a{color:var(--teal-light)}
 
 /* ---------- Theme toggle ---------- */
 .theme-toggle{
-  position:absolute;top:6px;right:4px;z-index:250;
+  position:absolute;top:38px;right:4px;z-index:250;
   width:32px;height:32px;
   border:none;background:transparent;color:#FF9933;
   cursor:pointer;padding:0;
@@ -523,7 +535,7 @@ footer.foot a{color:var(--teal-light)}
 .theme-toggle:hover{transform:translateY(-2px) rotate(12deg)}
 
 .toggle-labels-btn{
-  position:absolute;top:38px;right:4px;z-index:250;
+  position:absolute;top:70px;right:4px;z-index:250;
   width:32px;height:32px;
   border:none;background:transparent;color:#757575;
   cursor:pointer;padding:0;
@@ -535,7 +547,7 @@ footer.foot a{color:var(--teal-light)}
 .toggle-labels-btn[aria-pressed="true"]{opacity:.4}
 
 .page-reset{
-  position:absolute;top:70px;right:8px;z-index:250;
+  position:absolute;top:102px;right:8px;z-index:250;
   width:24px;height:24px;
   border:none;background:transparent;color:#138808;
   cursor:pointer;padding:0;
@@ -547,23 +559,22 @@ footer.foot a{color:var(--teal-light)}
 
 /* ===== DECORATIVE 3D MAP TOGGLE — start. Self-contained visual/CSS for
    the optional illustrated-map toggle. Delete this whole block (plus
-   its two markup blocks and its JS block) to remove the feature. ===== */
+   its two markup blocks and its JS block) to remove the feature. Styled
+   as a plain icon button, matching the theme/labels/reset buttons above
+   it, with an India-map glyph; aria-pressed="true" (decorative view
+   showing) is shown with a highlighted color/background instead of a
+   separate switch control. ===== */
 .decorative-map-toggle{
-  position:absolute;top:104px;right:2px;z-index:250;
-  width:44px;height:24px;
-  border:none;background:transparent;padding:0;cursor:pointer;
+  position:absolute;top:6px;right:4px;z-index:250;
+  width:32px;height:32px;
+  border:none;background:transparent;color:#757575;border-radius:8px;
+  cursor:pointer;padding:0;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .2s ease, color .2s ease, background .2s ease;
 }
-.decorative-map-toggle .toggle-track{
-  display:block;width:44px;height:24px;border-radius:12px;
-  background:var(--line);position:relative;transition:background .2s ease;
-}
-.decorative-map-toggle .toggle-thumb{
-  position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;
-  background:#FFFFFF;box-shadow:0 1px 3px rgba(0,0,0,.45);transition:left .2s ease;
-}
-.decorative-map-toggle[aria-pressed="true"] .toggle-track{background:var(--seal)}
-.decorative-map-toggle[aria-pressed="true"] .toggle-thumb{left:22px}
+.decorative-map-toggle svg{width:22px;height:22px;stroke:currentColor}
 .decorative-map-toggle:hover{transform:translateY(-2px)}
+.decorative-map-toggle[aria-pressed="true"]{color:var(--seal);background:rgba(19,136,8,.14)}
 
 .decorative-map-view{
   position:absolute;inset:0;
@@ -630,6 +641,17 @@ footer.foot a{color:var(--teal-light)}
 
 <div class="wrap">
   <section class="map-col">
+    <!-- ===== DECORATIVE 3D MAP TOGGLE — start. This whole feature (this
+         button, the .decorative-map-view below, its CSS block, and its
+         JS block) is self-contained and additive to the interactive map
+         above: none of the existing map/search/state-select code reads
+         from or depends on it. Delete all four pieces to remove it. ===== -->
+    <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show illustrated 3D map view" aria-label="Toggle illustrated 3D map view" aria-pressed="false">
+      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
+        <path d="M6.6 1.5 5.2 2.4 7.0 5.4 3.3 9.2 4.3 11.2 2.4 11.8 5.4 13.7 8.5 22.5 10.0 21.1 10.3 17.4 16.1 13.2 15.7 9.6 18.4 10.8 17.5 11.8 18.7 13.0 21.6 8.4 19.8 7.6 18.1 9.5 15.5 8.6 15.4 9.8 12.0 9.0 9.1 5.3 10.3 2.7Z"/>
+      </svg>
+    </button>
+    <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
     <button id="themeToggle" class="theme-toggle" title="Switch to light mode" aria-label="Toggle light/dark mode">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="12" cy="12" r="4.5"/>
@@ -648,16 +670,6 @@ footer.foot a{color:var(--teal-light)}
         <path d="M3 21v-6h6"/>
       </svg>
     </button>
-
-    <!-- ===== DECORATIVE 3D MAP TOGGLE — start. This whole feature (this
-         button, the .decorative-map-view below, its CSS block, and its
-         JS block) is self-contained and additive to the interactive map
-         above: none of the existing map/search/state-select code reads
-         from or depends on it. Delete all four pieces to remove it. ===== -->
-    <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show illustrated 3D map view" aria-label="Toggle illustrated 3D map view" aria-pressed="false">
-      <span class="toggle-track"><span class="toggle-thumb"></span></span>
-    </button>
-    <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
 
     <div class="map-stage">
     <div class="map-shell">
@@ -1098,15 +1110,27 @@ ids.forEach(id => {
 // synthetic markers in their place, scale each real shape up around its
 // own centroid so it becomes visible and clickable right where it is,
 // without moving or zooming the rest of the map.
+//
+// The scale is applied via a wrapping <g>, not a transform on the path
+// itself: svg#india path already has its own CSS transform (the pathIn
+// entrance animation, plus :hover/.active), and CSS transform on an
+// element always wins over an SVG transform ATTRIBUTE on that same
+// element — so setting the attribute directly on the path gets silently
+// discarded once the entrance animation finishes. Wrapping the path in a
+// <g> puts the enlargement on an element none of those CSS rules target,
+// so it always sticks, while the path's own hover/active feedback still
+// works exactly as before.
 function enlargeTinyState(id, factor){
   const s = STATES[id];
   const p = pathById[id];
   if(!s || !p || s.cx == null || s.cy == null) return;
-  p.setAttribute('transform', `translate(${s.cx} ${s.cy}) scale(${factor}) translate(${-s.cx} ${-s.cy})`);
-  p.style.transformOrigin = ''; // ensure the SVG transform attribute above is what's used, not CSS transform-origin
+  const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+  g.setAttribute('transform', `translate(${s.cx} ${s.cy}) scale(${factor}) translate(${-s.cx} ${-s.cy})`);
+  p.parentNode.insertBefore(g, p);
+  g.appendChild(p);
 }
-enlargeTinyState('Lakshadweep', 2.2);
-enlargeTinyState('Andaman and Nicobar', 1.6);
+enlargeTinyState('Lakshadweep', 2.5);
+enlargeTinyState('Andaman and Nicobar', 2.0);
 
 // ===== DECORATIVE 3D MAP TOGGLE — overlay build. Draws the exact same
 // state shapes used by the real interactive map above, invisibly, on
