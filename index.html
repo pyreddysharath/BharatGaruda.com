@@ -550,8 +550,13 @@ footer.foot a{color:var(--teal-light)}
 }
 
 /* ---------- Theme toggle ---------- */
+/* All four map-view controls sit in one horizontal row, top-right of
+   the map section, instead of stacked vertically down the edge. */
+.map-toolbar{
+  position:absolute;top:8px;right:8px;z-index:250;
+  display:flex;align-items:center;gap:6px;
+}
 .theme-toggle{
-  position:absolute;top:38px;right:4px;z-index:250;
   width:32px;height:32px;
   border:none;background:transparent;color:#FF9933;
   cursor:pointer;padding:0;
@@ -562,7 +567,6 @@ footer.foot a{color:var(--teal-light)}
 .theme-toggle:hover{transform:translateY(-2px) rotate(12deg)}
 
 .toggle-labels-btn{
-  position:absolute;top:70px;right:4px;z-index:250;
   width:32px;height:32px;
   border:none;background:transparent;color:#757575;
   cursor:pointer;padding:0;
@@ -574,7 +578,6 @@ footer.foot a{color:var(--teal-light)}
 .toggle-labels-btn[aria-pressed="true"]{opacity:.4}
 
 .page-reset{
-  position:absolute;top:102px;right:8px;z-index:250;
   width:24px;height:24px;
   border:none;background:transparent;color:#138808;
   cursor:pointer;padding:0;
@@ -592,7 +595,6 @@ footer.foot a{color:var(--teal-light)}
    showing) is shown with a highlighted color/background instead of a
    separate switch control. ===== */
 .decorative-map-toggle{
-  position:absolute;top:6px;right:4px;z-index:250;
   width:32px;height:32px;
   border:none;background:transparent;color:#757575;border-radius:8px;
   cursor:pointer;padding:0;
@@ -601,16 +603,23 @@ footer.foot a{color:var(--teal-light)}
 }
 .decorative-map-toggle svg{width:22px;height:22px}
 .decorative-map-toggle:hover{transform:translateY(-2px)}
-/* Pressed (illustrated map showing): the icon switches from the
-   tricolor flag reading to a solid warm terracotta, echoing the
-   illustrated 3D relief map's own dominant palette. */
-.decorative-map-toggle[aria-pressed="true"] svg path{
+/* Default (interactive map showing): the icon reads as a solid warm
+   terracotta, echoing the illustrated 3D relief map's own dominant
+   palette — a preview of what pressing it switches you to. Pressed
+   (illustrated map showing): it switches to the tricolor flag reading
+   instead, echoing the interactive map you'd switch back to. */
+.decorative-map-toggle svg path{
   fill:#B5651D;stroke:#8A4E17;
 }
-.decorative-map-toggle[aria-pressed="true"]{background:rgba(181,101,29,.16)}
+.decorative-map-toggle{background:rgba(181,101,29,.16)}
+.decorative-map-toggle[aria-pressed="true"] svg path{
+  fill:url(#indiaMapIconFlag);stroke:#8A8A8A;
+}
+.decorative-map-toggle[aria-pressed="true"]{background:transparent}
 
 .decorative-map-view{
   position:absolute;inset:0;
+  perspective:1400px;
 }
 /* The artwork is cropped tight to the illustrated India shape itself
    (its surrounding wooden board/frame has been removed from the image),
@@ -619,21 +628,50 @@ footer.foot a{color:var(--teal-light)}
    between the two views never shifts the page's size or position; since
    the artwork's own proportions aren't identical to the real map's, it's
    stretched slightly to match rather than letterboxed, keeping the two
-   views pixel-for-pixel the same size/position at all times. */
+   views pixel-for-pixel the same size/position at all times.
+   It also carries the exact same rotateX/perspective tilt as svg#india
+   (see .map-shell above) — without this, toggling between the two views
+   swapped a tilted 3D "card" for a perfectly flat rectangle, which read
+   as a visible jump in shape/size even though the outer box never moved.
+   Giving both views an identical tilt makes the swap a plain crossfade
+   of content on the same plane instead. */
 .decorative-map-view img{
   width:100%;height:100%;object-fit:fill;display:block;
+  transform:rotateX(16deg) rotateZ(0deg);
+  transform-origin:center bottom;
+  transform-style:preserve-3d;
+  filter:drop-shadow(0 20px 24px rgba(0,0,0,.7));
+  transition:transform .5s cubic-bezier(.2,.8,.3,1);
 }
 .decorative-overlay-svg{
   position:absolute;inset:0;width:100%;height:100%;
+  transform:rotateX(16deg) rotateZ(0deg);
+  transform-origin:center bottom;
+  transform-style:preserve-3d;
 }
 .decorative-overlay-svg path{
   fill:transparent;stroke:none;cursor:pointer;
-  transition:fill .15s ease;
+  transition:fill .15s ease, stroke .15s ease, stroke-width .15s ease, filter .15s ease;
 }
 .decorative-overlay-svg path:focus{outline:none}
-.decorative-overlay-svg path:hover,
-.decorative-overlay-svg path.active{
+.decorative-overlay-svg path:hover{
   fill:rgba(255,255,255,.22);
+}
+/* Active state echoes the real map's own "stamped" highlight (a warm,
+   glowing tint plus a solid highlighted outline) instead of the same
+   faint tint used for a plain hover, so a selection reads just as
+   clearly here as it does on the real map. */
+.decorative-overlay-svg path.active{
+  fill:rgba(255,196,61,.4);
+  stroke:var(--map-stroke-active);
+  stroke-width:3;
+  filter:drop-shadow(0 0 8px rgba(181,101,29,.85));
+  animation:decorativeStampIn .35s ease-out;
+}
+@keyframes decorativeStampIn{
+  0%{filter:drop-shadow(0 0 0 rgba(181,101,29,0))}
+  45%{filter:drop-shadow(0 0 16px rgba(181,101,29,1))}
+  100%{filter:drop-shadow(0 0 8px rgba(181,101,29,.85))}
 }
 .decorative-overlay-svg text.decorative-state-label{
   font-family:'Helvetica','Arial',sans-serif;font-weight:700;
@@ -650,48 +688,52 @@ footer.foot a{color:var(--teal-light)}
 
 <div class="wrap">
   <section class="map-col">
-    <!-- ===== DECORATIVE 3D MAP TOGGLE — start. This whole feature (this
-         button, the .decorative-map-view below, its CSS block, and its
-         JS block) is self-contained and additive to the interactive map
-         above: none of the existing map/search/state-select code reads
-         from or depends on it. Delete all four pieces to remove it. ===== -->
-    <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show illustrated 3D map view" aria-label="Toggle illustrated 3D map view" aria-pressed="false">
-      <svg viewBox="0 0 24 24" stroke="none">
-        <defs>
-          <!-- Default (interactive map showing): the icon reads as a tiny
-               tricolor flag-map — saffron/white/green bands, top to
-               bottom, echoing the Indian flag. -->
-          <linearGradient id="indiaMapIconFlag" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#FF9933"/>
-            <stop offset="33%" stop-color="#FF9933"/>
-            <stop offset="33%" stop-color="#FFFFFF"/>
-            <stop offset="66%" stop-color="#FFFFFF"/>
-            <stop offset="66%" stop-color="#138808"/>
-            <stop offset="100%" stop-color="#138808"/>
-          </linearGradient>
-        </defs>
-        <path fill="url(#indiaMapIconFlag)" stroke="#8A8A8A" stroke-width="0.4" d="M6.6 1.5 5.2 2.4 7.0 5.4 3.3 9.2 4.3 11.2 2.4 11.8 5.4 13.7 8.5 22.5 10.0 21.1 10.3 17.4 16.1 13.2 15.7 9.6 18.4 10.8 17.5 11.8 18.7 13.0 21.6 8.4 19.8 7.6 18.1 9.5 15.5 8.6 15.4 9.8 12.0 9.0 9.1 5.3 10.3 2.7Z"/>
-      </svg>
-    </button>
-    <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
-    <button id="themeToggle" class="theme-toggle" title="Switch to light mode" aria-label="Toggle light/dark mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="4.5"/>
-        <path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
-      </svg>
-    </button>
-    <button id="toggleLabels" class="toggle-labels-btn" title="Show state names" aria-label="Toggle state name labels" aria-pressed="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/>
-        <circle cx="12" cy="10" r="2.5"/>
-      </svg>
-    </button>
-    <button id="pageReset" class="page-reset" title="Reset to nationwide view" aria-label="Reset">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M3 12a9 9 0 1 1 3.3 6.95"/>
-        <path d="M3 21v-6h6"/>
-      </svg>
-    </button>
+    <!-- ===== MAP TOOLBAR — all four map-view controls in one horizontal
+         row, top-right of the map section. ===== -->
+    <div class="map-toolbar">
+      <!-- ===== DECORATIVE 3D MAP TOGGLE — start. This whole feature (this
+           button, the .decorative-map-view below, its CSS block, and its
+           JS block) is self-contained and additive to the interactive map
+           above: none of the existing map/search/state-select code reads
+           from or depends on it. Delete all four pieces to remove it. ===== -->
+      <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show illustrated 3D map view" aria-label="Toggle illustrated 3D map view" aria-pressed="false">
+        <svg viewBox="0 0 24 24" stroke="none">
+          <defs>
+            <!-- Default (interactive map showing): the icon reads as a tiny
+                 tricolor flag-map — saffron/white/green bands, top to
+                 bottom, echoing the Indian flag. -->
+            <linearGradient id="indiaMapIconFlag" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#FF9933"/>
+              <stop offset="33%" stop-color="#FF9933"/>
+              <stop offset="33%" stop-color="#FFFFFF"/>
+              <stop offset="66%" stop-color="#FFFFFF"/>
+              <stop offset="66%" stop-color="#138808"/>
+              <stop offset="100%" stop-color="#138808"/>
+            </linearGradient>
+          </defs>
+          <path fill="url(#indiaMapIconFlag)" stroke="#8A8A8A" stroke-width="0.4" d="M6.6 1.5 5.2 2.4 7.0 5.4 3.3 9.2 4.3 11.2 2.4 11.8 5.4 13.7 8.5 22.5 10.0 21.1 10.3 17.4 16.1 13.2 15.7 9.6 18.4 10.8 17.5 11.8 18.7 13.0 21.6 8.4 19.8 7.6 18.1 9.5 15.5 8.6 15.4 9.8 12.0 9.0 9.1 5.3 10.3 2.7Z"/>
+        </svg>
+      </button>
+      <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
+      <button id="themeToggle" class="theme-toggle" title="Switch to light mode" aria-label="Toggle light/dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="4.5"/>
+          <path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+        </svg>
+      </button>
+      <button id="toggleLabels" class="toggle-labels-btn" title="Show state names" aria-label="Toggle state name labels" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/>
+          <circle cx="12" cy="10" r="2.5"/>
+        </svg>
+      </button>
+      <button id="pageReset" class="page-reset" title="Reset to nationwide view" aria-label="Reset">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 12a9 9 0 1 1 3.3 6.95"/>
+          <path d="M3 21v-6h6"/>
+        </svg>
+      </button>
+    </div>
 
     <div class="map-stage">
     <div class="map-shell">
@@ -806,7 +848,7 @@ footer.foot a{color:var(--teal-light)}
   REGIONS_REQUIRING_CONSENT in the script.
 ============================================================ -->
 <div id="cookieNotice" class="cookie-notice-slim" role="dialog" aria-live="polite" aria-label="Cookie notice">
-  <span>This site uses cookies to show ads and improve your experience. <a href="privacy.html">Privacy Policy</a></span>
+  <span>This site uses cookies to show ads and improve your experience. <a href="config/privacy.html">Privacy Policy</a></span>
   <span class="cookie-notice-actions">
     <a href="#" id="cookieDecline">Decline</a>
     <button id="cookieAccept">Accept</button>
@@ -818,8 +860,8 @@ footer.foot a{color:var(--teal-light)}
 // ============================================================
 // DATA LOADING
 // Every state/UT (and Pan-India) is its own self-contained folder
-// under entities/ — index.json lists every state/UT id, and each
-// entities/<id>/ folder holds:
+// under entities/ — config/index.json lists every state/UT id, and
+// each entities/<id>/ folder holds:
 //   meta.json    map/geography data for that state (color, shape,
 //                capital, language, etc.) — practically never edited
 //   links.json   its links, grouped by section — the file you'll
@@ -827,8 +869,12 @@ footer.foot a{color:var(--teal-light)}
 //   icons/       one icon image per link, unique to that folder
 // Pan-India has no map shape, so its folder holds only links.json +
 // icons/. Adding a brand-new state/UT is just: add its
-// entities/<id>/ folder and one line to index.json — no HTML edits,
-// and no other state's files are ever touched.
+// entities/<id>/ folder and one line to config/index.json — no HTML
+// edits, and no other state's files are ever touched.
+// The "Our Other Sites" footer panel is likewise driven by its own
+// config/OurOtherSites.json ({ content, sites: [{ site, url,
+// information }] }) — add or edit an entry there, no HTML edits
+// needed.
 // Everything is fetched once here and cached (in memory for this page
 // view, and in sessionStorage so a reload in the same tab doesn't
 // re-fetch over the network), then assembled back into the same
@@ -837,6 +883,7 @@ footer.foot a{color:var(--teal-light)}
 let STATE_IDS = [];
 let STATES = {};
 let PAN_INDIA = null;
+let OTHER_SITES_CONFIG = { content: '', sites: [] };
 
 async function fetchJsonCached(url){
   const cacheKey = 'bgDataCache:' + url;
@@ -852,7 +899,7 @@ async function fetchJsonCached(url){
 }
 
 async function loadAllData(){
-  STATE_IDS = await fetchJsonCached('index.json');
+  STATE_IDS = await fetchJsonCached('config/index.json');
   const [panLinks, ...stateFiles] = await Promise.all([
     fetchJsonCached('entities/Pan-India/links.json'),
     ...STATE_IDS.map(id => Promise.all([
@@ -868,6 +915,12 @@ async function loadAllData(){
       stateServices: links.stateServices
     });
   });
+  try{
+    OTHER_SITES_CONFIG = await fetchJsonCached('config/OurOtherSites.json');
+  }catch(err){
+    console.error('Failed to load config/OurOtherSites.json', err);
+    OTHER_SITES_CONFIG = { content: '', sites: [] };
+  }
 }
 
 // Everything below reads STATES / PAN_INDIA (built by loadAllData()
@@ -1487,9 +1540,9 @@ document.getElementById('cookieDecline').addEventListener('click', (e)=>{
 // app:
 //   1. Create a new Google Sheet. Add a header row: Date | Name | Message
 //   2. Extensions > Apps Script. Delete any starter code and paste in
-//      the contents of feedback_apps_script.gs (provided alongside
-//      this file) — it just appends each incoming submission as a
-//      new row.
+//      the contents of config/feedback_apps_script.gs (provided
+//      alongside this file) — it just appends each incoming
+//      submission as a new row.
 //   3. Deploy > New deployment > select type "Web app".
 //        - Execute as: Me
 //        - Who has access: Anyone
@@ -1627,7 +1680,7 @@ function privacyText(){
   <p>This site doesn't collect personal information directly — it's a static page with no account system or server-side database. The only thing stored locally is your cookie-consent choice and, if you've used it, your feedback submissions — both saved in this browser via <code>localStorage</code>.</p>
   <p>If you accept cookies, this site loads <strong>Google AdSense</strong> to show ads, which may set cookies for ad personalisation. You can review or change your Google ad settings at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>.</p>
   <p>Links to official government websites are covered by those sites' own privacy policies, not this one.</p>
-  <p><a href="privacy.html" target="_blank" rel="noopener">Read the full Privacy Policy →</a></p>
+  <p><a href="config/privacy.html" target="_blank" rel="noopener">Read the full Privacy Policy →</a></p>
 `;
 }
 const COOKIES_TEXT = `
@@ -1669,34 +1722,30 @@ function openPrivacyPanel(){
 function openDisclaimerPanel(){
   openInfoPanel('disclaimer', 'Disclaimer &amp; Terms of Use', DISCLAIMER_TEXT);
 }
-const OTHER_SITES = [
-  {
-    id: 'ayubase6',
-    name: 'AyuBase6.com',
-    url: 'https://ayubase6.com',
-    blurb: 'A health companion covering exercises, yoga, food, reminders, and vital checks — everything you need to keep track of your daily wellbeing in one place.'
-  },
-  {
-    id: 'intiguttu',
-    name: 'IntiGuttu.com',
-    url: 'https://intiguttu.com',
-    blurb: 'A private, no-login home reference app for household DIY fixes, everyday tips, and recipes from every state of India and every country in the world.'
-  }
-];
 const INFO_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"></circle><line x1="12" y1="10.5" x2="12" y2="16.5"></line><circle cx="12" cy="7.3" r="0.9" fill="currentColor" stroke="none"></circle></svg>`;
+// Slugify a site name into a safe id for element ids/data attributes,
+// e.g. "AyuBase6.com" -> "ayubase6-com".
+function slugifySiteName(name){
+  return String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
 function otherSitesListHtml(){
+  const sites = (OTHER_SITES_CONFIG && Array.isArray(OTHER_SITES_CONFIG.sites)) ? OTHER_SITES_CONFIG.sites : [];
+  const intro = (OTHER_SITES_CONFIG && OTHER_SITES_CONFIG.content) || '';
   return `
-    <p class="other-sites-intro">We've also built these — take a look if they seem relevant to you.</p>
+    ${intro ? `<p class="other-sites-intro">${intro}</p>` : ''}
     <ul class="other-sites-list">
-      ${OTHER_SITES.map(site => `
+      ${sites.map(entry => {
+        const id = slugifySiteName(entry.site);
+        return `
         <li class="other-sites-item">
           <div class="other-sites-row">
-            <a href="${site.url}" target="_blank" rel="noopener" class="other-sites-open" title="Open ${site.name}" aria-label="Open ${site.name}">${site.name}</a>
-            <button type="button" class="other-sites-info" data-site="${site.id}" title="About ${site.name}" aria-label="About ${site.name}" aria-expanded="false">${INFO_ICON_SVG}</button>
+            <a href="${entry.url}" target="_blank" rel="noopener" class="other-sites-open" title="Open ${entry.site}" aria-label="Open ${entry.site}">${entry.site}</a>
+            <button type="button" class="other-sites-info" data-site="${id}" title="About ${entry.site}" aria-label="About ${entry.site}" aria-expanded="false">${INFO_ICON_SVG}</button>
           </div>
-          <div class="other-sites-blurb" id="otherSitesBlurb-${site.id}" hidden><p>${site.blurb}</p></div>
+          <div class="other-sites-blurb" id="otherSitesBlurb-${id}" hidden><p>${entry.information}</p></div>
         </li>
-      `).join('')}
+      `;
+      }).join('')}
     </ul>
   `;
 }
