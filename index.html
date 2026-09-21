@@ -68,7 +68,7 @@ html[data-theme="light"]{
 a:focus:not(:focus-visible), button:focus:not(:focus-visible){outline:none}
 html{margin:0;padding:0;overflow-x:hidden;max-width:100%}
 body{
-  margin:0;padding:0;max-width:100%;
+  margin:0;padding:0;max-width:100%;overflow-x:hidden;
   background:var(--paper);
   color:var(--ink);
   transition:background .3s ease, color .3s ease;
@@ -392,14 +392,17 @@ footer.foot a{color:var(--teal-light)}
 }
 .footer-disclaimer a{color:var(--seal);font-weight:600;white-space:nowrap}
 .footer-row{
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:16px;width:100%;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;width:100%;
 }
 .footer-copyright{font-weight:700;color:var(--ink);white-space:nowrap}
-.footer-icons-row{display:flex;align-items:center;gap:16px;flex:none}
+.footer-icons-row{display:flex;align-items:center;gap:16px;flex:none;flex-wrap:wrap;row-gap:8px}
 @media (max-width:600px){
   .footer-row{gap:8px}
-  .footer-icons-row{gap:8px}
+  .footer-icons-row{gap:10px;justify-content:flex-end}
   .footer-copyright{font-size:.72rem}
+}
+@media (max-width:420px){
+  .footer-icons-row{gap:8px;width:100%;justify-content:center}
 }
 .footer-icon{
   display:flex;align-items:center;justify-content:center;
@@ -421,7 +424,7 @@ footer.foot a{color:var(--teal-light)}
 .icon-feedback .icon-glyph{filter:saturate(.15) brightness(1.15)}
 .icon-privacy .icon-glyph{filter:saturate(4) hue-rotate(80deg) brightness(.95)}
 .icon-cookies .icon-glyph{filter:hue-rotate(180deg) saturate(1.5) brightness(.85)}
-.icon-othersites .icon-svg{width:1.15rem;height:1.15rem;display:block;color:#2f7fd6}
+.icon-othersites .icon-svg{width:1.2rem;height:1.2rem;display:block;color:#2f7fd6}
 .icon-othersites-info .icon-glyph{filter:saturate(1.6) hue-rotate(-15deg)}
 /* Active state needs the color filter AND the glow combined in one
    declaration — filter doesn't merge across separate rules, so a
@@ -469,12 +472,10 @@ footer.foot a{color:var(--teal-light)}
 .other-sites-item{margin-bottom:4px}
 .other-sites-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 .other-sites-open{
-  display:flex;align-items:center;gap:6px;
   font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:700;
   letter-spacing:.02em;color:var(--seal);text-decoration:none;
   transition:color .2s ease;
 }
-.other-sites-open svg{width:14px;height:14px;flex:none;display:block}
 .other-sites-open:hover{text-decoration:underline}
 .other-sites-info{
   display:flex;align-items:center;justify-content:center;
@@ -789,10 +790,8 @@ footer.foot a{color:var(--teal-light)}
            request. Both just open the info panel below — delete this
            block, its two CSS rules and its JS block to remove. ===== -->
       <a href="#" id="otherSitesLink" class="footer-icon icon-othersites" title="Check out our other apps" aria-label="Check out our other apps" aria-expanded="false">
-        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-          <polyline points="15 3 21 3 21 9"></polyline>
-          <line x1="10" y1="14" x2="21" y2="3"></line>
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path>
         </svg>
       </a>
       <a href="#" id="otherSitesInfoLink" class="footer-icon icon-othersites-info" title="About our other apps" aria-label="About our other apps" aria-expanded="false">
@@ -1692,7 +1691,6 @@ const OTHER_SITES = [
     blurb: 'A private, no-login home reference app for household DIY fixes, everyday tips, and recipes from every state of India and every country in the world.'
   }
 ];
-const EXTERNAL_LINK_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
 const INFO_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"></circle><line x1="12" y1="10.5" x2="12" y2="16.5"></line><circle cx="12" cy="7.3" r="0.9" fill="currentColor" stroke="none"></circle></svg>`;
 function otherSitesListHtml(){
   return `
@@ -1701,7 +1699,7 @@ function otherSitesListHtml(){
       ${OTHER_SITES.map(site => `
         <li class="other-sites-item">
           <div class="other-sites-row">
-            <a href="${site.url}" target="_blank" rel="noopener" class="other-sites-open" title="Open ${site.name}" aria-label="Open ${site.name}">${site.name}${EXTERNAL_LINK_ICON_SVG}</a>
+            <a href="${site.url}" target="_blank" rel="noopener" class="other-sites-open" title="Open ${site.name}" aria-label="Open ${site.name}">${site.name}</a>
             <button type="button" class="other-sites-info" data-site="${site.id}" title="About ${site.name}" aria-label="About ${site.name}" aria-expanded="false">${INFO_ICON_SVG}</button>
           </div>
           <div class="other-sites-blurb" id="otherSitesBlurb-${site.id}" hidden><p>${site.blurb}</p></div>
