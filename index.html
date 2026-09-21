@@ -388,7 +388,7 @@ footer.foot a{color:var(--teal-light)}
 .footer-disclaimer{
   font-size:.72rem;line-height:1.5;color:var(--muted);
   margin:0 0 10px;max-width:900px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  text-align:justify;
 }
 .footer-disclaimer a{color:var(--seal);font-weight:600;white-space:nowrap}
 .footer-row{
@@ -421,6 +421,8 @@ footer.foot a{color:var(--teal-light)}
 .icon-feedback .icon-glyph{filter:saturate(.15) brightness(1.15)}
 .icon-privacy .icon-glyph{filter:saturate(4) hue-rotate(80deg) brightness(.95)}
 .icon-cookies .icon-glyph{filter:hue-rotate(180deg) saturate(1.5) brightness(.85)}
+.icon-othersites .icon-svg{width:1.15rem;height:1.15rem;display:block;color:#2f7fd6}
+.icon-othersites-info .icon-glyph{filter:saturate(1.6) hue-rotate(-15deg)}
 /* Active state needs the color filter AND the glow combined in one
    declaration — filter doesn't merge across separate rules, so a
    second plain "filter:drop-shadow(...)" rule would silently wipe
@@ -429,6 +431,8 @@ footer.foot a{color:var(--teal-light)}
 .icon-feedback.active .icon-glyph{filter:saturate(.15) brightness(1.15) drop-shadow(0 0 4px var(--seal))}
 .icon-privacy.active .icon-glyph{filter:saturate(4) hue-rotate(80deg) brightness(.95) drop-shadow(0 0 4px var(--seal))}
 .icon-cookies.active .icon-glyph{filter:hue-rotate(180deg) saturate(1.5) brightness(.85) drop-shadow(0 0 4px var(--seal))}
+.icon-othersites.active .icon-svg{filter:drop-shadow(0 0 4px var(--seal))}
+.icon-othersites-info.active .icon-glyph{filter:saturate(1.6) hue-rotate(-15deg) drop-shadow(0 0 4px var(--seal))}
 
 /* Animated icons — animating the emoji glyph as a single unit renders
    reliably everywhere. */
@@ -443,11 +447,49 @@ footer.foot a{color:var(--teal-light)}
 
 @keyframes iconWobble{0%,100%{transform:rotate(0deg) scale(1)}25%{transform:rotate(-8deg) scale(1.05)}75%{transform:rotate(8deg) scale(1.05)}}
 .icon-cookies .icon-glyph{animation:iconWobble 2.4s ease-in-out infinite}
+.icon-othersites .icon-svg{animation:iconBounce 1.8s ease-in-out infinite}
+.icon-othersites-info .icon-glyph{animation:iconPulse 1.6s ease-in-out infinite}
 
 .info-panel-body p{margin:0 0 12px}
 .info-panel-body p:last-child{margin-bottom:0}
 .info-panel-body a{color:var(--seal)}
 .info-panel-body code{font-family:'IBM Plex Mono',monospace;font-size:.85em;background:var(--paper-dim);padding:1px 5px;border-radius:4px}
+
+/* ---------- Our Other Sites ---------- */
+.other-sites-heading{
+  font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;
+  letter-spacing:.04em;text-transform:uppercase;color:var(--seal);
+  margin:0 0 8px;
+}
+.other-sites-intro{
+  font-family:'Spectral',serif;font-style:italic;color:var(--muted);
+  font-size:12.5px;line-height:1.5;margin:0 0 14px;
+}
+.other-sites-list{list-style:none;margin:0;padding:0}
+.other-sites-item{margin-bottom:4px}
+.other-sites-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.other-sites-open{
+  display:flex;align-items:center;gap:6px;
+  font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:700;
+  letter-spacing:.02em;color:var(--seal);text-decoration:none;
+  transition:color .2s ease;
+}
+.other-sites-open svg{width:14px;height:14px;flex:none;display:block}
+.other-sites-open:hover{text-decoration:underline}
+.other-sites-info{
+  display:flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:50%;padding:0;flex:none;
+  border:1.5px solid var(--line);background:transparent;color:var(--muted);
+  cursor:pointer;transition:color .2s ease, border-color .2s ease;
+}
+.other-sites-info svg{width:12px;height:12px;display:block}
+.other-sites-info:hover,
+.other-sites-info[aria-expanded="true"]{color:var(--seal);border-color:var(--seal)}
+.other-sites-blurb{margin:0 0 12px;padding-left:2px}
+.other-sites-blurb p{
+  font-family:'Spectral',serif;font-style:normal;font-size:12px;color:var(--muted);
+  line-height:1.5;margin:0;
+}
 
 /* ---------- Feedback section ---------- */
 .feedback-section{
@@ -559,9 +601,15 @@ footer.foot a{color:var(--teal-light)}
   display:flex;align-items:center;justify-content:center;
   transition:transform .2s ease, color .2s ease, background .2s ease;
 }
-.decorative-map-toggle svg{width:22px;height:22px;stroke:currentColor}
+.decorative-map-toggle svg{width:22px;height:22px}
 .decorative-map-toggle:hover{transform:translateY(-2px)}
-.decorative-map-toggle[aria-pressed="true"]{color:var(--seal);background:rgba(19,136,8,.14)}
+/* Pressed (illustrated map showing): the icon switches from the
+   tricolor flag reading to a solid warm terracotta, echoing the
+   illustrated 3D relief map's own dominant palette. */
+.decorative-map-toggle[aria-pressed="true"] svg path{
+  fill:#B5651D;stroke:#8A4E17;
+}
+.decorative-map-toggle[aria-pressed="true"]{background:rgba(181,101,29,.16)}
 
 .decorative-map-view{
   position:absolute;inset:0;
@@ -597,30 +645,6 @@ footer.foot a{color:var(--teal-light)}
   opacity:0;transition:opacity .15s ease;
 }
 .decorative-overlay-svg.labels-shown text.decorative-state-label{opacity:1}
-
-/* Icon panel styled after the reference artwork's own top-right badge:
-   a warm, light wood-toned rounded card instead of the plain flat
-   icon buttons used on the interactive map. */
-.decorative-map-icons{
-  position:absolute;top:18px;right:18px;z-index:20;
-  display:flex;gap:6px;
-  background:linear-gradient(180deg,#FBF3E3,#EFDFC0);
-  border:1px solid #D8C39C;
-  border-radius:14px;
-  padding:6px 8px;
-  box-shadow:0 4px 10px rgba(0,0,0,.25);
-}
-.decorative-icon-btn{
-  width:30px;height:30px;border:none;border-radius:8px;
-  background:transparent;color:#8A5A1E;cursor:pointer;padding:0;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .15s ease, transform .15s ease;
-}
-.decorative-icon-btn svg{width:19px;height:19px;stroke:currentColor}
-.decorative-icon-btn:hover{background:rgba(138,90,30,.14);transform:translateY(-1px)}
-.decorative-icon-btn[aria-pressed="true"]{background:rgba(138,90,30,.22)}
-#decorativeThemeToggle{color:#C97A1E}
-#decorativeResetBtn{color:#3F7A3F}
 /* ===== DECORATIVE 3D MAP TOGGLE — end ===== */
 </style>
 </head>
@@ -634,8 +658,21 @@ footer.foot a{color:var(--teal-light)}
          above: none of the existing map/search/state-select code reads
          from or depends on it. Delete all four pieces to remove it. ===== -->
     <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show illustrated 3D map view" aria-label="Toggle illustrated 3D map view" aria-pressed="false">
-      <svg viewBox="0 0 24 24" fill="currentColor" stroke="none">
-        <path d="M6.6 1.5 5.2 2.4 7.0 5.4 3.3 9.2 4.3 11.2 2.4 11.8 5.4 13.7 8.5 22.5 10.0 21.1 10.3 17.4 16.1 13.2 15.7 9.6 18.4 10.8 17.5 11.8 18.7 13.0 21.6 8.4 19.8 7.6 18.1 9.5 15.5 8.6 15.4 9.8 12.0 9.0 9.1 5.3 10.3 2.7Z"/>
+      <svg viewBox="0 0 24 24" stroke="none">
+        <defs>
+          <!-- Default (interactive map showing): the icon reads as a tiny
+               tricolor flag-map — saffron/white/green bands, top to
+               bottom, echoing the Indian flag. -->
+          <linearGradient id="indiaMapIconFlag" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#FF9933"/>
+            <stop offset="33%" stop-color="#FF9933"/>
+            <stop offset="33%" stop-color="#FFFFFF"/>
+            <stop offset="66%" stop-color="#FFFFFF"/>
+            <stop offset="66%" stop-color="#138808"/>
+            <stop offset="100%" stop-color="#138808"/>
+          </linearGradient>
+        </defs>
+        <path fill="url(#indiaMapIconFlag)" stroke="#8A8A8A" stroke-width="0.4" d="M6.6 1.5 5.2 2.4 7.0 5.4 3.3 9.2 4.3 11.2 2.4 11.8 5.4 13.7 8.5 22.5 10.0 21.1 10.3 17.4 16.1 13.2 15.7 9.6 18.4 10.8 17.5 11.8 18.7 13.0 21.6 8.4 19.8 7.6 18.1 9.5 15.5 8.6 15.4 9.8 12.0 9.0 9.1 5.3 10.3 2.7Z"/>
       </svg>
     </button>
     <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
@@ -694,26 +731,6 @@ footer.foot a{color:var(--teal-light)}
     <div class="decorative-map-view" id="decorativeMapView" hidden>
       <img src="images/decorative-3d-map.png?v=5" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
       <svg id="decorativeOverlay" class="decorative-overlay-svg" viewBox="0 0 1000 1136" preserveAspectRatio="none" aria-hidden="true"></svg>
-      <div class="decorative-map-icons">
-        <button id="decorativeThemeToggle" class="decorative-icon-btn" title="Switch light/dark mode" aria-label="Toggle light/dark mode">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4.5"/>
-            <path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
-          </svg>
-        </button>
-        <button id="decorativeLabelsToggle" class="decorative-icon-btn" title="Show state names" aria-label="Toggle state name labels" aria-pressed="false">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 21s-7-6.5-7-11a7 7 0 0 1 14 0c0 4.5-7 11-7 11z"/>
-            <circle cx="12" cy="10" r="2.5"/>
-          </svg>
-        </button>
-        <button id="decorativeResetBtn" class="decorative-icon-btn" title="Reset to nationwide view" aria-label="Reset">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 12a9 9 0 1 1 3.3 6.95"/>
-            <path d="M3 21v-6h6"/>
-          </svg>
-        </button>
-      </div>
     </div>
     </div>
     <!-- ===== DECORATIVE 3D MAP TOGGLE — end ===== -->
@@ -750,9 +767,9 @@ footer.foot a{color:var(--teal-light)}
 ============================================================ -->
 
 <footer class="foot">
-  <p class="footer-disclaimer"><strong>Disclaimer:</strong> BharatGaruda.in is an independent directory, not affiliated with any government body. <a href="#" id="readFullDisclaimerLink">[Read Full Disclaimer]</a></p>
+  <p class="footer-disclaimer"><strong>Disclaimer:</strong> BharatGaruda.com is an independent directory, not affiliated with any government body. <a href="#" id="readFullDisclaimerLink">[Read Full Disclaimer]</a></p>
   <div class="footer-row">
-    <span class="footer-copyright">© <span id="footerYear"></span> BharatGaruda</span>
+    <span class="footer-copyright">© <span id="footerYear"></span> BharatGaruda.com</span>
     <div class="footer-icons-row">
       <a href="#" id="disclaimerLink" class="footer-icon icon-info" title="Disclaimer" aria-label="Disclaimer" aria-expanded="false">
         <span class="icon-glyph">⚠️</span>
@@ -766,6 +783,22 @@ footer.foot a{color:var(--teal-light)}
       <a href="#" id="cookiesLink" class="footer-icon icon-cookies" title="Cookies" aria-label="Cookies" aria-expanded="false">
         <span class="icon-glyph">🍪</span>
       </a>
+      <!-- ===== OTHER APPS — start. Two small entry points to the same
+           "Our Other Apps" panel: a link-shaped icon (visually says
+           "other sites/apps") and an adjacent (i) info badge, per
+           request. Both just open the info panel below — delete this
+           block, its two CSS rules and its JS block to remove. ===== -->
+      <a href="#" id="otherSitesLink" class="footer-icon icon-othersites" title="Check out our other apps" aria-label="Check out our other apps" aria-expanded="false">
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+          <polyline points="15 3 21 3 21 9"></polyline>
+          <line x1="10" y1="14" x2="21" y2="3"></line>
+        </svg>
+      </a>
+      <a href="#" id="otherSitesInfoLink" class="footer-icon icon-othersites-info" title="About our other apps" aria-label="About our other apps" aria-expanded="false">
+        <span class="icon-glyph">ⓘ</span>
+      </a>
+      <!-- ===== OTHER APPS — end ===== -->
     </div>
   </div>
 </footer>
@@ -900,6 +933,11 @@ toggleLabelsBtn.addEventListener('click', ()=>{
   const nowHidden = svgMap.classList.toggle('labels-hidden');
   toggleLabelsBtn.setAttribute('aria-pressed', nowHidden ? 'true' : 'false');
   toggleLabelsBtn.title = nowHidden ? 'Show state names' : 'Hide state names';
+  // This one button controls labels on whichever map view is currently
+  // showing — the decorative view no longer has its own separate
+  // labels toggle, so keep its overlay in sync here too.
+  const overlaySvg = document.getElementById('decorativeOverlay');
+  if(overlaySvg) overlaySvg.classList.toggle('labels-shown', !nowHidden);
 });
 
 const LINK_BLUE = '#43A7C0'; // matches the link button color, used for Pan-India dots/labels
@@ -1029,31 +1067,19 @@ let selectedId = null;
 const pathById = {};
 const ids = Object.keys(STATES);
 
-ids.forEach((id, i) => {
-  const s = STATES[id];
-  const p = document.createElementNS(SVG_NS,'path');
-  p.setAttribute('d', s.d);
-  p.setAttribute('data-id', id);
-  p.setAttribute('tabindex','0');
-  p.setAttribute('aria-label', s.name);
-  p.setAttribute('fill', s.mapColor);
-  if(s.mapColor === '#FFFFFF'){
-    // A white fill is otherwise invisible against the white map
-    // background and the white borders between states — give these
-    // states a dark outline so their shape stays visible.
-    p.style.stroke = '#333333';
-  }
-  p.style.animationDelay = (i * 16) + 'ms';
-  svg.appendChild(p);
-  pathById[id] = p;
-
-  p.addEventListener('mouseenter', (e)=>{ showTipFor(s); positionTip(e.clientX, e.clientY); });
-  p.addEventListener('mousemove', (e)=>{ positionTip(e.clientX, e.clientY); });
+// Shared by every clickable/hoverable state shape — the real map's own
+// path, its optional larger invisible hit-area twin (see "hitD" below),
+// and the decorative overlay's own path — so hover tooltips, click
+// selection and keyboard activation behave identically no matter which
+// element the pointer actually landed on.
+function bindStateInteractions(el, id, s){
+  el.addEventListener('mouseenter', (e)=>{ showTipFor(s); positionTip(e.clientX, e.clientY); });
+  el.addEventListener('mousemove', (e)=>{ positionTip(e.clientX, e.clientY); });
   // Only dismiss on mouse-out if this state isn't the one that's
   // currently pinned by a click/tap — a pinned popup stays until a
   // different click changes the selection.
-  p.addEventListener('mouseleave', ()=>{ if(id !== selectedId) hideTip(); });
-  p.addEventListener('click', (e)=>{
+  el.addEventListener('mouseleave', ()=>{ if(id !== selectedId) hideTip(); });
+  el.addEventListener('click', (e)=>{
     // A repeat click on the state whose popup is already showing
     // toggles the whole selection closed — popup, map highlight and
     // the results panel all reset together, just like Escape/reset.
@@ -1071,7 +1097,45 @@ ids.forEach((id, i) => {
       tipShownFor = id;
     }
   });
-  p.addEventListener('keypress', (e)=>{ if(e.key==='Enter') selectState(id); });
+  el.addEventListener('keypress', (e)=>{ if(e.key==='Enter') selectState(id); });
+}
+
+ids.forEach((id, i) => {
+  const s = STATES[id];
+  const p = document.createElementNS(SVG_NS,'path');
+  p.setAttribute('d', s.d);
+  p.setAttribute('data-id', id);
+  p.setAttribute('tabindex','0');
+  p.setAttribute('aria-label', s.name);
+  p.setAttribute('fill', s.mapColor);
+  if(s.mapColor === '#FFFFFF'){
+    // A white fill is otherwise invisible against the white map
+    // background and the white borders between states — give these
+    // states a dark outline so their shape stays visible.
+    p.style.stroke = '#333333';
+  }
+  p.style.animationDelay = (i * 16) + 'ms';
+  svg.appendChild(p);
+  pathById[id] = p;
+  bindStateInteractions(p, id, s);
+
+  // Lakshadweep and Andaman & Nicobar are scattered island groups —
+  // their visible fill (above) is deliberately kept modest so the map
+  // doesn't look distorted, but that leaves too small a target to
+  // click reliably. meta.json's "hitD" (when present) is a more
+  // generously-dilated version of the same shape, invisible, laid on
+  // top purely to enlarge the clickable/tappable area — clicking
+  // anywhere in the halo around a tiny island still selects it.
+  if(s.hitD){
+    const hit = document.createElementNS(SVG_NS,'path');
+    hit.setAttribute('d', s.hitD);
+    hit.setAttribute('data-id', id);
+    hit.setAttribute('data-hit-area', 'true');
+    hit.setAttribute('fill', 'transparent');
+    hit.style.cursor = 'pointer';
+    svg.appendChild(hit);
+    bindStateInteractions(hit, id, s);
+  }
 });
 
 // English name labels, added after every path exists so labels
@@ -1123,22 +1187,19 @@ if(decorativeOverlaySvg){
     p.setAttribute('aria-label', s.name);
     decorativeOverlaySvg.appendChild(p);
     decorativeOverlayPathById[id] = p;
+    bindStateInteractions(p, id, s);
 
-    p.addEventListener('mouseenter', (e)=>{ showTipFor(s); positionTip(e.clientX, e.clientY); });
-    p.addEventListener('mousemove', (e)=>{ positionTip(e.clientX, e.clientY); });
-    p.addEventListener('mouseleave', ()=>{ if(id !== selectedId) hideTip(); });
-    p.addEventListener('click', (e)=>{
-      if(tipShownFor === id){
-        deselectState();
-      } else {
-        selectState(id);
-        const pt = (e.changedTouches && e.changedTouches[0]) || e;
-        showTipFor(s);
-        positionTip(pt.clientX, pt.clientY);
-        tipShownFor = id;
-      }
-    });
-    p.addEventListener('keypress', (e)=>{ if(e.key === 'Enter') selectState(id); });
+    // Same enlarged, invisible click target as the real map (see the
+    // "hitD" handling above) — Lakshadweep/Andaman are just as easy to
+    // miss on this view's illustrated islands.
+    if(s.hitD){
+      const hit = document.createElementNS(SVG_NS, 'path');
+      hit.setAttribute('d', s.hitD);
+      hit.setAttribute('data-id', id);
+      hit.setAttribute('data-hit-area', 'true');
+      decorativeOverlaySvg.appendChild(hit);
+      bindStateInteractions(hit, id, s);
+    }
   });
 
   ids.forEach(id => {
@@ -1153,18 +1214,6 @@ if(decorativeOverlaySvg){
     decorativeOverlaySvg.appendChild(label);
   });
 
-  document.getElementById('decorativeThemeToggle').addEventListener('click', ()=>{
-    themeToggleBtn.click();
-  });
-  document.getElementById('decorativeLabelsToggle').addEventListener('click', (e)=>{
-    const btn = e.currentTarget;
-    const nowShown = decorativeOverlaySvg.classList.toggle('labels-shown');
-    btn.setAttribute('aria-pressed', nowShown ? 'true' : 'false');
-    btn.title = nowShown ? 'Hide state names' : 'Show state names';
-  });
-  document.getElementById('decorativeResetBtn').addEventListener('click', ()=>{
-    if(selectedId){ deselectState(); } else { window.scrollTo({top:0, behavior:'smooth'}); }
-  });
 }
 // Keeps the overlay's own highlight in sync whenever a state gets
 // selected/deselected from ANYWHERE (the real map, search, the URL
@@ -1596,7 +1645,7 @@ const COOKIES_TEXT = `
 `;
 const DISCLAIMER_TEXT = `
   <p><strong>1. Non-Government &amp; Independent Status</strong><br>
-  BharatGaruda.in is an independently owned and operated information directory. This website is not an official platform of the Government of India, any State Government, Union Territory administration, or public sector undertaking. We do not claim any official status, authorization, or partnership with any government department or statutory body.</p>
+  BharatGaruda.com is an independently owned and operated information directory. This website is not an official platform of the Government of India, any State Government, Union Territory administration, or public sector undertaking. We do not claim any official status, authorization, or partnership with any government department or statutory body.</p>
   <p><strong>2. Scope of Services &amp; External Links</strong></p>
   <ul>
     <li>This website functions strictly as an information directory designed to help users locate publicly accessible government links, portals, and online services.</li>
@@ -1604,11 +1653,11 @@ const DISCLAIMER_TEXT = `
     <li>We do not host, process, alter, or re-transmit official applications, certificates, forms, or public records.</li>
   </ul>
   <p><strong>3. Accuracy &amp; Verification</strong><br>
-  While we strive to maintain updated and accurate information, government schemes, portal addresses, and policies change frequently. BharatGaruda.in makes no representations or warranties regarding the completeness, timeliness, or accuracy of the information presented. Users are strongly advised to verify all details directly on the respective official government websites before proceeding with any application or transaction.</p>
+  While we strive to maintain updated and accurate information, government schemes, portal addresses, and policies change frequently. BharatGaruda.com makes no representations or warranties regarding the completeness, timeliness, or accuracy of the information presented. Users are strongly advised to verify all details directly on the respective official government websites before proceeding with any application or transaction.</p>
   <p><strong>4. No Collection of Personal Data or Fees</strong><br>
-  BharatGaruda.in will never ask for sensitive personal information (such as Aadhaar numbers, PAN details, bank credentials, or passwords) and will never charge any fees for providing links to government services. All official services should be accessed directly and securely through verified government web addresses.</p>
+  BharatGaruda.com will never ask for sensitive personal information (such as Aadhaar numbers, PAN details, bank credentials, or passwords) and will never charge any fees for providing links to government services. All official services should be accessed directly and securely through verified government web addresses.</p>
   <p><strong>5. Limitation of Liability</strong><br>
-  BharatGaruda.in and its operators shall not be held liable for any loss, damage, inconvenience, or disruption resulting from the use of information or external links provided on this website.</p>
+  BharatGaruda.com and its operators shall not be held liable for any loss, damage, inconvenience, or disruption resulting from the use of information or external links provided on this website.</p>
 `;
 
 function openInfoPanel(id, title, bodyHtml){
@@ -1628,6 +1677,74 @@ function openPrivacyPanel(){
 }
 function openDisclaimerPanel(){
   openInfoPanel('disclaimer', 'Disclaimer &amp; Terms of Use', DISCLAIMER_TEXT);
+}
+const OTHER_SITES = [
+  {
+    id: 'ayubase6',
+    name: 'AyuBase6.com',
+    url: 'https://ayubase6.com',
+    blurb: 'A health companion covering exercises, yoga, food, reminders, and vital checks — everything you need to keep track of your daily wellbeing in one place.'
+  },
+  {
+    id: 'intiguttu',
+    name: 'IntiGuttu.com',
+    url: 'https://intiguttu.com',
+    blurb: 'A private, no-login home reference app for household DIY fixes, everyday tips, and recipes from every state of India and every country in the world.'
+  }
+];
+const EXTERNAL_LINK_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>`;
+const INFO_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"></circle><line x1="12" y1="10.5" x2="12" y2="16.5"></line><circle cx="12" cy="7.3" r="0.9" fill="currentColor" stroke="none"></circle></svg>`;
+function otherSitesListHtml(){
+  return `
+    <p class="other-sites-intro">We've also built these — take a look if they seem relevant to you.</p>
+    <ul class="other-sites-list">
+      ${OTHER_SITES.map(site => `
+        <li class="other-sites-item">
+          <div class="other-sites-row">
+            <a href="${site.url}" target="_blank" rel="noopener" class="other-sites-open" title="Open ${site.name}" aria-label="Open ${site.name}">${site.name}${EXTERNAL_LINK_ICON_SVG}</a>
+            <button type="button" class="other-sites-info" data-site="${site.id}" title="About ${site.name}" aria-label="About ${site.name}" aria-expanded="false">${INFO_ICON_SVG}</button>
+          </div>
+          <div class="other-sites-blurb" id="otherSitesBlurb-${site.id}" hidden><p>${site.blurb}</p></div>
+        </li>
+      `).join('')}
+    </ul>
+  `;
+}
+function openOtherSitesPanel(){
+  const container = document.getElementById('feedbackContainer');
+  if(container.querySelector('[data-panel="otherSites"]')){ closeFeedbackForm(); return; } // toggle off
+  // Two separate icons open this same panel, so both should light up
+  // as active together (openInfoPanel's setActiveFooterIcon only
+  // matches one id + 'Link'), hence handling it manually here.
+  document.querySelectorAll('.footer-icon').forEach(a=>{
+    a.classList.remove('active');
+    a.setAttribute('aria-expanded', 'false');
+  });
+  ['otherSitesLink', 'otherSitesInfoLink'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el){ el.classList.add('active'); el.setAttribute('aria-expanded', 'true'); }
+  });
+  container.innerHTML = `
+    <section class="feedback-section" data-panel="otherSites">
+      <h2 class="other-sites-heading">Our Other Sites</h2>
+      ${otherSitesListHtml()}
+    </section>
+  `;
+  container.querySelectorAll('.other-sites-info').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const site = btn.getAttribute('data-site');
+      const blurb = document.getElementById('otherSitesBlurb-' + site);
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      // close any other open blurb so only one is expanded at a time
+      container.querySelectorAll('.other-sites-info').forEach(b=>{ b.setAttribute('aria-expanded', 'false'); });
+      container.querySelectorAll('.other-sites-blurb').forEach(p=>{ p.hidden = true; });
+      if(!isOpen && blurb){
+        blurb.hidden = false;
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  try{ container.scrollIntoView({behavior:'smooth', block:'start'}); }catch(err){ /* not fatal if unsupported */ }
 }
 function openCookiesPanel(){
   const container = document.getElementById('feedbackContainer');
@@ -1679,6 +1796,14 @@ document.getElementById('disclaimerLink').addEventListener('click', (e)=>{
 document.getElementById('readFullDisclaimerLink').addEventListener('click', (e)=>{
   e.preventDefault();
   openDisclaimerPanel();
+});
+document.getElementById('otherSitesLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openOtherSitesPanel();
+});
+document.getElementById('otherSitesInfoLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  openOtherSitesPanel();
 });
 document.getElementById('footerYear').textContent = new Date().getFullYear();
 

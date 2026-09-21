@@ -122,10 +122,10 @@
     ],
     "Transport": [
       {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Maharashtra/icons/e-challan-traffic-violation-payment.svg"
+        "title": "Maharashtra Traffic e-Challan",
+        "url": "https://mahatrafficechallan.gov.in/",
+        "desc": "Search and pay traffic challans by vehicle number, issued by Maharashtra State Traffic Police.",
+        "image": "entities/Maharashtra/icons/maharashtra-traffic-e-challan.svg"
       }
     ]
   }

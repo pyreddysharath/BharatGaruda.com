@@ -138,10 +138,10 @@
     ],
     "Transport": [
       {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Gujarat/icons/e-challan-traffic-violation-payment.svg"
+        "title": "Gujarat Police – e-Challan Payment",
+        "url": "https://echallanpayment.gujarat.gov.in/sasguj/AccusedChallan/NewAccusedChallan",
+        "desc": "Check and pay traffic challans issued by Gujarat Police, as an alternative to the central Parivahan portal.",
+        "image": "entities/Gujarat/icons/gujarat-police-e-challan-payment.svg"
       }
     ]
   }

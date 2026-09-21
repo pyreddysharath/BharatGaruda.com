@@ -95,14 +95,6 @@
         "desc": "Certificate and citizen service portal.",
         "image": "entities/Assam/icons/seva-setu-assam.svg"
       }
-    ],
-    "Transport": [
-      {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Assam/icons/e-challan-traffic-violation-payment.svg"
-      }
     ]
   }
 }

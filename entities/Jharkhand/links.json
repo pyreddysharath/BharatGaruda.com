@@ -97,10 +97,10 @@
     ],
     "Transport": [
       {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Jharkhand/icons/e-challan-traffic-violation-payment.svg"
+        "title": "Jharkhand Police – e-Challan",
+        "url": "https://echallan.jhpolice.gov.in/",
+        "desc": "View violation evidence and pay traffic challans issued by Jharkhand Police.",
+        "image": "entities/Jharkhand/icons/jharkhand-police-e-challan.svg"
       }
     ]
   }

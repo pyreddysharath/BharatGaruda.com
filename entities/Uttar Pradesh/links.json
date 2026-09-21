@@ -128,14 +128,6 @@
         "desc": "State-specific toll-free grievance helpline feeding directly into the Jansunwai (IGRS) portal.",
         "image": "entities/Uttar Pradesh/icons/up-cm-helpline-jansunwai-1076.svg"
       }
-    ],
-    "Transport": [
-      {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Uttar Pradesh/icons/e-challan-traffic-violation-payment.svg"
-      }
     ]
   }
 }

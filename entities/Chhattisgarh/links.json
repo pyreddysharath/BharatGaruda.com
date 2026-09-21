@@ -94,14 +94,6 @@
         "desc": "Certificates and citizen services portal.",
         "image": "entities/Chhattisgarh/icons/e-district-chhattisgarh.svg"
       }
-    ],
-    "Transport": [
-      {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Chhattisgarh/icons/e-challan-traffic-violation-payment.svg"
-      }
     ]
   }
 }

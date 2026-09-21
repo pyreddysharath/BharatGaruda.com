@@ -125,14 +125,6 @@
         "desc": "State-specific toll-free public grievance redressal helpline under the Bihar Right to Public Grievance Redressal Act.",
         "image": "entities/Bihar/icons/bihar-lok-shikayat-cm-helpline-1800-345-6284.svg"
       }
-    ],
-    "Transport": [
-      {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Bihar/icons/e-challan-traffic-violation-payment.svg"
-      }
     ]
   }
 }

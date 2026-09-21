@@ -112,14 +112,6 @@
         "desc": "Certificates and citizen services portal.",
         "image": "entities/Orissa/icons/odisha-service-plus.svg"
       }
-    ],
-    "Transport": [
-      {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Orissa/icons/e-challan-traffic-violation-payment.svg"
-      }
     ]
   }
 }

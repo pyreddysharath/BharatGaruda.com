@@ -132,10 +132,10 @@
     ],
     "Transport": [
       {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Madhya Pradesh/icons/e-challan-traffic-violation-payment.svg"
+        "title": "MP Police – e-Challan Payment",
+        "url": "https://echallan.mponline.gov.in/",
+        "desc": "Check challan status by vehicle number and pay traffic fines issued by Madhya Pradesh Police.",
+        "image": "entities/Madhya Pradesh/icons/mp-police-e-challan-payment.svg"
       }
     ]
   }

@@ -130,14 +130,6 @@
         "desc": "State-specific 24x7 toll-free grievance call center and portal covering all AP government departments and schemes.",
         "image": "entities/Andhra Pradesh/icons/ap-spandana-1902.svg"
       }
-    ],
-    "Transport": [
-      {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Andhra Pradesh/icons/e-challan-traffic-violation-payment.svg"
-      }
     ]
   }
 }

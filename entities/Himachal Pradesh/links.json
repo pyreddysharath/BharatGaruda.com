@@ -90,10 +90,10 @@
     ],
     "Transport": [
       {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Himachal Pradesh/icons/e-challan-traffic-violation-payment.svg"
+        "title": "HP Police Citizen Portal – Traffic Challan",
+        "url": "https://citizenportal.hppolice.gov.in/citizen/login.htm",
+        "desc": "Pay traffic challans and access other citizen services from Himachal Pradesh Police.",
+        "image": "entities/Himachal Pradesh/icons/hp-police-citizen-portal-traffic-challan.svg"
       }
     ]
   }

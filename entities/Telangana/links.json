@@ -149,10 +149,11 @@
     ],
     "Transport": [
       {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Telangana/icons/e-challan-traffic-violation-payment.svg"
+        "title": "TS Police – e-Challan",
+        "url": "https://echallan.tspolice.gov.in",
+        "desc": "Check and pay pending traffic challans issued by Telangana Police for vehicles in the state.",
+        "abbrFull": "Telangana State (TS) Police",
+        "image": "entities/Telangana/icons/ts-police-e-challan.svg"
       }
     ]
   }

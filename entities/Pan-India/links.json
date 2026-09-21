@@ -244,6 +244,26 @@
         "desc": "Free legal aid and Lok Adalat (people's court) schedules for quick, low-cost dispute resolution.",
         "abbrFull": "National Legal Services Authority (NALSA)",
         "image": "entities/Pan-India/icons/nalsa-legal-services-and-lok-adalat.svg"
+      },
+      {
+        "title": "MHA – New Criminal Laws (BNS, BNSS, BSA)",
+        "url": "https://www.mha.gov.in/en/commoncontent/new-criminal-laws",
+        "desc": "Official text of India's three new criminal codes — Bharatiya Nyaya Sanhita, Bharatiya Nagarik Suraksha Sanhita and Bharatiya Sakshya Adhiniyam — which replaced the IPC, CrPC and Evidence Act.",
+        "abbrFull": "Ministry of Home Affairs (MHA)",
+        "image": "entities/Pan-India/icons/mha-new-criminal-laws-bns-bnss-bsa.svg"
+      },
+      {
+        "title": "Enforcement Directorate – BNS Acts & Rules",
+        "url": "https://enforcementdirectorate.gov.in/acts-and-rules/bns/",
+        "desc": "Enforcement Directorate's reference page for the Bharatiya Nyaya Sanhita (BNS) act and rules used in its enforcement work.",
+        "abbrFull": "Enforcement Directorate (ED) — Bharatiya Nyaya Sanhita (BNS)",
+        "image": "entities/Pan-India/icons/enforcement-directorate-bns-acts-and-rules.svg"
+      },
+      {
+        "title": "India Code – Central & State Acts",
+        "url": "https://indiacode.gov.in/home",
+        "desc": "The government's official digital repository of all Central and State Acts, rules and legal codes in force across India.",
+        "image": "entities/Pan-India/icons/india-code-central-and-state-acts.svg"
       }
     ],
     "Procurement": [
@@ -356,6 +376,12 @@
         "url": "https://morth.nic.in/",
         "desc": "Ministry of Road Transport & Highways — national highway safety and infrastructure schemes including Setu Bharatam.",
         "image": "entities/Pan-India/icons/setu-bharatam-morth.svg"
+      },
+      {
+        "title": "e-Challan – Traffic Violation Payment",
+        "url": "https://echallan.parivahan.gov.in/",
+        "desc": "Check pending traffic challans and pay fines online for vehicles registered anywhere in India.",
+        "image": "entities/Pan-India/icons/e-challan-traffic-violation-payment.svg"
       }
     ]
   }

@@ -131,10 +131,10 @@
     ],
     "Transport": [
       {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Karnataka/icons/e-challan-traffic-violation-payment.svg"
+        "title": "Bengaluru Traffic Police – e-Challan",
+        "url": "https://btp.karnataka.gov.in/212/e-challan-system/en",
+        "desc": "Check and pay traffic challans issued by Bengaluru City Traffic Police.",
+        "image": "entities/Karnataka/icons/bengaluru-traffic-police-e-challan.svg"
       }
     ]
   }

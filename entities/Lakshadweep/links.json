@@ -25,14 +25,5 @@
       }
     ]
   },
-  "stateServices": {
-    "Transport": [
-      {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Lakshadweep/icons/e-challan-traffic-violation-payment.svg"
-      }
-    ]
-  }
+  "stateServices": {}
 }

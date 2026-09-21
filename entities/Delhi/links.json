@@ -100,16 +100,16 @@
     ],
     "Transport": [
       {
-        "title": "e-Challan – Traffic Violation Payment",
-        "url": "https://echallan.parivahan.gov.in/",
-        "desc": "Check pending traffic challans and pay fines online for vehicles registered in this state.",
-        "image": "entities/Delhi/icons/e-challan-traffic-violation-payment.svg"
-      },
-      {
         "title": "Transport Department Delhi",
         "url": "https://transport.delhi.gov.in/",
         "desc": "Vehicle registration, licences and RTO services.",
         "image": "entities/Delhi/icons/transport-department-delhi.svg"
+      },
+      {
+        "title": "Delhi Traffic Police – e-Challan Payment",
+        "url": "https://traffic.delhipolice.gov.in/online-payment",
+        "desc": "Check pending traffic notices and pay challans online for vehicles booked by Delhi Traffic Police.",
+        "image": "entities/Delhi/icons/delhi-traffic-police-e-challan-payment.svg"
       }
     ]
   }
