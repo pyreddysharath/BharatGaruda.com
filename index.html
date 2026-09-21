@@ -425,7 +425,6 @@ footer.foot a{color:var(--teal-light)}
 .icon-privacy .icon-glyph{filter:saturate(4) hue-rotate(80deg) brightness(.95)}
 .icon-cookies .icon-glyph{filter:hue-rotate(180deg) saturate(1.5) brightness(.85)}
 .icon-othersites .icon-svg{width:1.2rem;height:1.2rem;display:block;color:#2f7fd6}
-.icon-othersites-info .icon-glyph{filter:saturate(1.6) hue-rotate(-15deg)}
 /* Active state needs the color filter AND the glow combined in one
    declaration — filter doesn't merge across separate rules, so a
    second plain "filter:drop-shadow(...)" rule would silently wipe
@@ -435,7 +434,6 @@ footer.foot a{color:var(--teal-light)}
 .icon-privacy.active .icon-glyph{filter:saturate(4) hue-rotate(80deg) brightness(.95) drop-shadow(0 0 4px var(--seal))}
 .icon-cookies.active .icon-glyph{filter:hue-rotate(180deg) saturate(1.5) brightness(.85) drop-shadow(0 0 4px var(--seal))}
 .icon-othersites.active .icon-svg{filter:drop-shadow(0 0 4px var(--seal))}
-.icon-othersites-info.active .icon-glyph{filter:saturate(1.6) hue-rotate(-15deg) drop-shadow(0 0 4px var(--seal))}
 
 /* Animated icons — animating the emoji glyph as a single unit renders
    reliably everywhere. */
@@ -451,7 +449,6 @@ footer.foot a{color:var(--teal-light)}
 @keyframes iconWobble{0%,100%{transform:rotate(0deg) scale(1)}25%{transform:rotate(-8deg) scale(1.05)}75%{transform:rotate(8deg) scale(1.05)}}
 .icon-cookies .icon-glyph{animation:iconWobble 2.4s ease-in-out infinite}
 .icon-othersites .icon-svg{animation:iconBounce 1.8s ease-in-out infinite}
-.icon-othersites-info .icon-glyph{animation:iconPulse 1.6s ease-in-out infinite}
 
 .info-panel-body p{margin:0 0 12px}
 .info-panel-body p:last-child{margin-bottom:0}
@@ -784,18 +781,13 @@ footer.foot a{color:var(--teal-light)}
       <a href="#" id="cookiesLink" class="footer-icon icon-cookies" title="Cookies" aria-label="Cookies" aria-expanded="false">
         <span class="icon-glyph">🍪</span>
       </a>
-      <!-- ===== OTHER APPS — start. Two small entry points to the same
-           "Our Other Apps" panel: a link-shaped icon (visually says
-           "other sites/apps") and an adjacent (i) info badge, per
-           request. Both just open the info panel below — delete this
-           block, its two CSS rules and its JS block to remove. ===== -->
+      <!-- ===== OTHER APPS — start. Single entry point that opens the
+           "Our Other Apps" panel below — delete this block, its CSS
+           rule and its JS block to remove. ===== -->
       <a href="#" id="otherSitesLink" class="footer-icon icon-othersites" title="Check out our other apps" aria-label="Check out our other apps" aria-expanded="false">
         <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
           <path d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path>
         </svg>
-      </a>
-      <a href="#" id="otherSitesInfoLink" class="footer-icon icon-othersites-info" title="About our other apps" aria-label="About our other apps" aria-expanded="false">
-        <span class="icon-glyph">ⓘ</span>
       </a>
       <!-- ===== OTHER APPS — end ===== -->
     </div>
@@ -1711,17 +1703,7 @@ function otherSitesListHtml(){
 function openOtherSitesPanel(){
   const container = document.getElementById('feedbackContainer');
   if(container.querySelector('[data-panel="otherSites"]')){ closeFeedbackForm(); return; } // toggle off
-  // Two separate icons open this same panel, so both should light up
-  // as active together (openInfoPanel's setActiveFooterIcon only
-  // matches one id + 'Link'), hence handling it manually here.
-  document.querySelectorAll('.footer-icon').forEach(a=>{
-    a.classList.remove('active');
-    a.setAttribute('aria-expanded', 'false');
-  });
-  ['otherSitesLink', 'otherSitesInfoLink'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(el){ el.classList.add('active'); el.setAttribute('aria-expanded', 'true'); }
-  });
+  setActiveFooterIcon('otherSitesLink');
   container.innerHTML = `
     <section class="feedback-section" data-panel="otherSites">
       <h2 class="other-sites-heading">Our Other Sites</h2>
@@ -1796,10 +1778,6 @@ document.getElementById('readFullDisclaimerLink').addEventListener('click', (e)=
   openDisclaimerPanel();
 });
 document.getElementById('otherSitesLink').addEventListener('click', (e)=>{
-  e.preventDefault();
-  openOtherSitesPanel();
-});
-document.getElementById('otherSitesInfoLink').addEventListener('click', (e)=>{
   e.preventDefault();
   openOtherSitesPanel();
 });
