@@ -590,8 +590,27 @@ footer.foot a{color:var(--teal-light)}
    the map section, instead of stacked vertically down the edge. */
 .map-toolbar{
   position:absolute;top:8px;right:8px;z-index:250;
-  display:flex;align-items:center;gap:6px;
+  display:flex;align-items:center;gap:0;
 }
+/* Collapsible toolbar: a single round trigger sits fixed top-right;
+   tapping it reveals the four view-control buttons sliding out to its
+   left, tapping again collapses them back down to just the trigger. */
+.toolbar-trigger{
+  width:36px;height:36px;flex:none;
+  border:none;border-radius:50%;background:#2F7FD6;color:#fff;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.25);
+  transition:transform .2s ease;
+}
+.toolbar-trigger svg{width:18px;height:18px;transition:transform .3s ease}
+.map-toolbar.open .toolbar-trigger svg{transform:rotate(180deg)}
+.toolbar-trigger:hover{transform:scale(1.06)}
+.toolbar-items{
+  display:flex;align-items:center;gap:0;
+  max-width:0;overflow:hidden;
+  transition:max-width .35s ease, gap .35s ease, margin .35s ease;
+}
+.map-toolbar.open .toolbar-items{max-width:220px;gap:6px;margin-right:6px}
 /* A proper pill-shaped day/night switch (track + sliding thumb),
    styled after the classic neumorphic day/night toggle reference —
    sky-blue track with the thumb parked left in light mode, a dark
@@ -623,14 +642,14 @@ footer.foot a{color:var(--teal-light)}
 .theme-switch-track .icon-sun{left:4px;color:#FFD84D}
 .theme-switch-track .icon-moon{right:4px;color:#C9D6F5}
 .theme-switch-thumb{
-  position:absolute;top:2px;left:2px;
+  position:absolute;top:2px;left:21px;
   width:15px;height:15px;border-radius:50%;
   background:radial-gradient(circle at 32% 30%,#FFFFFF,#DCE2E8);
   box-shadow:0 2px 4px rgba(0,0,0,.45);
   transition:left .3s cubic-bezier(.4,0,.2,1), background .3s ease;
 }
 .theme-toggle[data-mode="dark"] .theme-switch-thumb{
-  left:21px;
+  left:2px;
   background:radial-gradient(circle at 32% 30%,#4A5A82,#1A2340);
 }
 .theme-toggle:hover .theme-switch-thumb{transform:scale(1.05)}
@@ -652,12 +671,17 @@ footer.foot a{color:var(--teal-light)}
 
 .page-reset{
   width:32px;height:32px;
-  border:none;background:transparent;color:#138808;
+  border:none;background:transparent;
   cursor:pointer;padding:0;
   display:flex;align-items:center;justify-content:center;
   transition:transform .2s ease;
 }
-.page-reset svg{width:22px;height:22px;fill:none;stroke:currentColor}
+.page-reset .reset-badge{
+  width:22px;height:22px;border-radius:50%;
+  background:#2BBBA4;
+  display:flex;align-items:center;justify-content:center;
+}
+.page-reset svg{width:13px;height:13px;fill:#fff;stroke:none}
 .page-reset:hover{transform:translateY(-2px) rotate(-90deg)}
 
 /* ===== DECORATIVE 3D MAP TOGGLE — start. Self-contained visual/CSS for
@@ -772,6 +796,7 @@ footer.foot a{color:var(--teal-light)}
     <!-- ===== MAP TOOLBAR — all four map-view controls in one horizontal
          row, top-right of the map section. ===== -->
     <div class="map-toolbar">
+    <div class="toolbar-items" id="toolbarItems">
       <!-- ===== DECORATIVE 3D MAP TOGGLE — start. This whole feature (this
            button, the .decorative-map-view below, its CSS block, and its
            JS block) is self-contained and additive to the interactive map
@@ -816,10 +841,16 @@ footer.foot a{color:var(--teal-light)}
         </svg>
       </button>
       <button id="pageReset" class="page-reset" title="Reset to nationwide view" aria-label="Reset">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M23 4v6h-6"/>
-          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-        </svg>
+        <span class="reset-badge">
+          <svg viewBox="0 0 24 24" fill="#fff">
+            <path d="M18.5 13a6.5 6.5 0 0 1-11.2 4.5l-1.1 1.1v-3.9h3.9l-1.5 1.5A4.5 4.5 0 0 0 16.4 13h2.1z"/>
+            <path d="M5.5 11a6.5 6.5 0 0 1 11.2-4.5l1.1-1.1v3.9h-3.9l1.5-1.5A4.5 4.5 0 0 0 7.6 11H5.5z"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+      <button id="toolbarTrigger" class="toolbar-trigger" title="Show map controls" aria-label="Show map controls" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
       </button>
     </div>
 
@@ -1021,6 +1052,15 @@ async function loadAllData(){
 // data first, then runs exactly the same map/UI setup as before.
 async function main(){
 await loadAllData();
+
+// ---- Collapsible toolbar trigger ----
+const toolbarEl = document.querySelector('.map-toolbar');
+const toolbarTriggerBtn = document.getElementById('toolbarTrigger');
+toolbarTriggerBtn.addEventListener('click', ()=>{
+  const nowOpen = toolbarEl.classList.toggle('open');
+  toolbarTriggerBtn.setAttribute('aria-expanded', String(nowOpen));
+  toolbarTriggerBtn.title = nowOpen ? 'Hide map controls' : 'Show map controls';
+});
 
 // ---- Light / Dark theme toggle (default: dark) ----
 const THEME_KEY = 'themePreference';
