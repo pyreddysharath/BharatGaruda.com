@@ -443,48 +443,16 @@ footer.foot a{color:var(--teal-light)}
 .footer-icon{
   display:flex;align-items:center;justify-content:center;
   text-decoration:none;cursor:pointer;
-  transition:transform .15s ease;
   flex:none;
   padding:2px;
 }
-.footer-icon .icon-glyph{font-size:1.3rem;line-height:1;display:block}
-.footer-icon:hover{transform:translateY(-2px)}
-.footer-icon.active .icon-glyph{filter:drop-shadow(0 0 4px var(--seal))}
-
-/* Approximate flag-colour tinting on the emoji glyphs themselves.
-   CSS filters can only shift an emoji's existing native colours —
-   they can't repaint it to an exact hex value the way a plain SVG
-   can, so these are a best-effort push toward saffron / white /
-   green / navy, not a guaranteed precise match. */
-.icon-info .icon-glyph{filter:hue-rotate(-25deg) saturate(1.3)}
-.icon-feedback .icon-glyph{filter:saturate(.15) brightness(1.15)}
-.icon-privacy .icon-glyph{filter:saturate(4) hue-rotate(80deg) brightness(.95)}
-.icon-cookies .icon-glyph{filter:hue-rotate(180deg) saturate(1.5) brightness(.85)}
-.icon-othersites .icon-svg{width:1.2rem;height:1.2rem;display:block;color:#2f7fd6}
-/* Active state needs the color filter AND the glow combined in one
-   declaration — filter doesn't merge across separate rules, so a
-   second plain "filter:drop-shadow(...)" rule would silently wipe
-   out the tint above instead of adding to it. */
-.icon-info.active .icon-glyph{filter:hue-rotate(-25deg) saturate(1.3) drop-shadow(0 0 4px var(--seal))}
-.icon-feedback.active .icon-glyph{filter:saturate(.15) brightness(1.15) drop-shadow(0 0 4px var(--seal))}
-.icon-privacy.active .icon-glyph{filter:saturate(4) hue-rotate(80deg) brightness(.95) drop-shadow(0 0 4px var(--seal))}
-.icon-cookies.active .icon-glyph{filter:hue-rotate(180deg) saturate(1.5) brightness(.85) drop-shadow(0 0 4px var(--seal))}
-.icon-othersites.active .icon-svg{filter:drop-shadow(0 0 4px var(--seal))}
-
-/* Animated icons — animating the emoji glyph as a single unit renders
-   reliably everywhere. */
-@keyframes iconPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.22)}}
-.icon-info .icon-glyph{animation:iconPulse 1.6s ease-in-out infinite}
-
-@keyframes iconBounce{0%,100%{transform:translateY(0)}25%{transform:translateY(-3px)}50%{transform:translateY(0)}75%{transform:translateY(-1.5px)}}
-.icon-feedback .icon-glyph{animation:iconBounce 1.8s ease-in-out infinite}
-
-@keyframes iconSwing{0%,100%{transform:rotate(0deg)}20%{transform:rotate(-18deg)}40%{transform:rotate(6deg)}60%{transform:rotate(0deg)}}
-.icon-privacy .icon-glyph{animation:iconSwing 3s ease-in-out infinite;transform-origin:50% 85%}
-
-@keyframes iconWobble{0%,100%{transform:rotate(0deg) scale(1)}25%{transform:rotate(-8deg) scale(1.05)}75%{transform:rotate(8deg) scale(1.05)}}
-.icon-cookies .icon-glyph{animation:iconWobble 2.4s ease-in-out infinite}
-.icon-othersites .icon-svg{animation:iconBounce 1.8s ease-in-out infinite}
+/* Disclaimer/feedback/privacy/cookies icons — one flat grey, the same in
+   both light and dark mode, and stay that colour when selected/active
+   (no colour or glow change, no hover-lift "float"). */
+.footer-icon .footer-icon-svg{width:1.2rem;height:1.2rem;display:block;color:#8A8A8A}
+/* "Our Other Sites" icon — same colour as the search box border when
+   clicked/focused, so it stands out as the entry point to other apps. */
+.icon-othersites .icon-svg{width:1.2rem;height:1.2rem;display:block;color:#43A7C0}
 
 .info-panel-body p{margin:0 0 12px}
 .info-panel-body p:last-child{margin-bottom:0}
@@ -494,7 +462,7 @@ footer.foot a{color:var(--teal-light)}
 /* ---------- Our Other Sites ---------- */
 .other-sites-heading{
   font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:700;
-  letter-spacing:.04em;text-transform:uppercase;color:var(--seal);
+  letter-spacing:.04em;text-transform:uppercase;color:#8A8A8A;
   margin:0 0 8px;
 }
 .other-sites-intro{
@@ -506,7 +474,7 @@ footer.foot a{color:var(--teal-light)}
 .other-sites-row{display:flex;align-items:center;gap:8px;margin-bottom:4px}
 .other-sites-open{
   font-family:'IBM Plex Mono',monospace;font-size:12.5px;font-weight:700;
-  letter-spacing:.02em;color:var(--seal);text-decoration:none;
+  letter-spacing:.02em;color:#8A8A8A;text-decoration:none;
   transition:color .2s ease;
 }
 .other-sites-open:hover{text-decoration:underline}
@@ -539,7 +507,7 @@ footer.foot a{color:var(--teal-light)}
   padding:10px 12px;color:var(--ink);outline:none;resize:vertical;
 }
 .feedback-form input:focus,
-.feedback-form textarea:focus{border-color:var(--seal)}
+.feedback-form textarea:focus{border-color:#43A7C0}
 .feedback-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .feedback-actions .fb-btn{
   font-family:'Inter',sans-serif;font-size:.82rem;font-weight:600;
@@ -552,7 +520,7 @@ footer.foot a{color:var(--teal-light)}
 .feedback-status{font-size:.8rem;color:var(--muted)}
 .feedback-status.ok{color:#2FA83F}
 .feedback-confirm{
-  font-family:'Spectral',serif;font-size:1.15rem;color:#696868;
+  font-family:'Spectral',serif;font-size:1.15rem;color:#43A7C0;
   margin:0;padding:18px 0;text-align:center;
   animation:pathIn .4s ease forwards;
 }
@@ -608,7 +576,6 @@ footer.foot a{color:var(--teal-light)}
   width:22px;height:22px;border-radius:50%;
   background:#000;color:#fff;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 2px 6px rgba(0,0,0,.25);
   transition:background .3s ease, color .3s ease;
 }
 /* Reversed in night mode: white circle, black chevron. */
@@ -949,23 +916,39 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
     <span class="footer-copyright">© <span id="footerYear"></span> BharatGaruda.com</span>
     <div class="footer-icons-row">
       <a href="#" id="disclaimerLink" class="footer-icon icon-info" title="Disclaimer" aria-label="Disclaimer" aria-expanded="false">
-        <span class="icon-glyph">⚠️</span>
+        <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2 1 21h22L12 2Z"/>
+          <path d="M12 9v5"/>
+          <circle cx="12" cy="17.5" r="0.9" fill="currentColor" stroke="none"/>
+        </svg>
       </a>
       <a href="#" id="feedbackLink" class="footer-icon icon-feedback" title="Feedback" aria-label="Feedback" aria-expanded="false">
-        <span class="icon-glyph">💬</span>
+        <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        </svg>
       </a>
       <a href="#" id="privacyLink" class="footer-icon icon-privacy" title="Privacy Policy" aria-label="Privacy Policy" aria-expanded="false">
-        <span class="icon-glyph">🔒</span>
+        <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/>
+          <path d="M9.5 12l1.8 1.8L15 10"/>
+        </svg>
       </a>
       <a href="#" id="cookiesLink" class="footer-icon icon-cookies" title="Cookies" aria-label="Cookies" aria-expanded="false">
-        <span class="icon-glyph">🍪</span>
+        <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2a1 1 0 0 1 .96 1.28A2 2 0 0 0 15.5 6a2 2 0 0 0 2-2 1 1 0 0 1 1.6-.8A10 10 0 1 1 12 2z"/>
+          <circle cx="8.5" cy="10.5" r="1" fill="currentColor" stroke="none"/>
+          <circle cx="12" cy="15.5" r="1" fill="currentColor" stroke="none"/>
+          <circle cx="16" cy="11.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
       </a>
       <!-- ===== OTHER APPS — start. Single entry point that opens the
            "Our Other Apps" panel below — delete this block, its CSS
            rule and its JS block to remove. ===== -->
       <a href="#" id="otherSitesLink" class="footer-icon icon-othersites" title="Check out our other apps" aria-label="Check out our other apps" aria-expanded="false">
-        <svg class="icon-svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M19 19H5V5h7V3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"></path>
+        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h6"/>
+          <polyline points="15 3 21 3 21 9"/>
+          <line x1="10" y1="14" x2="21" y2="3"/>
         </svg>
       </a>
       <!-- ===== OTHER APPS — end ===== -->
