@@ -625,27 +625,31 @@ footer.foot a{color:var(--teal-light)}
   position:absolute;inset:0;
   perspective:1400px;
 }
-/* The artwork is cropped tight to the illustrated India shape itself
-   (its surrounding wooden board/frame has been removed from the image),
-   so it's shown plain — no box, border or shadow of our own. It fills
-   the exact same stage box as the real map (see .map-stage) so toggling
-   between the two views never shifts the page's size or position; since
-   the artwork's own proportions aren't identical to the real map's, it's
-   stretched slightly to match rather than letterboxed, keeping the two
-   views pixel-for-pixel the same size/position at all times.
-   It also carries the exact same rotateX/perspective tilt as svg#india
-   (see .map-shell above) — without this, toggling between the two views
-   swapped a tilted 3D "card" for a perfectly flat rectangle, which read
-   as a visible jump in shape/size even though the outer box never moved.
-   Giving both views an identical tilt makes the swap a plain crossfade
-   of content on the same plane instead. */
-.decorative-map-view img{
-  width:100%;height:100%;object-fit:fill;display:block;
+/* The artwork's own PNG canvas has a plain margin baked in around the
+   illustrated landmass on every side (roughly 6-7% top/bottom/left/
+   right — measured directly from the source file's actual painted
+   pixels), left over from the frame that was cropped out of the image.
+   Stretching the raw file to fill the stage (as before) stretched that
+   empty margin too, so the illustrated landmass rendered visibly
+   smaller/inset than the real map's, which is drawn edge-to-edge in
+   its own viewBox. .decorative-map-crop clips a wrapper to the stage
+   box and carries the shared rotateX/perspective tilt (see svg#india);
+   the <img> inside it is oversized and shifted by exactly the measured
+   margin fractions so the painted landmass itself — not the PNG canvas
+   — fills the box edge-to-edge, matching the real map's own coverage. */
+.decorative-map-crop{
+  position:absolute;inset:0;overflow:hidden;
   transform:rotateX(16deg) rotateZ(0deg);
   transform-origin:center bottom;
   transform-style:preserve-3d;
   filter:drop-shadow(0 20px 24px rgba(0,0,0,.7));
   transition:transform .5s cubic-bezier(.2,.8,.3,1);
+}
+.decorative-map-view img{
+  position:absolute;
+  left:-7.56%;top:-5.96%;
+  width:115.47%;height:114.08%;
+  object-fit:fill;display:block;
 }
 .decorative-overlay-svg{
   position:absolute;inset:0;width:100%;height:100%;
@@ -666,8 +670,7 @@ footer.foot a{color:var(--teal-light)}
    faint tint used for a plain hover, so a selection reads just as
    clearly here as it does on the real map. */
 .decorative-overlay-svg path.active{
-  fill:var(--state-fill, rgba(255,196,61,.4));
-  fill-opacity:.62;
+  fill:rgba(255,196,61,.4);
   stroke:var(--map-stroke-active);
   stroke-width:3;
   filter:drop-shadow(0 0 8px rgba(181,101,29,.85));
@@ -777,7 +780,9 @@ footer.foot a{color:var(--teal-light)}
          image purely so each state area is clickable/hoverable — the
          image itself is never modified. -->
     <div class="decorative-map-view" id="decorativeMapView">
-      <img src="images/decorative-3d-map.png?v=5" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
+      <div class="decorative-map-crop">
+        <img src="images/decorative-3d-map.png?v=6" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
+      </div>
       <svg id="decorativeOverlay" class="decorative-overlay-svg" viewBox="0 0 1000 1136" preserveAspectRatio="none" aria-hidden="true"></svg>
     </div>
     </div>
@@ -1237,13 +1242,6 @@ if(decorativeOverlaySvg){
     p.setAttribute('data-id', id);
     p.setAttribute('tabindex', '0');
     p.setAttribute('aria-label', s.name);
-    // Selecting a state here highlights it using that same state's own
-    // fill colour from the real map (its "flag band" — saffron/white/
-    // green) instead of one fixed highlight colour for every state, so
-    // the two views read as the same map. Read via a CSS custom
-    // property so the .active rule below can fall back gracefully if
-    // it's ever missing.
-    if(s.mapColor) p.style.setProperty('--state-fill', s.mapColor);
     decorativeOverlaySvg.appendChild(p);
     decorativeOverlayPathById[id] = p;
     bindStateInteractions(p, id, s);
