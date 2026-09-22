@@ -596,17 +596,26 @@ footer.foot a{color:var(--teal-light)}
    tapping it reveals the four view-control buttons sliding out to its
    left, tapping again collapses them back down to just the trigger. */
 .toolbar-trigger{
-  width:32px;height:32px;flex:none;padding:0;
-  border:none;border-radius:50%;background:#000;color:#fff;
+  width:24px;height:32px;flex:none;padding:0;
+  border:none;background:transparent;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:transform .2s ease;
+}
+/* The visible circle is sized to exactly match the other icons'
+   footprint (22px, same as the refresh badge / map / pin icons) —
+   the button itself stays 32px tall only as the click target. */
+.toolbar-trigger .trigger-badge{
+  width:22px;height:22px;border-radius:50%;
+  background:#000;color:#fff;
+  display:flex;align-items:center;justify-content:center;
   box-shadow:0 2px 6px rgba(0,0,0,.25);
-  transition:transform .2s ease, background .3s ease, color .3s ease;
+  transition:background .3s ease, color .3s ease;
 }
 /* Reversed in night mode: white circle, black chevron. */
-html:not([data-theme="light"]) .toolbar-trigger{background:#fff;color:#000}
-.toolbar-trigger svg{width:22px;height:22px;transition:transform .3s ease}
+html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;color:#000}
+.toolbar-trigger svg{width:13px;height:13px;transition:transform .3s ease}
 .map-toolbar.open .toolbar-trigger svg{transform:rotate(180deg)}
-.toolbar-trigger:hover{transform:scale(1.06)}
+.toolbar-trigger:hover .trigger-badge{transform:scale(1.06)}
 .toolbar-items{
   display:flex;align-items:center;gap:0;
   max-width:0;overflow:hidden;
@@ -657,7 +666,7 @@ html:not([data-theme="light"]) .toolbar-trigger{background:#fff;color:#000}
 .theme-toggle:hover .theme-switch-thumb{transform:scale(1.05)}
 
 .toggle-labels-btn{
-  width:32px;height:32px;
+  width:24px;height:32px;
   border:none;background:transparent;color:#2F7FD6;
   cursor:pointer;padding:0;
   display:flex;align-items:center;justify-content:center;
@@ -672,7 +681,7 @@ html:not([data-theme="light"]) .toolbar-trigger{background:#fff;color:#000}
 .toggle-labels-btn[aria-pressed="false"]{color:#757575}
 
 .page-reset{
-  width:32px;height:32px;
+  width:24px;height:32px;
   border:none;background:transparent;
   cursor:pointer;padding:0;
   display:flex;align-items:center;justify-content:center;
@@ -694,7 +703,7 @@ html:not([data-theme="light"]) .toolbar-trigger{background:#fff;color:#000}
    showing) is shown with a highlighted color/background instead of a
    separate switch control. ===== */
 .decorative-map-toggle{
-  width:32px;height:32px;
+  width:24px;height:32px;
   border:none;background:transparent;color:#757575;border-radius:8px;
   cursor:pointer;padding:0;position:relative;
   display:flex;align-items:center;justify-content:center;
@@ -852,7 +861,9 @@ html:not([data-theme="light"]) .toolbar-trigger{background:#fff;color:#000}
       </button>
     </div>
       <button id="toolbarTrigger" class="toolbar-trigger" title="Show map controls" aria-label="Show map controls" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3l-9 9 9 9"/></svg>
+        <span class="trigger-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6"/></svg>
+        </span>
       </button>
     </div>
 
