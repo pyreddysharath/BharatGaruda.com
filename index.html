@@ -120,27 +120,43 @@ body{
   aspect-ratio:1000 / 1136;
 }
 .map-shell{
-  position:absolute;inset:0;overflow:hidden;
+  position:absolute;inset:0;
   perspective:1400px;
 }
-/* The illustrated map is the default ("first") view now, and the real
-   map below is the one reached via the toggle ("second") — the reverse
-   of their original build order. A very slight height shortfall was
-   measured on THIS (real) map relative to the illustrated one once
-   that swap is accounted for, so the small vertical nudge that was
-   previously (mistakenly) applied to the illustrated view's own image
-   has been undone there and applied here instead: height is bumped a
-   touch past 100% and anchored to the bottom (matching the tilt's own
-   transform-origin), with .map-shell's new overflow:hidden clipping
-   the harmless sliver that spills past the top. */
-svg#india{
-  position:absolute;left:0;bottom:0;
-  width:100%;height:101%;display:block;
+/* The real map's own path data leaves the mainland peninsula's tip
+   (Kanyakumari) ending well short of the 1000x1136 viewBox's bottom
+   edge — the Andaman & Nicobar inset is what actually reaches down
+   there, sitting lower-right of the mainland as its own separate
+   island group, which is normal map convention but meant the plain
+   preserveAspectRatio="none" fill (mapping the WHOLE viewBox, islands
+   included, to the box) left a visible band of flat white below the
+   mainland silhouette that the illustrated view doesn't have (that
+   view was deliberately cropped/zoomed to its own mainland-only
+   bounding box a few rounds back — see .decorative-map-view img).
+   Applying that identical technique here — crop-to-fill using the
+   mainland-only bounding box (measured directly from the live paths,
+   excluding the Andaman/Lakshadweep groups) — closes that gap so the
+   mainland itself fills the box edge-to-edge like the illustrated
+   view's does. The trade-off, same as on the illustrated view, is that
+   a sliver of the Andaman chain's own southern tip now falls slightly
+   past the box and is clipped away.
+   .map-shell-tilt is a plain 100%-of-box wrapper carrying the tilt/
+   perspective transform and the clip — kept separate from svg#india's
+   own (larger, shifted) box so the tilt's transform-origin still
+   pivots at the real box's own center-bottom, not the enlarged one's;
+   putting the crop sizing and the tilt on the same element would have
+   dragged that pivot point down and outside the visible box. */
+.map-shell-tilt{
+  position:absolute;inset:0;overflow:hidden;
   transform:rotateX(16deg) rotateZ(0deg);
   transform-origin:center bottom;
   transform-style:preserve-3d;
   filter:drop-shadow(0 20px 24px rgba(0,0,0,.7));
   transition:transform .5s cubic-bezier(.2,.8,.3,1);
+}
+svg#india{
+  position:absolute;left:-0.1%;top:-0.09%;
+  width:100.2%;height:104.4%;display:block;
 }
 svg#india path{
   stroke:#E0E0E0;
@@ -770,6 +786,7 @@ footer.foot a{color:var(--teal-light)}
 
     <div class="map-stage">
     <div class="map-shell" hidden>
+     <div class="map-shell-tilt">
       <svg id="india" class="labels-hidden" viewBox="0 0 1000 1136" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of India">
         <defs>
           <symbol id="ic-dome" viewBox="0 0 48 48"><path d="M12 38h24M16 38V26a8 8 0 0 1 16 0v12M20 26a4 4 0 0 1 8 0M24 10v6M20 10h8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -792,6 +809,7 @@ footer.foot a{color:var(--teal-light)}
           <symbol id="ic-tree" viewBox="0 0 48 48"><path d="M24 44V30M24 12l-8 11h5l-6 8h9M24 12l8 11h-5l6 8h-9" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
         </defs>
       </svg>
+     </div>
     </div>
 
     <!-- ===== DECORATIVE 3D MAP TOGGLE — view markup. Shown by default
