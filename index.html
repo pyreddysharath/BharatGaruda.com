@@ -594,21 +594,22 @@ footer.foot a{color:var(--teal-light)}
 }
 .theme-toggle{
   width:32px;height:32px;
-  border:none;background:transparent;color:#FF9933;
+  border:none;background:transparent;color:#8AB4F8;
   cursor:pointer;padding:0;
   display:flex;align-items:center;justify-content:center;
   transition:transform .2s ease, color .2s ease;
 }
 .theme-toggle svg{width:22px;height:22px;stroke:currentColor}
 .theme-toggle:hover{transform:translateY(-2px) rotate(12deg)}
-/* Sun in light mode, crescent moon in dark mode — previously both
-   modes showed the same fixed sun glyph, with only the invisible
-   title-tooltip text ("Switch to dark/light mode") changing, so the
-   icon itself never signalled which mode was active. */
-.theme-toggle .icon-moon{display:none}
-.theme-toggle[data-mode="dark"]{color:#8AB4F8}
-.theme-toggle[data-mode="dark"] .icon-sun{display:none}
-.theme-toggle[data-mode="dark"] .icon-moon{display:block}
+/* Reversed from a plain "current mode" reading to a "preview what
+   pressing switches you to" reading, matching the other toolbar
+   toggles (e.g. the illustrated-map button): light mode shows the
+   moon (press to go dark), dark mode shows the sun (press to go
+   light) — rather than each mode showing its own icon. */
+.theme-toggle .icon-sun{display:none}
+.theme-toggle[data-mode="dark"]{color:#FF9933}
+.theme-toggle[data-mode="dark"] .icon-moon{display:none}
+.theme-toggle[data-mode="dark"] .icon-sun{display:block}
 
 .toggle-labels-btn{
   width:32px;height:32px;
