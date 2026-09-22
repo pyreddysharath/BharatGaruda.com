@@ -1,0 +1,136 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Rajasthan Government Departments",
+        "url": "https://igod.gov.in/sg/RJ/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Rajasthan/icons/all-rajasthan-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Rajasthan Government Portal",
+        "url": "https://rajasthan.gov.in/",
+        "desc": "State departments, schemes and e-services.",
+        "image": "entities/Rajasthan/icons/rajasthan-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Rajasthan Police",
+        "url": "https://police.rajasthan.gov.in/",
+        "desc": "Citizen services and emergency contacts.",
+        "image": "entities/Rajasthan/icons/rajasthan-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Rajasthan Tourism",
+        "url": "https://www.tourism.rajasthan.gov.in/",
+        "desc": "Desert forts, palaces and heritage travel information.",
+        "image": "entities/Rajasthan/icons/rajasthan-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Agriculture Department Rajasthan",
+        "url": "https://agriculture.rajasthan.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Rajasthan/icons/agriculture-department-rajasthan.svg"
+      }
+    ],
+    "Anti-Corruption": [
+      {
+        "title": "Anti-Corruption Bureau, Rajasthan",
+        "url": "https://acbrajasthan.gov.in/",
+        "desc": "File or track complaints about corruption or bribery involving state government officials.",
+        "image": "entities/Rajasthan/icons/anti-corruption-bureau-rajasthan.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "Board of Secondary Education, Rajasthan (RBSE)",
+        "url": "http://rajeduboard.nic.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Rajasthan/icons/board-of-secondary-education-rajasthan-rbse.svg"
+      },
+      {
+        "title": "IIT Jodhpur",
+        "url": "https://www.iitj.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Rajasthan/icons/iit-jodhpur.svg"
+      },
+      {
+        "title": "MNIT Jaipur",
+        "url": "http://www.mnit.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Rajasthan/icons/mnit-jaipur.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "AVVNL",
+        "url": "https://www.avvnl.co.in/",
+        "desc": "Ajmer Vidyut Vitran Nigam bill payment and services.",
+        "image": "entities/Rajasthan/icons/avvnl.svg"
+      },
+      {
+        "title": "JDVVNL",
+        "url": "https://www.jdvvnl.org/",
+        "desc": "Jodhpur Vidyut Vitran Nigam bill payment and services.",
+        "image": "entities/Rajasthan/icons/jdvvnl.svg"
+      },
+      {
+        "title": "JVVNL",
+        "url": "https://www.jvvnl.org/",
+        "desc": "Jaipur Vidyut Vitran Nigam bill payment and services.",
+        "image": "entities/Rajasthan/icons/jvvnl.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "RPSC – Rajasthan Public Service Commission",
+        "url": "https://rpsc.rajasthan.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Rajasthan Public Service Commission (RPSC)",
+        "image": "entities/Rajasthan/icons/rpsc-rajasthan-public-service-commission.svg"
+      }
+    ],
+    "Property Tax & Municipality": [
+      {
+        "title": "Local Self Government Rajasthan",
+        "url": "https://lsg.urban.rajasthan.gov.in/",
+        "desc": "Urban development and municipal services department.",
+        "image": "entities/Rajasthan/icons/local-self-government-rajasthan.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "RAJRERA – Rajasthan RERA",
+        "url": "https://rera.rajasthan.gov.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "abbrFull": "Rajasthan RERA (RAJRERA)",
+        "image": "entities/Rajasthan/icons/rajrera-rajasthan-rera.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "e-Mitra Rajasthan",
+        "url": "https://emitra.rajasthan.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Rajasthan/icons/e-mitra-rajasthan.svg"
+      }
+    ],
+    "Toll-Free Numbers": [
+      {
+        "title": "Rajasthan Sampark (181)",
+        "url": "https://sampark.rajasthan.gov.in/",
+        "desc": "State-specific toll-free grievance redressal helpline and portal covering all Rajasthan government departments.",
+        "image": "entities/Rajasthan/icons/rajasthan-sampark-181.svg"
+      }
+    ]
+  }
+}

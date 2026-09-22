@@ -1,0 +1,142 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Madhya Pradesh Government Departments",
+        "url": "https://igod.gov.in/sg/MP/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Madhya Pradesh/icons/all-madhya-pradesh-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Madhya Pradesh Government Portal",
+        "url": "https://www.mp.gov.in/",
+        "desc": "State departments, schemes and e-services.",
+        "image": "entities/Madhya Pradesh/icons/madhya-pradesh-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Madhya Pradesh Police",
+        "url": "https://www.mppolice.gov.in/",
+        "desc": "Citizen services and emergency contacts.",
+        "image": "entities/Madhya Pradesh/icons/madhya-pradesh-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "MP Tourism",
+        "url": "https://www.mptourism.com/",
+        "desc": "Tiger reserves, temples and heritage-fort travel guides.",
+        "image": "entities/Madhya Pradesh/icons/mp-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "MP Krishi (Agriculture Dept.)",
+        "url": "https://mpkrishi.mp.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Madhya Pradesh/icons/mp-krishi-agriculture-dept.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "ABV-IIITM Gwalior",
+        "url": "https://www.iiitm.ac.in/",
+        "desc": "Centrally-funded Indian Institute of Information Technology (Institute of National Importance).",
+        "image": "entities/Madhya Pradesh/icons/abv-iiitm-gwalior.svg"
+      },
+      {
+        "title": "IIITDM Jabalpur",
+        "url": "https://www.iiitdmj.ac.in/",
+        "desc": "Centrally-funded Indian Institute of Information Technology (Institute of National Importance).",
+        "image": "entities/Madhya Pradesh/icons/iiitdm-jabalpur.svg"
+      },
+      {
+        "title": "IIT Indore",
+        "url": "https://www.iiti.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Madhya Pradesh/icons/iit-indore.svg"
+      },
+      {
+        "title": "MANIT Bhopal",
+        "url": "http://www.manit.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Madhya Pradesh/icons/manit-bhopal.svg"
+      },
+      {
+        "title": "MP Board of Secondary Education (MPBSE)",
+        "url": "http://mpbse.nic.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Madhya Pradesh/icons/mp-board-of-secondary-education-mpbse.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "MP Power Distribution",
+        "url": "https://www.mpelectricity.in/",
+        "desc": "Madhya Pradesh electricity distribution companies portal.",
+        "image": "entities/Madhya Pradesh/icons/mp-power-distribution.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "MPPSC – Madhya Pradesh Public Service Commission",
+        "url": "https://mppsc.mp.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Madhya Pradesh Public Service Commission (MPPSC)",
+        "image": "entities/Madhya Pradesh/icons/mppsc-madhya-pradesh-public-service-commission.svg"
+      }
+    ],
+    "Property Tax & Municipality": [
+      {
+        "title": "MP Urban Development",
+        "url": "https://udhd.mp.gov.in/",
+        "desc": "Urban development and municipal services department.",
+        "image": "entities/Madhya Pradesh/icons/mp-urban-development.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "MP Stamp & Registration",
+        "url": "https://mpigr.gov.in/",
+        "desc": "Property registration and stamp duty services.",
+        "image": "entities/Madhya Pradesh/icons/mp-stamp-and-registration.svg"
+      },
+      {
+        "title": "RERA Madhya Pradesh",
+        "url": "https://rera.mp.gov.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "abbrFull": "Real Estate Regulatory Authority (RERA)",
+        "image": "entities/Madhya Pradesh/icons/rera-madhya-pradesh.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "MP e-District (MP Online)",
+        "url": "https://edistrict.mponline.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Madhya Pradesh/icons/mp-e-district-mp-online.svg"
+      }
+    ],
+    "Toll-Free Numbers": [
+      {
+        "title": "MP CM Helpline (181)",
+        "url": "https://cmhelpline.mp.gov.in/",
+        "desc": "State-specific toll-free helpline for citizen complaints and information on government schemes.",
+        "image": "entities/Madhya Pradesh/icons/mp-cm-helpline-181.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "MP Police – e-Challan Payment",
+        "url": "https://echallan.mponline.gov.in/",
+        "desc": "Check challan status by vehicle number and pay traffic fines issued by Madhya Pradesh Police.",
+        "image": "entities/Madhya Pradesh/icons/mp-police-e-challan-payment.svg"
+      }
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Karnataka Government Departments",
+        "url": "https://igod.gov.in/sg/KA/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Karnataka/icons/all-karnataka-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Karnataka Government Portal",
+        "url": "https://www.karnataka.gov.in/",
+        "desc": "State departments, schemes and e-services.",
+        "image": "entities/Karnataka/icons/karnataka-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Karnataka State Police",
+        "url": "https://ksp.karnataka.gov.in/",
+        "desc": "Citizen services and emergency contacts.",
+        "image": "entities/Karnataka/icons/karnataka-state-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Karnataka Tourism",
+        "url": "https://www.karnatakatourism.org/",
+        "desc": "Hampi, coffee hills and coastal travel information.",
+        "image": "entities/Karnataka/icons/karnataka-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Raitha Mitra (Agriculture Dept.)",
+        "url": "https://raitamitra.karnataka.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Karnataka/icons/raitha-mitra-agriculture-dept.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "IIT Dharwad",
+        "url": "https://www.iitdh.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Karnataka/icons/iit-dharwad.svg"
+      },
+      {
+        "title": "Karnataka School Examination & Assessment Board",
+        "url": "http://kseab.karnataka.gov.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Karnataka/icons/karnataka-school-examination-and-assessment-board.svg"
+      },
+      {
+        "title": "NIT Karnataka, Surathkal",
+        "url": "http://www.nitk.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Karnataka/icons/nit-karnataka-surathkal.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "BESCOM",
+        "url": "https://bescom.karnataka.gov.in/",
+        "desc": "Bangalore Electricity Supply Company services.",
+        "image": "entities/Karnataka/icons/bescom.svg"
+      },
+      {
+        "title": "GESCOM",
+        "url": "https://gescom.karnataka.gov.in/",
+        "desc": "Gulbarga Electricity Supply Company services.",
+        "image": "entities/Karnataka/icons/gescom.svg"
+      },
+      {
+        "title": "HESCOM",
+        "url": "https://www.hescom.karnataka.gov.in/",
+        "desc": "Hubli Electricity Supply Company services.",
+        "image": "entities/Karnataka/icons/hescom.svg"
+      },
+      {
+        "title": "MESCOM",
+        "url": "https://www.mescom.karnataka.gov.in/",
+        "desc": "Mangalore Electricity Supply Company services.",
+        "image": "entities/Karnataka/icons/mescom.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "KPSC – Karnataka Public Service Commission",
+        "url": "https://kpsc.karnataka.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Karnataka Public Service Commission (KPSC)",
+        "image": "entities/Karnataka/icons/kpsc-karnataka-public-service-commission.svg"
+      }
+    ],
+    "Property Tax & Municipality": [
+      {
+        "title": "BBMP Property Tax",
+        "url": "https://bbmptax.karnataka.gov.in/",
+        "desc": "Bengaluru municipal property tax services.",
+        "abbrFull": "Bruhat Bengaluru Mahanagara Palike (BBMP)",
+        "image": "entities/Karnataka/icons/bbmp-property-tax.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "K-RERA – Karnataka RERA",
+        "url": "https://rera.karnataka.gov.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "abbrFull": "Karnataka RERA (K-RERA)",
+        "image": "entities/Karnataka/icons/k-rera-karnataka-rera.svg"
+      },
+      {
+        "title": "Kaveri Online Services",
+        "url": "https://kaveri.karnataka.gov.in/",
+        "desc": "Property registration and stamp duty services.",
+        "image": "entities/Karnataka/icons/kaveri-online-services.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "Nadakacheri Karnataka",
+        "url": "https://nadakacheri.karnataka.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Karnataka/icons/nadakacheri-karnataka.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "Bengaluru Traffic Police – e-Challan",
+        "url": "https://btp.karnataka.gov.in/212/e-challan-system/en",
+        "desc": "Check and pay traffic challans issued by Bengaluru City Traffic Police.",
+        "image": "entities/Karnataka/icons/bengaluru-traffic-police-e-challan.svg"
+      }
+    ]
+  }
+}

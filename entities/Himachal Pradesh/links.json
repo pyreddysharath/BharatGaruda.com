@@ -1,0 +1,100 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Himachal Pradesh Government Departments",
+        "url": "https://igod.gov.in/sg/HP/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Himachal Pradesh/icons/all-himachal-pradesh-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Himachal Pradesh Government Portal",
+        "url": "https://himachal.nic.in/",
+        "desc": "State departments and citizen e-services.",
+        "image": "entities/Himachal Pradesh/icons/himachal-pradesh-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Himachal Pradesh Police",
+        "url": "https://citizen.hppolice.gov.in/",
+        "desc": "Citizen services and emergency contacts.",
+        "image": "entities/Himachal Pradesh/icons/himachal-pradesh-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "HPTDC Tourism",
+        "url": "https://hptdc.in/",
+        "desc": "Hill-station stays and Himalayan trekking information.",
+        "abbrFull": "Himachal Pradesh Tourism Development Corporation (HPTDC)",
+        "image": "entities/Himachal Pradesh/icons/hptdc-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Department of Agriculture, HP",
+        "url": "https://hpagriculture.com/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Himachal Pradesh/icons/department-of-agriculture-hp.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "HP Board of School Education (HPBOSE)",
+        "url": "http://www.hpbose.org/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Himachal Pradesh/icons/hp-board-of-school-education-hpbose.svg"
+      },
+      {
+        "title": "IIT Mandi",
+        "url": "https://www.iitmandi.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Himachal Pradesh/icons/iit-mandi.svg"
+      },
+      {
+        "title": "NIT Hamirpur",
+        "url": "http://www.nith.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Himachal Pradesh/icons/nit-hamirpur.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "HPSEBL",
+        "url": "https://hpsebl.in/",
+        "desc": "Himachal Pradesh State Electricity Board services.",
+        "image": "entities/Himachal Pradesh/icons/hpsebl.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "HPPSC – Himachal Pradesh Public Service Commission",
+        "url": "https://hppsc.hp.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Himachal Pradesh Public Service Commission (HPPSC)",
+        "image": "entities/Himachal Pradesh/icons/hppsc-himachal-pradesh-public-service-commission.svg"
+      }
+    ],
+    "Services": [
+      {
+        "title": "e-District Himachal Pradesh",
+        "url": "https://edistrict.hp.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Himachal Pradesh/icons/e-district-himachal-pradesh.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "HP Police Citizen Portal – Traffic Challan",
+        "url": "https://citizenportal.hppolice.gov.in/citizen/login.htm",
+        "desc": "Pay traffic challans and access other citizen services from Himachal Pradesh Police.",
+        "image": "entities/Himachal Pradesh/icons/hp-police-citizen-portal-traffic-challan.svg"
+      }
+    ]
+  }
+}

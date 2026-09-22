@@ -1,0 +1,32 @@
+{
+  "name": "Chandigarh",
+  "capital": "Chandigarh",
+  "region": "Northern India (Union Territory)",
+  "geography": "A planned modernist city designed by Le Corbusier, serving as the joint capital of Punjab and Haryana.",
+  "famous": [
+    "Le Corbusier's modernist architecture",
+    "Rock Garden",
+    "Sukhna Lake",
+    "Capitol Complex"
+  ],
+  "note": null,
+  "color": "#134E5E",
+  "directory": "https://igod.gov.in/sg/CH/categories",
+  "d": "M295.5 264.2l-0.2 0.2-0.3 0.5-0.9-0.4-0.8-0.5-0.3 0.1-0.1-0.3-0.3-0.3 0-0.2-0.3-0.2 0-0.1-0.2-0.8-0.6-0.8-0.1-0.1 1-0.4 0.3-0.3 0.2-0.3 0.1-0.2 0.1-0.1 0.2-0.1 0.2-0.1 0.5 0.1 0.3 0.4-0.1 0 0.3 0.4 0.5-0.5 0.2 0.2 0.1 0.2-0.4 0.4 1.2 0.1-0.1 1.3 0.4 0.7-0.5 0.7-0.4 0.4z",
+  "bbox": [
+    291.4,
+    259.8,
+    5.0,
+    5.1
+  ],
+  "cx": 293.9,
+  "cy": 262.3,
+  "icon": "skyline",
+  "accent": "#5C5C5C",
+  "accentIndex": 0,
+  "climateType": "hot",
+  "mapColor": "#FF9933",
+  "language": "Punjabi",
+  "languageNative": "ਪੰਜਾਬੀ",
+  "stateNameNative": "ਚੰਡੀਗੜ੍ਹ"
+}
