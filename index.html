@@ -597,10 +597,18 @@ footer.foot a{color:var(--teal-light)}
   border:none;background:transparent;color:#FF9933;
   cursor:pointer;padding:0;
   display:flex;align-items:center;justify-content:center;
-  transition:transform .2s ease;
+  transition:transform .2s ease, color .2s ease;
 }
 .theme-toggle svg{width:22px;height:22px;stroke:currentColor}
 .theme-toggle:hover{transform:translateY(-2px) rotate(12deg)}
+/* Sun in light mode, crescent moon in dark mode — previously both
+   modes showed the same fixed sun glyph, with only the invisible
+   title-tooltip text ("Switch to dark/light mode") changing, so the
+   icon itself never signalled which mode was active. */
+.theme-toggle .icon-moon{display:none}
+.theme-toggle[data-mode="dark"]{color:#8AB4F8}
+.theme-toggle[data-mode="dark"] .icon-sun{display:none}
+.theme-toggle[data-mode="dark"] .icon-moon{display:block}
 
 .toggle-labels-btn{
   width:32px;height:32px;
@@ -765,10 +773,13 @@ footer.foot a{color:var(--teal-light)}
         </svg>
       </button>
       <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
-      <button id="themeToggle" class="theme-toggle" title="Switch to light mode" aria-label="Toggle light/dark mode">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <button id="themeToggle" class="theme-toggle" title="Switch to light mode" aria-label="Toggle light/dark mode" data-mode="light">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4.5"/>
           <path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/>
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path d="M20.5 14.6A8.5 8.5 0 1 1 9.4 3.5a.75.75 0 0 1 .9.98A7 7 0 0 0 19.52 13.7a.75.75 0 0 1 .98.9Z"/>
         </svg>
       </button>
       <button id="toggleLabels" class="toggle-labels-btn" title="Show state names" aria-label="Toggle state name labels" aria-pressed="true">
@@ -987,6 +998,7 @@ await loadAllData();
 const THEME_KEY = 'themePreference';
 const themeToggleBtn = document.getElementById('themeToggle');
 function applyTheme(theme){
+  themeToggleBtn.dataset.mode = theme;
   if(theme === 'light'){
     document.documentElement.setAttribute('data-theme', 'light');
     themeToggleBtn.title = 'Switch to dark mode';
