@@ -138,10 +138,19 @@ svg#india path{
   transition:filter .18s ease, transform .18s ease;
   transform-origin:center;
   transform-box:fill-box;
-  opacity:0;
-  animation:pathIn .5s ease forwards;
   filter:drop-shadow(0 2px 2px rgba(0,0,0,.22));
 }
+/* Previously every path had "opacity:0; animation:pathIn" unconditionally,
+   meant to play once as the map's very first entrance. But the real map
+   is shown/hidden purely via the "hidden" attribute (display:none) when
+   the view toggle is used, and a CSS animation restarts from scratch
+   every time its element is re-displayed — so all ~39 states replayed
+   their staggered fade/scale-in every single time you switched back to
+   this view, reading as a splash/blink. Removed entirely so switching
+   to the real map is an instant, plain reveal — matching the illustrated
+   map's own toggle, which has never had an entrance animation either.
+   (The .active rule below is untouched: its stamp animation is a
+   deliberate per-click selection cue, not a view-reveal effect.) */
 svg#india path:hover{
   filter:drop-shadow(0 5px 6px rgba(0,0,0,.25)) brightness(0.94);
   transform:translateY(-7px) scale(1.035);
@@ -1171,7 +1180,6 @@ ids.forEach((id, i) => {
     // states a dark outline so their shape stays visible.
     p.style.stroke = '#333333';
   }
-  p.style.animationDelay = (i * 16) + 'ms';
   svg.appendChild(p);
   pathById[id] = p;
   bindStateInteractions(p, id, s);
