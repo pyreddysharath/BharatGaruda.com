@@ -597,24 +597,28 @@ footer.foot a{color:var(--teal-light)}
 .decorative-map-toggle{
   width:32px;height:32px;
   border:none;background:transparent;color:#757575;border-radius:8px;
-  cursor:pointer;padding:0;
+  cursor:pointer;padding:0;position:relative;
   display:flex;align-items:center;justify-content:center;
   transition:transform .2s ease, color .2s ease, background .2s ease;
 }
 .decorative-map-toggle svg{width:22px;height:22px}
 .decorative-map-toggle:hover{transform:translateY(-2px)}
-/* Default (interactive map showing): the icon reads as a solid warm
-   terracotta, echoing the illustrated 3D relief map's own dominant
-   palette — a preview of what pressing it switches you to. Pressed
-   (illustrated map showing): it switches to the tricolor flag reading
-   instead, echoing the interactive map you'd switch back to. */
-.decorative-map-toggle svg path{
-  fill:#B5651D;stroke:#8A4E17;
+/* The icon previews what pressing the button switches you TO, using an
+   actual likeness of that view rather than an abstract color swatch:
+   showing the interactive map → the icon is a real thumbnail crop of
+   the illustrated 3D relief artwork itself (so it looks like the map
+   you'd switch to); showing the illustrated map → the icon switches to
+   a tiny tricolor flag-map glyph, echoing the interactive map's own
+   saffron/white/green banded fill you'd switch back to. */
+.decorative-map-toggle-thumb{
+  width:22px;height:22px;border-radius:6px;object-fit:cover;
+  object-position:50% 38%;display:block;
+  box-shadow:0 0 0 1px rgba(0,0,0,.3) inset;
 }
+.decorative-map-toggle svg{display:none}
+.decorative-map-toggle[aria-pressed="true"] svg{display:block}
+.decorative-map-toggle[aria-pressed="true"] .decorative-map-toggle-thumb{display:none}
 .decorative-map-toggle{background:rgba(181,101,29,.16)}
-.decorative-map-toggle[aria-pressed="true"] svg path{
-  fill:url(#indiaMapIconFlag);stroke:#8A8A8A;
-}
 .decorative-map-toggle[aria-pressed="true"]{background:transparent}
 
 .decorative-map-view{
@@ -662,7 +666,8 @@ footer.foot a{color:var(--teal-light)}
    faint tint used for a plain hover, so a selection reads just as
    clearly here as it does on the real map. */
 .decorative-overlay-svg path.active{
-  fill:rgba(255,196,61,.4);
+  fill:var(--state-fill, rgba(255,196,61,.4));
+  fill-opacity:.62;
   stroke:var(--map-stroke-active);
   stroke-width:3;
   filter:drop-shadow(0 0 8px rgba(181,101,29,.85));
@@ -696,12 +701,14 @@ footer.foot a{color:var(--teal-light)}
            JS block) is self-contained and additive to the interactive map
            above: none of the existing map/search/state-select code reads
            from or depends on it. Delete all four pieces to remove it. ===== -->
-      <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show illustrated 3D map view" aria-label="Toggle illustrated 3D map view" aria-pressed="false">
+      <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show interactive map" aria-label="Toggle illustrated 3D map view" aria-pressed="true">
+        <img class="decorative-map-toggle-thumb" src="images/decorative-3d-map.png?v=5" alt="" aria-hidden="true">
         <svg viewBox="0 0 24 24" stroke="none">
           <defs>
-            <!-- Default (interactive map showing): the icon reads as a tiny
+            <!-- Showing the illustrated map: the icon reads as a tiny
                  tricolor flag-map — saffron/white/green bands, top to
-                 bottom, echoing the Indian flag. -->
+                 bottom, echoing the Indian flag (and the interactive
+                 map's own banded state fills). -->
             <linearGradient id="indiaMapIconFlag" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stop-color="#FF9933"/>
               <stop offset="33%" stop-color="#FF9933"/>
@@ -736,8 +743,8 @@ footer.foot a{color:var(--teal-light)}
     </div>
 
     <div class="map-stage">
-    <div class="map-shell">
-      <svg id="india" class="labels-hidden" viewBox="0 0 1000 1136" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of India">
+    <div class="map-shell" hidden>
+      <svg id="india" class="labels-hidden" viewBox="0 0 1000 1136" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Map of India">
         <defs>
           <symbol id="ic-dome" viewBox="0 0 48 48"><path d="M12 38h24M16 38V26a8 8 0 0 1 16 0v12M20 26a4 4 0 0 1 8 0M24 10v6M20 10h8" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
           <symbol id="ic-temple" viewBox="0 0 48 48"><path d="M24 6l4 6h-8l4-6zM18 12h12v4H18zM16 16h16l3 22H13l3-22zM13 38h22M20 24v10M28 24v10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -761,14 +768,15 @@ footer.foot a{color:var(--teal-light)}
       </svg>
     </div>
 
-    <!-- ===== DECORATIVE 3D MAP TOGGLE — view markup. Hidden by default;
-         shown (and .map-shell hidden) only while the toggle above is on.
+    <!-- ===== DECORATIVE 3D MAP TOGGLE — view markup. Shown by default
+         (the illustrated map is now the default view, with .map-shell
+         hidden); the toggle above swaps to the interactive map instead.
          Delete this div + the button above + their CSS/JS blocks to
          remove the feature entirely. The overlay <svg> reuses the same
          state shapes as the real map, drawn invisibly on top of the
          image purely so each state area is clickable/hoverable — the
          image itself is never modified. -->
-    <div class="decorative-map-view" id="decorativeMapView" hidden>
+    <div class="decorative-map-view" id="decorativeMapView">
       <img src="images/decorative-3d-map.png?v=5" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
       <svg id="decorativeOverlay" class="decorative-overlay-svg" viewBox="0 0 1000 1136" preserveAspectRatio="none" aria-hidden="true"></svg>
     </div>
@@ -1229,6 +1237,13 @@ if(decorativeOverlaySvg){
     p.setAttribute('data-id', id);
     p.setAttribute('tabindex', '0');
     p.setAttribute('aria-label', s.name);
+    // Selecting a state here highlights it using that same state's own
+    // fill colour from the real map (its "flag band" — saffron/white/
+    // green) instead of one fixed highlight colour for every state, so
+    // the two views read as the same map. Read via a CSS custom
+    // property so the .active rule below can fall back gracefully if
+    // it's ever missing.
+    if(s.mapColor) p.style.setProperty('--state-fill', s.mapColor);
     decorativeOverlaySvg.appendChild(p);
     decorativeOverlayPathById[id] = p;
     bindStateInteractions(p, id, s);
