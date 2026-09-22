@@ -596,13 +596,15 @@ footer.foot a{color:var(--teal-light)}
    tapping it reveals the four view-control buttons sliding out to its
    left, tapping again collapses them back down to just the trigger. */
 .toolbar-trigger{
-  width:36px;height:36px;flex:none;
-  border:none;border-radius:50%;background:#2F7FD6;color:#fff;
+  width:32px;height:32px;flex:none;padding:0;
+  border:none;border-radius:50%;background:#000;color:#fff;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   box-shadow:0 2px 6px rgba(0,0,0,.25);
-  transition:transform .2s ease;
+  transition:transform .2s ease, background .3s ease, color .3s ease;
 }
-.toolbar-trigger svg{width:18px;height:18px;transition:transform .3s ease}
+/* Reversed in night mode: white circle, black chevron. */
+html:not([data-theme="light"]) .toolbar-trigger{background:#fff;color:#000}
+.toolbar-trigger svg{width:22px;height:22px;transition:transform .3s ease}
 .map-toolbar.open .toolbar-trigger svg{transform:rotate(180deg)}
 .toolbar-trigger:hover{transform:scale(1.06)}
 .toolbar-items{
@@ -610,7 +612,7 @@ footer.foot a{color:var(--teal-light)}
   max-width:0;overflow:hidden;
   transition:max-width .35s ease, gap .35s ease, margin .35s ease;
 }
-.map-toolbar.open .toolbar-items{max-width:220px;gap:6px;margin-right:6px}
+.map-toolbar.open .toolbar-items{max-width:220px;gap:3px;margin-right:3px}
 /* A proper pill-shaped day/night switch (track + sliding thumb),
    styled after the classic neumorphic day/night toggle reference —
    sky-blue track with the thumb parked left in light mode, a dark
