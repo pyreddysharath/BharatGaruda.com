@@ -1,0 +1,29 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Andaman & Nicobar Islands Government Departments",
+        "url": "https://igod.gov.in/sg/AN/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Andaman and Nicobar/icons/all-andaman-and-nicobar-islands-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "A&N Administration Portal",
+        "url": "https://andaman.gov.in/",
+        "desc": "UT administration departments and citizen services.",
+        "image": "entities/Andaman and Nicobar/icons/aandn-administration-portal.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Andaman Tourism",
+        "url": "https://www.andamantourism.gov.in/",
+        "desc": "Island-hopping, diving and heritage travel information.",
+        "image": "entities/Andaman and Nicobar/icons/andaman-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {}
+}

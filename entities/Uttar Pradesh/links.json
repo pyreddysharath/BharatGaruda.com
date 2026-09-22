@@ -1,0 +1,133 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Uttar Pradesh Government Departments",
+        "url": "https://igod.gov.in/sg/UP/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Uttar Pradesh/icons/all-uttar-pradesh-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Uttar Pradesh Government Portal",
+        "url": "https://up.gov.in/",
+        "desc": "State departments, schemes and e-services.",
+        "image": "entities/Uttar Pradesh/icons/uttar-pradesh-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "UP Police",
+        "url": "https://uppolice.gov.in/",
+        "desc": "Citizen services, FIR and emergency helplines.",
+        "image": "entities/Uttar Pradesh/icons/up-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "UP Tourism",
+        "url": "https://uptourism.gov.in/",
+        "desc": "Taj Mahal, Varanasi and heritage travel guides.",
+        "image": "entities/Uttar Pradesh/icons/up-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "UP Agriculture Department",
+        "url": "https://upagriculture.com/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Uttar Pradesh/icons/up-agriculture-department.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "IIIT Allahabad",
+        "url": "https://www.iiita.ac.in/",
+        "desc": "Centrally-funded Indian Institute of Information Technology (Institute of National Importance).",
+        "image": "entities/Uttar Pradesh/icons/iiit-allahabad.svg"
+      },
+      {
+        "title": "IIT (BHU) Varanasi",
+        "url": "https://www.iitbhu.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Uttar Pradesh/icons/iit-bhu-varanasi.svg"
+      },
+      {
+        "title": "IIT Kanpur",
+        "url": "https://www.iitk.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Uttar Pradesh/icons/iit-kanpur.svg"
+      },
+      {
+        "title": "MNNIT Allahabad",
+        "url": "http://www.mnnit.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Uttar Pradesh/icons/mnnit-allahabad.svg"
+      },
+      {
+        "title": "UP Board of High School & Intermediate Education",
+        "url": "http://www.upmsp.edu.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Uttar Pradesh/icons/up-board-of-high-school-and-intermediate-education.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "UPPCL",
+        "url": "https://www.uppclonline.com/",
+        "desc": "UP Power Corporation bill payment and services.",
+        "image": "entities/Uttar Pradesh/icons/uppcl.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "UPPSC – Uttar Pradesh Public Service Commission",
+        "url": "https://uppsc.up.nic.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Uttar Pradesh Public Service Commission (UPPSC)",
+        "image": "entities/Uttar Pradesh/icons/uppsc-uttar-pradesh-public-service-commission.svg"
+      }
+    ],
+    "Property Tax & Municipality": [
+      {
+        "title": "UP Urban Local Bodies",
+        "url": "https://sudaup.org/",
+        "desc": "Urban development and municipal services department.",
+        "image": "entities/Uttar Pradesh/icons/up-urban-local-bodies.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "IGRSUP",
+        "url": "https://igrsup.gov.in/",
+        "desc": "Property registration and stamp duty services.",
+        "image": "entities/Uttar Pradesh/icons/igrsup.svg"
+      },
+      {
+        "title": "UP RERA",
+        "url": "https://up-rera.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "image": "entities/Uttar Pradesh/icons/up-rera.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "e-Sathi UP",
+        "url": "https://edistrict.up.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Uttar Pradesh/icons/e-sathi-up.svg"
+      }
+    ],
+    "Toll-Free Numbers": [
+      {
+        "title": "UP CM Helpline / Jansunwai (1076)",
+        "url": "https://jansunwai.up.nic.in/",
+        "desc": "State-specific toll-free grievance helpline feeding directly into the Jansunwai (IGRS) portal.",
+        "image": "entities/Uttar Pradesh/icons/up-cm-helpline-jansunwai-1076.svg"
+      }
+    ]
+  }
+}

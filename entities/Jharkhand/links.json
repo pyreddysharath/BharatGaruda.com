@@ -1,0 +1,107 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Jharkhand Government Departments",
+        "url": "https://igod.gov.in/sg/JH/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Jharkhand/icons/all-jharkhand-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Jharkhand Government Portal",
+        "url": "https://www.jharkhand.gov.in/",
+        "desc": "State departments and e-governance services.",
+        "image": "entities/Jharkhand/icons/jharkhand-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Jharkhand Police",
+        "url": "https://www.jhpolice.gov.in/",
+        "desc": "Citizen services and emergency helplines.",
+        "image": "entities/Jharkhand/icons/jharkhand-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Jharkhand Tourism",
+        "url": "https://jharkhandtourism.gov.in/",
+        "desc": "Waterfalls, forests and tribal-heritage travel guides.",
+        "image": "entities/Jharkhand/icons/jharkhand-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Krishi Jharkhand (Agriculture Dept.)",
+        "url": "https://krishi.jharkhand.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Jharkhand/icons/krishi-jharkhand-agriculture-dept.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "IIT (ISM) Dhanbad",
+        "url": "https://www.iitism.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Jharkhand/icons/iit-ism-dhanbad.svg"
+      },
+      {
+        "title": "Jharkhand Academic Council (JAC)",
+        "url": "http://www.jac.nic.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Jharkhand/icons/jharkhand-academic-council-jac.svg"
+      },
+      {
+        "title": "NIT Jamshedpur",
+        "url": "http://nitjsr.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Jharkhand/icons/nit-jamshedpur.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "JBVNL",
+        "url": "https://www.jbvnl.co.in/",
+        "desc": "Jharkhand Bijli Vitran Nigam bill payment and services.",
+        "image": "entities/Jharkhand/icons/jbvnl.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "JPSC – Jharkhand Public Service Commission",
+        "url": "https://jpsc.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Jharkhand Public Service Commission (JPSC)",
+        "image": "entities/Jharkhand/icons/jpsc-jharkhand-public-service-commission.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "JharBhoomi",
+        "url": "https://jharbhoomi.jharkhand.gov.in/",
+        "desc": "Land records and property registration.",
+        "image": "entities/Jharkhand/icons/jharbhoomi.svg"
+      }
+    ],
+    "Services": [
+      {
+        "title": "JharSeva",
+        "url": "https://jharsewa.jharkhand.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Jharkhand/icons/jharseva.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "Jharkhand Police – e-Challan",
+        "url": "https://echallan.jhpolice.gov.in/",
+        "desc": "View violation evidence and pay traffic challans issued by Jharkhand Police.",
+        "image": "entities/Jharkhand/icons/jharkhand-police-e-challan.svg"
+      }
+    ]
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Assam Government Departments",
+        "url": "https://igod.gov.in/sg/AS/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Assam/icons/all-assam-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Assam Government Portal",
+        "url": "https://assam.gov.in/",
+        "desc": "Departments, schemes and Assam e-governance services.",
+        "image": "entities/Assam/icons/assam-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Assam Police",
+        "url": "https://assampolice.gov.in/",
+        "desc": "Citizen services, FIR and emergency helplines.",
+        "image": "entities/Assam/icons/assam-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Assam Tourism",
+        "url": "https://assamtourism.gov.in/",
+        "desc": "Tea trails, wildlife parks and river-island travel guides.",
+        "image": "entities/Assam/icons/assam-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Agriculture Department Assam",
+        "url": "https://agriculture.assam.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Assam/icons/agriculture-department-assam.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "IIT Guwahati",
+        "url": "https://www.iitg.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Assam/icons/iit-guwahati.svg"
+      },
+      {
+        "title": "NIT Silchar",
+        "url": "http://www.nits.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Assam/icons/nit-silchar.svg"
+      },
+      {
+        "title": "Secondary Education Board of Assam (SEBA)",
+        "url": "http://www.sebaonline.org/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Assam/icons/secondary-education-board-of-assam-seba.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "APDCL",
+        "url": "https://www.apdcl.org/",
+        "desc": "Assam Power Distribution Company bill payment and services.",
+        "image": "entities/Assam/icons/apdcl.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "APSC – Assam Public Service Commission",
+        "url": "https://apsc.nic.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Assam Public Service Commission (APSC)",
+        "image": "entities/Assam/icons/apsc-assam-public-service-commission.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "IGRS Assam",
+        "url": "https://registration.assam.gov.in/",
+        "desc": "Property registration and stamp duty services.",
+        "abbrFull": "Inspector General of Registration & Stamps (IGRS)",
+        "image": "entities/Assam/icons/igrs-assam.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "Seva Setu Assam",
+        "url": "https://sevasetu.assam.gov.in/",
+        "desc": "Certificate and citizen service portal.",
+        "image": "entities/Assam/icons/seva-setu-assam.svg"
+      }
+    ]
+  }
+}

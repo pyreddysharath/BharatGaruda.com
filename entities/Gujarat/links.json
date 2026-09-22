@@ -1,0 +1,148 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Gujarat Government Departments",
+        "url": "https://igod.gov.in/sg/GJ/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Gujarat/icons/all-gujarat-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Gujarat Government Portal",
+        "url": "https://gujaratindia.gov.in/",
+        "desc": "State departments, schemes and e-services.",
+        "image": "entities/Gujarat/icons/gujarat-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Gujarat Police",
+        "url": "https://police.gujarat.gov.in/",
+        "desc": "Citizen services and emergency contacts.",
+        "image": "entities/Gujarat/icons/gujarat-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Gujarat Tourism",
+        "url": "https://www.gujarattourism.com/",
+        "desc": "Kutch, Gir and heritage-city travel information.",
+        "image": "entities/Gujarat/icons/gujarat-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Agriculture Department Gujarat",
+        "url": "https://agri.gujarat.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Gujarat/icons/agriculture-department-gujarat.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "Gujarat Secondary & Higher Secondary Education Board",
+        "url": "http://www.gseb.org/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Gujarat/icons/gujarat-secondary-and-higher-secondary-education-board.svg"
+      },
+      {
+        "title": "IIT Gandhinagar",
+        "url": "https://www.iitgn.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Gujarat/icons/iit-gandhinagar.svg"
+      },
+      {
+        "title": "SVNIT Surat",
+        "url": "http://www.svnit.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Gujarat/icons/svnit-surat.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "DGVCL",
+        "url": "https://www.dgvcl.com/",
+        "desc": "Dakshin Gujarat Vij Company bill payment and services.",
+        "image": "entities/Gujarat/icons/dgvcl.svg"
+      },
+      {
+        "title": "MGVCL",
+        "url": "https://www.mgvcl.com/",
+        "desc": "Madhya Gujarat Vij Company bill payment and services.",
+        "image": "entities/Gujarat/icons/mgvcl.svg"
+      },
+      {
+        "title": "PGVCL",
+        "url": "https://www.pgvcl.com/",
+        "desc": "Paschim Gujarat Vij Company bill payment and services.",
+        "image": "entities/Gujarat/icons/pgvcl.svg"
+      },
+      {
+        "title": "UGVCL",
+        "url": "https://www.ugvcl.com/",
+        "desc": "Uttar Gujarat Vij Company bill payment and services.",
+        "image": "entities/Gujarat/icons/ugvcl.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "GPSC – Gujarat Public Service Commission",
+        "url": "https://gpsc.gujarat.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Gujarat Public Service Commission (GPSC)",
+        "image": "entities/Gujarat/icons/gpsc-gujarat-public-service-commission.svg"
+      }
+    ],
+    "Property Tax & Municipality": [
+      {
+        "title": "Urban Development Gujarat",
+        "url": "https://udd.gujarat.gov.in/",
+        "desc": "Urban development and municipal services department.",
+        "image": "entities/Gujarat/icons/urban-development-gujarat.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "GARVI Gujarat",
+        "url": "https://garvi.gujarat.gov.in/",
+        "desc": "Property registration and stamp duty services.",
+        "image": "entities/Gujarat/icons/garvi-gujarat.svg"
+      },
+      {
+        "title": "GujRERA – Gujarat RERA",
+        "url": "https://gujrera.gujarat.gov.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "abbrFull": "Gujarat RERA (GujRERA)",
+        "image": "entities/Gujarat/icons/gujrera-gujarat-rera.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "Digital Gujarat",
+        "url": "https://www.digitalgujarat.gov.in/",
+        "desc": "Unified citizen services and certificate portal.",
+        "image": "entities/Gujarat/icons/digital-gujarat.svg"
+      }
+    ],
+    "Toll-Free Numbers": [
+      {
+        "title": "Gujarat SWAGAT Grievance Redressal",
+        "url": "https://swagat.gujarat.gov.in/",
+        "desc": "State-specific online grievance redressal program connecting citizens directly to district and state officers.",
+        "image": "entities/Gujarat/icons/gujarat-swagat-grievance-redressal.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "Gujarat Police – e-Challan Payment",
+        "url": "https://echallanpayment.gujarat.gov.in/sasguj/AccusedChallan/NewAccusedChallan",
+        "desc": "Check and pay traffic challans issued by Gujarat Police, as an alternative to the central Parivahan portal.",
+        "image": "entities/Gujarat/icons/gujarat-police-e-challan-payment.svg"
+      }
+    ]
+  }
+}

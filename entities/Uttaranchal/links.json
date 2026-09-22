@@ -1,0 +1,91 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Uttarakhand Government Departments",
+        "url": "https://igod.gov.in/sg/UK/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Uttaranchal/icons/all-uttarakhand-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Uttarakhand Government Portal",
+        "url": "https://uk.gov.in/",
+        "desc": "State departments and citizen e-services.",
+        "image": "entities/Uttaranchal/icons/uttarakhand-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Uttarakhand Police",
+        "url": "https://uttarakhandpolice.uk.gov.in/",
+        "desc": "Citizen services and emergency contacts.",
+        "image": "entities/Uttaranchal/icons/uttarakhand-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Uttarakhand Tourism",
+        "url": "https://uttarakhandtourism.gov.in/",
+        "desc": "Char Dham, treks and wildlife travel information.",
+        "image": "entities/Uttaranchal/icons/uttarakhand-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Agriculture": [
+      {
+        "title": "Agriculture Department Uttarakhand",
+        "url": "https://agriculture.uk.gov.in/",
+        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
+        "image": "entities/Uttaranchal/icons/agriculture-department-uttarakhand.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "IIT Roorkee",
+        "url": "https://www.iitr.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Uttaranchal/icons/iit-roorkee.svg"
+      },
+      {
+        "title": "NIT Uttarakhand",
+        "url": "http://www.nituk.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Uttaranchal/icons/nit-uttarakhand.svg"
+      },
+      {
+        "title": "Uttarakhand Board of School Education (UBSE)",
+        "url": "http://www.ubse.uk.gov.in/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Uttaranchal/icons/uttarakhand-board-of-school-education-ubse.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "UPCL",
+        "url": "https://www.upcl.org/",
+        "desc": "Uttarakhand Power Corporation bill payment and services.",
+        "image": "entities/Uttaranchal/icons/upcl.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "UKPSC – Uttarakhand Public Service Commission",
+        "url": "https://ukpsc.net.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Uttarakhand Public Service Commission (UKPSC)",
+        "image": "entities/Uttaranchal/icons/ukpsc-uttarakhand-public-service-commission.svg"
+      }
+    ],
+    "Services": [
+      {
+        "title": "Apuni Sarkar Uttarakhand",
+        "url": "https://apunisarkar.uk.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Uttaranchal/icons/apuni-sarkar-uttarakhand.svg"
+      }
+    ]
+  }
+}

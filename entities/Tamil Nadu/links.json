@@ -1,0 +1,122 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Tamil Nadu Government Departments",
+        "url": "https://igod.gov.in/sg/TN/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Tamil Nadu/icons/all-tamil-nadu-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Tamil Nadu Government Portal",
+        "url": "https://www.tn.gov.in/",
+        "desc": "State departments, schemes and e-services.",
+        "image": "entities/Tamil Nadu/icons/tamil-nadu-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Tamil Nadu Police",
+        "url": "https://tnpolice.gov.in/",
+        "desc": "Citizen services and emergency contacts.",
+        "image": "entities/Tamil Nadu/icons/tamil-nadu-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Tamil Nadu Tourism",
+        "url": "https://www.tamilnadutourism.tn.gov.in/",
+        "desc": "Temple towns and Nilgiri hill-station travel guides.",
+        "image": "entities/Tamil Nadu/icons/tamil-nadu-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Education": [
+      {
+        "title": "IIITDM Kancheepuram",
+        "url": "https://www.iiitdm.ac.in/",
+        "desc": "Centrally-funded Indian Institute of Information Technology (Institute of National Importance).",
+        "image": "entities/Tamil Nadu/icons/iiitdm-kancheepuram.svg"
+      },
+      {
+        "title": "IIT Madras",
+        "url": "https://www.iitm.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Tamil Nadu/icons/iit-madras.svg"
+      },
+      {
+        "title": "NIT Tiruchirappalli",
+        "url": "http://www.nitt.edu/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Tamil Nadu/icons/nit-tiruchirappalli.svg"
+      },
+      {
+        "title": "Tamil Nadu State Board of School Education",
+        "url": "http://www.tamilnadustateboard.org/",
+        "desc": "State board conducting secondary/higher-secondary school examinations.",
+        "image": "entities/Tamil Nadu/icons/tamil-nadu-state-board-of-school-education.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "TANGEDCO",
+        "url": "https://www.tangedco.gov.in/",
+        "desc": "Tamil Nadu electricity board bill payment and services.",
+        "image": "entities/Tamil Nadu/icons/tangedco.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "TNPSC – Tamil Nadu Public Service Commission",
+        "url": "https://www.tnpsc.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Tamil Nadu Public Service Commission (TNPSC)",
+        "image": "entities/Tamil Nadu/icons/tnpsc-tamil-nadu-public-service-commission.svg"
+      }
+    ],
+    "Property Tax & Municipality": [
+      {
+        "title": "Commissionerate of Municipal Administration",
+        "url": "https://www.cma.tn.gov.in/",
+        "desc": "Urban development and municipal services department.",
+        "image": "entities/Tamil Nadu/icons/commissionerate-of-municipal-administration.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "TNREGINET",
+        "url": "https://tnreginet.gov.in/",
+        "desc": "Property registration and stamp duty services.",
+        "image": "entities/Tamil Nadu/icons/tnreginet.svg"
+      },
+      {
+        "title": "TNRERA – Tamil Nadu RERA",
+        "url": "https://rera.tn.gov.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "abbrFull": "Tamil Nadu RERA (TNRERA)",
+        "image": "entities/Tamil Nadu/icons/tnrera-tamil-nadu-rera.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "TNeGA e-Sevai",
+        "url": "https://www.tnesevai.tn.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "abbrFull": "Tamil Nadu e-Governance Agency (TNeGA)",
+        "image": "entities/Tamil Nadu/icons/tnega-e-sevai.svg"
+      }
+    ],
+    "Temples": [
+      {
+        "title": "HR&CE Tamil Nadu",
+        "url": "https://hrce.tn.gov.in/",
+        "desc": "Hindu Religious & Charitable Endowments Department.",
+        "abbrFull": "Hindu Religious and Charitable Endowments (HR&CE)",
+        "image": "entities/Tamil Nadu/icons/hrandce-tamil-nadu.svg"
+      }
+    ]
+  }
+}

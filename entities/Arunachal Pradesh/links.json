@@ -1,0 +1,63 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Arunachal Pradesh Government Departments",
+        "url": "https://igod.gov.in/sg/AR/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Arunachal Pradesh/icons/all-arunachal-pradesh-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Arunachal Pradesh Government Portal",
+        "url": "https://arunachalpradesh.gov.in/",
+        "desc": "State departments, notifications and e-governance services.",
+        "image": "entities/Arunachal Pradesh/icons/arunachal-pradesh-government-portal.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Arunachal Tourism",
+        "url": "https://arunachaltourism.com/",
+        "desc": "Himalayan monasteries, trekking routes and permits.",
+        "image": "entities/Arunachal Pradesh/icons/arunachal-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Education": [
+      {
+        "title": "NIT Arunachal Pradesh",
+        "url": "http://www.nitap.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Arunachal Pradesh/icons/nit-arunachal-pradesh.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "Dept. of Power Arunachal Pradesh",
+        "url": "https://power.arunachal.gov.in/",
+        "desc": "State power department services and bill payment.",
+        "image": "entities/Arunachal Pradesh/icons/dept-of-power-arunachal-pradesh.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "APPSC – Arunachal Pradesh Public Service Commission",
+        "url": "https://appsc.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Arunachal Pradesh Public Service Commission (APPSC)",
+        "image": "entities/Arunachal Pradesh/icons/appsc-arunachal-pradesh-public-service-commission.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "e-Pragati Arunachal",
+        "url": "https://epragati.arunachal.gov.in/",
+        "desc": "Unified citizen services and certificate portal.",
+        "image": "entities/Arunachal Pradesh/icons/e-pragati-arunachal.svg"
+      }
+    ]
+  }
+}

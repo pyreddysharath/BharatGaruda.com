@@ -1,0 +1,116 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Delhi (NCT) Government Departments",
+        "url": "https://igod.gov.in/sg/DL/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "abbrFull": "National Capital Territory (NCT)",
+        "image": "entities/Delhi/icons/all-delhi-nct-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Delhi Government Portal",
+        "url": "https://delhi.gov.in/",
+        "desc": "NCT departments, schemes and e-services.",
+        "image": "entities/Delhi/icons/delhi-government-portal.svg"
+      }
+    ],
+    "Police & Public Safety": [
+      {
+        "title": "Delhi Police",
+        "url": "https://www.delhipolice.gov.in/",
+        "desc": "Citizen services, FIR and emergency helplines.",
+        "image": "entities/Delhi/icons/delhi-police.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Delhi Tourism (DTTDC)",
+        "url": "https://delhitourism.gov.in/",
+        "desc": "Monuments, museums and heritage-walk information.",
+        "abbrFull": "Delhi Tourism and Transportation Development Corporation (DTTDC)",
+        "image": "entities/Delhi/icons/delhi-tourism-dttdc.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Anti-Corruption": [
+      {
+        "title": "Anti-Corruption Branch, Delhi",
+        "url": "https://acb.delhi.gov.in/",
+        "desc": "File or track complaints about corruption or bribery involving state government officials.",
+        "image": "entities/Delhi/icons/anti-corruption-branch-delhi.svg"
+      }
+    ],
+    "Education": [
+      {
+        "title": "IIT Delhi",
+        "url": "https://home.iitd.ac.in/",
+        "desc": "Premier central engineering & technology institute (IIT).",
+        "image": "entities/Delhi/icons/iit-delhi.svg"
+      },
+      {
+        "title": "NIT Delhi",
+        "url": "http://nitdelhi.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Delhi/icons/nit-delhi.svg"
+      }
+    ],
+    "Electricity": [
+      {
+        "title": "BSES (BRPL/BYPL)",
+        "url": "https://www.bsesdelhi.com/",
+        "desc": "BSES Rajdhani & Yamuna Power bill payment and services.",
+        "image": "entities/Delhi/icons/bses-brpl-bypl.svg"
+      },
+      {
+        "title": "TPDDL",
+        "url": "https://www.tatapower-ddl.com/",
+        "desc": "Tata Power Delhi Distribution bill payment and services.",
+        "image": "entities/Delhi/icons/tpddl.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "DSSSB – Delhi Subordinate Services Selection Board",
+        "url": "https://dsssb.delhi.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "abbrFull": "Delhi Subordinate Services Selection Board (DSSSB)",
+        "image": "entities/Delhi/icons/dsssb-delhi-subordinate-services-selection-board.svg"
+      }
+    ],
+    "Registration & Stamps": [
+      {
+        "title": "RERA Delhi",
+        "url": "https://rera.delhi.gov.in/",
+        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
+        "abbrFull": "Real Estate Regulatory Authority (RERA)",
+        "image": "entities/Delhi/icons/rera-delhi.svg"
+      }
+    ],
+    "Services & Certificates": [
+      {
+        "title": "e-District Delhi",
+        "url": "https://edistrict.delhigovt.nic.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Delhi/icons/e-district-delhi.svg"
+      }
+    ],
+    "Transport": [
+      {
+        "title": "Transport Department Delhi",
+        "url": "https://transport.delhi.gov.in/",
+        "desc": "Vehicle registration, licences and RTO services.",
+        "image": "entities/Delhi/icons/transport-department-delhi.svg"
+      },
+      {
+        "title": "Delhi Traffic Police – e-Challan Payment",
+        "url": "https://traffic.delhipolice.gov.in/online-payment",
+        "desc": "Check pending traffic notices and pay challans online for vehicles booked by Delhi Traffic Police.",
+        "image": "entities/Delhi/icons/delhi-traffic-police-e-challan-payment.svg"
+      }
+    ]
+  }
+}
