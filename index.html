@@ -43,7 +43,8 @@
   --muted:#C4C4C4;
   --map-fill:#A8D08D;
   --map-fill-hover:#8FBF6E;
-  --map-bg:#000000;
+  --map-bg:#101b22;
+  --map-atmosphere:radial-gradient(ellipse 72% 56% at 50% 43%,rgba(54,105,105,.30),transparent 76%),radial-gradient(ellipse 58% 35% at 50% 85%,rgba(33,76,90,.24),transparent 82%),linear-gradient(155deg,#19262d 0%,#101b22 52%,#0b141a 100%);
   --map-border:#3A3A3A;
   --map-stroke:#2A2A2A;
   --map-stroke-active:#FFFFFF;
@@ -59,7 +60,8 @@ html[data-theme="light"]{
   --line:#B3B3B3;
   --white:#FFFFFF;
   --muted:#4A4A4A;
-  --map-bg:#FFFFFF;
+  --map-bg:#e9f3f2;
+  --map-atmosphere:radial-gradient(ellipse 72% 56% at 50% 43%,rgba(255,255,255,.96),transparent 78%),radial-gradient(ellipse 60% 38% at 52% 84%,rgba(120,177,181,.15),transparent 80%),linear-gradient(155deg,#f4f8f5 0%,#e8f1f0 55%,#dce9eb 100%);
   --map-border:#B3B3B3;
   --map-stroke:#C7C7C7;
   --map-stroke-active:#FFFFFF;
@@ -92,7 +94,8 @@ body{
 .map-col{
   padding:0 6px 10px;
   position:relative;
-  background:var(--map-bg);
+  background-color:var(--map-bg);
+  background-image:var(--map-atmosphere);
   transition:background .3s ease, border-color .3s ease;
   min-width:0;
 }
