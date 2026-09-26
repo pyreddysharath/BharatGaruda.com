@@ -43,8 +43,7 @@
   --muted:#C4C4C4;
   --map-fill:#A8D08D;
   --map-fill-hover:#8FBF6E;
-  --map-bg:#101b22;
-  --map-atmosphere:radial-gradient(ellipse 72% 56% at 50% 43%,rgba(54,105,105,.30),transparent 76%),radial-gradient(ellipse 58% 35% at 50% 85%,rgba(33,76,90,.24),transparent 82%),linear-gradient(155deg,#19262d 0%,#101b22 52%,#0b141a 100%);
+  --map-bg:#000000;
   --map-border:#3A3A3A;
   --map-stroke:#2A2A2A;
   --map-stroke-active:#FFFFFF;
@@ -60,8 +59,7 @@ html[data-theme="light"]{
   --line:#B3B3B3;
   --white:#FFFFFF;
   --muted:#4A4A4A;
-  --map-bg:#e9f3f2;
-  --map-atmosphere:radial-gradient(ellipse 72% 56% at 50% 43%,rgba(255,255,255,.96),transparent 78%),radial-gradient(ellipse 60% 38% at 52% 84%,rgba(120,177,181,.15),transparent 80%),linear-gradient(155deg,#f4f8f5 0%,#e8f1f0 55%,#dce9eb 100%);
+  --map-bg:#FFFFFF;
   --map-border:#B3B3B3;
   --map-stroke:#C7C7C7;
   --map-stroke-active:#FFFFFF;
@@ -94,8 +92,7 @@ body{
 .map-col{
   padding:0 6px 10px;
   position:relative;
-  background-color:var(--map-bg);
-  background-image:var(--map-atmosphere);
+  background:var(--map-bg);
   transition:background .3s ease, border-color .3s ease;
   min-width:0;
 }
@@ -116,7 +113,14 @@ body{
    the real map's own SVG viewBox so the real map renders pixel-identical
    to how it always has. */
 .map-stage{
-  width:min(1400px, calc((100vh - 90px) * 0.91));
+  /* Width is derived from the available viewport height so the map
+     never grows taller than its 90px-offset vertical budget. The
+     multiplier accounts for the aspect-ratio below (height ends up
+     1.136x the width), so width * 1.136 = (100vh - 90px) exactly —
+     an earlier multiplier (0.91) made the resulting height ~3.4%
+     taller than that budget, pushing the map's bottom edge past the
+     fold on shorter screens and making it look cropped there. */
+  width:min(1400px, calc((100vh - 90px) * 0.8803));
   margin:0 auto 0;
   max-width:100%;
   position:relative;
@@ -251,16 +255,47 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
 .site-search-input{
   width:100%;font-family:'Inter',sans-serif;font-size:.88rem;
   background:#E6EEF8;color:#0F2537;
-  border:1.5px solid var(--line);border-radius:8px;
-  padding:10px 14px;outline:none;
+  border:1.5px solid var(--line);border-radius:0;
+  padding:10px 36px 10px 14px;outline:none;
   transition:border-color .15s;
 }
 .site-search-input:focus{border-color:#43A7C0}
 .site-search-input::placeholder{color:transparent}
+/* Clear (x) button — clears whatever's currently typed/committed in the
+   search box (the live text and any committed keyword chips) in one tap. */
+.search-clear-btn{
+  position:absolute;right:8px;top:50%;transform:translateY(-50%);
+  width:22px;height:22px;border:none;background:transparent;color:#5A7284;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;padding:0;border-radius:0;
+}
+.search-clear-btn svg{width:14px;height:14px}
+.search-clear-btn:hover{color:#0F2537}
+.search-clear-btn[hidden]{display:none}
+/* Committed keyword chips — each entered search term becomes its own
+   removable pill above the input; the next term typed searches only
+   within what the current chips already matched. */
+.search-chips{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px;
+}
+.search-chips:empty{display:none;margin-bottom:0}
+.search-chip{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#43A7C0;color:#fff;border-radius:0;
+  font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;
+  padding:5px 6px 5px 10px;
+}
+.search-chip .search-chip-remove{
+  display:flex;align-items:center;justify-content:center;
+  width:15px;height:15px;border:none;background:transparent;color:#fff;
+  cursor:pointer;padding:0;opacity:.85;
+}
+.search-chip .search-chip-remove:hover{opacity:1}
+.search-chip .search-chip-remove svg{width:10px;height:10px}
 .search-placeholder-overlay{
   position:absolute;left:14px;top:50%;transform:translateY(-50%);
   display:flex;align-items:center;gap:6px;
-  width:calc(100% - 28px);
+  width:calc(100% - 50px);
   pointer-events:none;
 }
 .search-placeholder-overlay.hide{display:none}
@@ -283,7 +318,7 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
 }
 .site-search-dropdown{
   margin:0 24px 12px;
-  background:var(--white);border:1.5px solid var(--ink);border-radius:8px;
+  background:var(--white);border:1.5px solid var(--ink);border-radius:0;
   box-shadow:4px 4px 0 rgba(0,0,0,.4);
   max-height:min(420px, calc(100vh - 160px));overflow-y:auto;
   display:none;
@@ -483,12 +518,12 @@ footer.foot a{color:var(--teal-light)}
 .other-sites-info{
   display:flex;align-items:center;justify-content:center;
   width:20px;height:20px;border-radius:50%;padding:0;flex:none;
-  border:1.5px solid #43A7C0;background:transparent;color:#43A7C0;
-  cursor:pointer;transition:color .2s ease, border-color .2s ease;
+  border:none;background:transparent;color:#43A7C0;
+  cursor:pointer;transition:color .2s ease;
 }
-.other-sites-info svg{width:12px;height:12px;display:block}
+.other-sites-info svg{width:14px;height:14px;display:block}
 .other-sites-info:hover,
-.other-sites-info[aria-expanded="true"]{color:#43A7C0;border-color:#43A7C0}
+.other-sites-info[aria-expanded="true"]{color:#43A7C0}
 .other-sites-blurb{margin:0 0 12px;padding-left:2px}
 .other-sites-blurb p{
   font-family:'Spectral',serif;font-style:normal;font-size:12px;color:var(--muted);
@@ -568,7 +603,7 @@ footer.foot a{color:var(--teal-light)}
    tapping it reveals the four view-control buttons sliding out to its
    left, tapping again collapses them back down to just the trigger. */
 .toolbar-trigger{
-  width:24px;height:32px;flex:none;padding:0;
+  width:24px;height:32px;flex:none;padding:0;margin-left:4px;
   border:none;background:transparent;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   transition:transform .2s ease;
@@ -886,12 +921,16 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
 
   <section class="detail-col" id="detailCol">
     <div class="site-search-wrap">
+      <div id="searchChips" class="search-chips"></div>
       <div class="site-search-input-box">
         <input type="text" id="siteSearchInput" class="site-search-input" placeholder="🔎 Search government sites by name, purpose or URL" autocomplete="off" aria-label="Search government sites">
         <span id="searchPlaceholderOverlay" class="search-placeholder-overlay" aria-hidden="true">
           <svg class="search-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
           <span class="search-placeholder-clip"><span id="searchPlaceholderText" class="search-placeholder-text">Search government sites by name, purpose or URL</span></span>
         </span>
+        <button type="button" id="searchClearBtn" class="search-clear-btn" aria-label="Clear search" title="Clear search" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+        </button>
       </div>
     </div>
     <div id="siteSearchResults" class="site-search-dropdown"></div>
@@ -2026,16 +2065,24 @@ const SEARCH_INDEX = (function buildSearchIndex(){
   return items;
 })();
 
-function searchSites(query){
-  const q = query.trim().toLowerCase();
-  if(!q) return [];
-  const matches = SEARCH_INDEX.filter(item=>
-    (item.title && item.title.toLowerCase().includes(q)) ||
-    (item.url && item.url.toLowerCase().includes(q)) ||
-    (item.desc && item.desc.toLowerCase().includes(q)) ||
-    (item.stateName && item.stateName.toLowerCase().includes(q)) ||
-    (item.sectionTitle && item.sectionTitle.toLowerCase().includes(q))
-  );
+// Each item must match EVERY keyword given (AND across keywords); a
+// single keyword matches if it's found in ANY of an item's fields (OR
+// across fields) — same per-keyword matching as before, just now
+// applied progressively as more keywords (chips) are committed.
+function itemMatchesKeyword(item, kw){
+  return (item.title && item.title.toLowerCase().includes(kw)) ||
+    (item.url && item.url.toLowerCase().includes(kw)) ||
+    (item.desc && item.desc.toLowerCase().includes(kw)) ||
+    (item.stateName && item.stateName.toLowerCase().includes(kw)) ||
+    (item.sectionTitle && item.sectionTitle.toLowerCase().includes(kw));
+}
+
+function searchSites(queryOrKeywords){
+  const keywords = (Array.isArray(queryOrKeywords) ? queryOrKeywords : [queryOrKeywords])
+    .map(k=>k.trim().toLowerCase())
+    .filter(Boolean);
+  if(!keywords.length) return [];
+  const matches = SEARCH_INDEX.filter(item=> keywords.every(kw=> itemMatchesKeyword(item, kw)));
   // Group: Pan-India first, then each state, preserving first-seen order.
   // Within each group, further split into sub-sections by category.
   const groups = {};
@@ -2066,14 +2113,15 @@ function searchSites(query){
   });
 }
 
-function renderSearchResults(query){
+function renderSearchResults(keywords){
   const dropdown = document.getElementById('siteSearchResults');
-  const grouped = searchSites(query);
+  const hasKeywords = keywords.length > 0;
+  const grouped = searchSites(keywords);
   if(!grouped.length){
-    dropdown.innerHTML = query.trim()
+    dropdown.innerHTML = hasKeywords
       ? `<div class="site-search-empty">No matching sites found.</div>`
       : '';
-    dropdown.classList.toggle('show', !!query.trim());
+    dropdown.classList.toggle('show', hasKeywords);
     return;
   }
   dropdown.innerHTML = grouped.map(group=>`
@@ -2128,8 +2176,94 @@ window.addEventListener('resize', ()=>{
 });
 
 const searchInput = document.getElementById('siteSearchInput');
-searchInput.addEventListener('input', (e)=> renderSearchResults(e.target.value));
-searchInput.addEventListener('focus', (e)=>{ if(e.target.value.trim()) renderSearchResults(e.target.value); });
+const searchChipsEl = document.getElementById('searchChips');
+const searchClearBtn = document.getElementById('searchClearBtn');
+
+// ============================================================
+// MULTI-KEYWORD CHIP SEARCH
+// Pressing Enter with text in the box "commits" it: it becomes a
+// removable chip above the input, the input clears, and every
+// keyword typed after that only searches within results that ALSO
+// matched the chips already committed (progressive narrowing).
+// While typing (before Enter), the in-progress text is combined with
+// the committed chips for a live preview of what committing it now
+// would filter down to.
+// ============================================================
+let searchChips = [];
+
+function currentKeywords(includeLiveText){
+  const kws = searchChips.slice();
+  if(includeLiveText){
+    const live = searchInput.value.trim();
+    if(live) kws.push(live);
+  }
+  return kws;
+}
+
+function renderChips(){
+  searchChipsEl.innerHTML = searchChips.map((chip, i)=>`
+    <span class="search-chip">${chip.replace(/</g,'&lt;')}
+      <button type="button" class="search-chip-remove" data-chip-index="${i}" aria-label="Remove '${chip.replace(/"/g,'&quot;')}' from search" title="Remove">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/></svg>
+      </button>
+    </span>
+  `).join('');
+}
+
+function refreshSearch(){
+  renderSearchResults(currentKeywords(true));
+  updateSearchClearVisibility();
+}
+
+function addChipFromInput(){
+  const text = searchInput.value.trim();
+  if(!text) return;
+  searchChips.push(text);
+  searchInput.value = '';
+  renderChips();
+  refreshSearch();
+  updatePlaceholderOverlay();
+}
+
+function removeChip(index){
+  searchChips.splice(index, 1);
+  renderChips();
+  refreshSearch();
+}
+
+function clearSearch(){
+  searchChips = [];
+  searchInput.value = '';
+  renderChips();
+  refreshSearch();
+  updatePlaceholderOverlay();
+  searchInput.focus();
+}
+
+function updateSearchClearVisibility(){
+  const hasAny = searchChips.length > 0 || searchInput.value.trim().length > 0;
+  searchClearBtn.hidden = !hasAny;
+}
+
+searchChipsEl.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.search-chip-remove');
+  if(!btn) return;
+  removeChip(Number(btn.dataset.chipIndex));
+});
+searchClearBtn.addEventListener('click', clearSearch);
+
+searchInput.addEventListener('input', refreshSearch);
+searchInput.addEventListener('focus', refreshSearch);
+searchInput.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter'){
+    e.preventDefault();
+    addChipFromInput();
+  } else if(e.key === 'Backspace' && !searchInput.value && searchChips.length){
+    // Backspacing on an already-empty box pops the most recent chip,
+    // matching the familiar tag-input convention.
+    removeChip(searchChips.length - 1);
+  }
+});
 
 // ============================================================
 // SEARCH PLACEHOLDER MARQUEE
@@ -2143,7 +2277,7 @@ const placeholderOverlay = document.getElementById('searchPlaceholderOverlay');
 const placeholderClip = placeholderOverlay.querySelector('.search-placeholder-clip');
 const placeholderText = document.getElementById('searchPlaceholderText');
 function updatePlaceholderOverlay(){
-  const hasContent = searchInput.value.trim().length > 0;
+  const hasContent = searchInput.value.trim().length > 0 || searchChips.length > 0;
   const isFocused = document.activeElement === searchInput;
   placeholderOverlay.classList.toggle('hide', hasContent || isFocused);
   if(hasContent || isFocused){
