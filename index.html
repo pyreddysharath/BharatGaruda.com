@@ -751,14 +751,22 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   transform-style:preserve-3d;
   filter:drop-shadow(0 20px 24px rgba(0,0,0,.7));
   transition:transform .5s cubic-bezier(.2,.8,.3,1);
-  /* The source PNG's own painted pixels stop dead — a hard cutoff with
-     no fade — right at the Andaman & Nicobar islands' southern tip (its
-     lowest painted content); no amount of crop math can recover detail
-     the file itself doesn't have. This mask fades just the bottom ~3%
-     of the box to transparent so that hard line reads as an
-     intentional vignette instead of an abrupt cut. */
-  -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 97%, transparent 100%);
-  mask-image:linear-gradient(to bottom, #000 0%, #000 97%, transparent 100%);
+}
+/* The source PNG's own painted pixels stop dead — a hard cutoff with no
+   fade — right at the Andaman & Nicobar islands' southern tip (its
+   lowest painted content); no amount of crop math can recover detail
+   the file itself doesn't have. A plain gradient overlay (fading to the
+   map column's own background) sits on top of just the bottom sliver so
+   that hard line reads as an intentional vignette instead of an abrupt
+   cut. (A CSS mask-image was tried first, but combined with this
+   element's 3D transform + drop-shadow it clipped diagonally across
+   multiple edges instead of just the bottom — browsers don't compute
+   mask geometry consistently under a rotateX transform. A same-tilt
+   overlay avoids that entirely: it's just another layer inside the
+   already-tilted container, not a mask trying to reshape it.) */
+.decorative-map-fade{
+  position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(to bottom, transparent 0%, transparent 95%, var(--map-bg) 100%);
 }
 .decorative-map-view img{
   position:absolute;
@@ -938,6 +946,7 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
     <div class="decorative-map-view" id="decorativeMapView">
       <div class="decorative-map-crop">
         <img src="images/decorative-3d-map.png?v=6" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
+        <div class="decorative-map-fade" aria-hidden="true"></div>
       </div>
       <svg id="decorativeOverlay" class="decorative-overlay-svg" viewBox="0 0 1000 1136" preserveAspectRatio="none" aria-hidden="true"></svg>
     </div>
