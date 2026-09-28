@@ -601,7 +601,12 @@ footer.foot a{color:var(--teal-light)}
    tapping it reveals the four view-control buttons sliding out to its
    left, tapping again collapses them back down to just the trigger. */
 .toolbar-trigger{
-  width:24px;height:32px;flex:none;padding:0;margin-left:4px;
+  /* margin-left kept equal to .toolbar-items' own gap (below) so the
+     visual spacing before the chevron matches the spacing between the
+     other icons exactly — each icon's 24px box already has a 1px
+     inset on every side around its 22px glyph, so with a 2px gap here
+     and there the visible gap works out the same (~4px) everywhere. */
+  width:24px;height:32px;flex:none;padding:0;margin-left:2px;
   border:none;background:transparent;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   transition:transform .2s ease;
@@ -621,11 +626,16 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
 .map-toolbar.open .toolbar-trigger svg{transform:rotate(180deg)}
 .toolbar-trigger:hover .trigger-badge{transform:scale(1.06)}
 .toolbar-items{
-  display:flex;align-items:center;gap:0;
+  /* A very slight bump from the previous 0 (which, given each icon's
+     own 1px built-in inset on both sides, read as barely any gap at
+     all next to the bigger gap before the chevron) — 2px here plus
+     the trigger's own matching 2px margin-left (above) now give every
+     icon, chevron included, the same ~4px visual spacing. */
+  display:flex;align-items:center;gap:2px;
   max-width:0;overflow:hidden;
   transition:max-width .35s ease, gap .35s ease, margin .35s ease;
 }
-.map-toolbar.open .toolbar-items{max-width:220px;gap:0;margin-right:0}
+.map-toolbar.open .toolbar-items{max-width:220px;gap:2px;margin-right:0}
 /* Single swapping day/night icon: a round tinted chip that holds
    both glyphs stacked on top of each other. The sun is shown (and
    its warm chip background) in light mode; a click cross-fades +
@@ -675,7 +685,12 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   transition:transform .2s ease, color .2s ease;
 }
 .toggle-labels-btn svg{width:22px;height:22px}
-.toggle-labels-btn:hover{transform:translateY(-2px)}
+/* This icon is a plain pin glyph with no circular badge behind it
+   (unlike the theme/reset buttons), so the same upward hover-lift
+   used elsewhere in this toolbar read as the pin visibly jumping up
+   whenever it was hovered/clicked — a scale-up in place instead
+   gives the same "it's interactive" feedback without moving it. */
+.toggle-labels-btn:hover{transform:scale(1.1)}
 /* Blue by default (labels hidden, aria-pressed="true" — its starting
    state); clicking it turns it grey (labels now shown,
    aria-pressed="false") instead of the earlier fixed grey with a
