@@ -1063,21 +1063,48 @@ async function fetchJsonCached(url){
 
 async function loadAllData(){
   STATE_IDS = await fetchJsonCached('config/index.json');
-  const [panLinks, ...stateFiles] = await Promise.all([
-    fetchJsonCached('entities/Pan-India/links.json'),
-    ...STATE_IDS.map(id => Promise.all([
-      fetchJsonCached('entities/' + encodeURIComponent(id) + '/meta.json'),
-      fetchJsonCached('entities/' + encodeURIComponent(id) + '/links.json')
-    ]))
-  ]);
-  PAN_INDIA = panLinks;
-  STATE_IDS.forEach((id, i) => {
-    const [meta, links] = stateFiles[i];
-    STATES[id] = Object.assign({}, meta, {
-      stateWebsites: links.stateWebsites,
-      stateServices: links.stateServices
-    });
+
+  try{
+    PAN_INDIA = await fetchJsonCached('entities/Pan-India/links.json');
+  }catch(err){
+    // Pan-India is central enough that the site can't really work without
+    // it, but it's still its own try/catch (rather than failing the whole
+    // Promise.all below) so one broken state file elsewhere can't take
+    // this down too, and vice versa.
+    console.error('Failed to load entities/Pan-India/links.json', err);
+    PAN_INDIA = { citizenId: {}, nationalServices: {} };
+  }
+
+  // Each state is loaded independently (Promise.allSettled, not
+  // Promise.all) so a single state with a malformed/missing links.json —
+  // e.g. a bad hand-edit, or a partial file copy during deployment —
+  // only drops that one state from the map instead of taking down the
+  // entire site with the generic "site data failed to load" error.
+  const settled = await Promise.allSettled(STATE_IDS.map(id => Promise.all([
+    fetchJsonCached('entities/' + encodeURIComponent(id) + '/meta.json'),
+    fetchJsonCached('entities/' + encodeURIComponent(id) + '/links.json')
+  ])));
+
+  const failedIds = [];
+  settled.forEach((result, i) => {
+    const id = STATE_IDS[i];
+    if(result.status === 'fulfilled'){
+      const [meta, links] = result.value;
+      STATES[id] = Object.assign({}, meta, {
+        stateWebsites: links.stateWebsites,
+        stateServices: links.stateServices
+      });
+    } else {
+      failedIds.push(id);
+      console.error('Failed to load data for state "' + id + '" — skipping it.', result.reason);
+    }
   });
+  if(failedIds.length){
+    // Keep STATE_IDS in sync with what actually loaded so nothing
+    // downstream trips over a missing STATES[id] for one of these.
+    STATE_IDS = STATE_IDS.filter(id => !failedIds.includes(id));
+  }
+
   try{
     OTHER_SITES_CONFIG = await fetchJsonCached('config/OurOtherSites.json');
   }catch(err){

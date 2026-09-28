@@ -1,0 +1,29 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Ladakh Government Departments",
+        "url": "https://igod.gov.in/sg/LA/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Ladakh/icons/all-ladakh-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Ladakh Administration Portal",
+        "url": "https://ladakh.gov.in/",
+        "desc": "UT administration departments and services.",
+        "image": "entities/Ladakh/icons/ladakh-administration-portal.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Ladakh Tourism",
+        "url": "https://ladakh.gov.in/tourism/",
+        "desc": "Monasteries, passes and adventure-travel information.",
+        "image": "entities/Ladakh/icons/ladakh-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {}
+}

@@ -1,0 +1,54 @@
+{
+  "stateWebsites": {
+    "All Departments Directory": [
+      {
+        "title": "All Sikkim Government Departments",
+        "url": "https://igod.gov.in/sg/SK/categories",
+        "desc": "Official directory (India Government Directory) listing every department, board and agency of this state/UT.",
+        "image": "entities/Sikkim/icons/all-sikkim-government-departments.svg"
+      }
+    ],
+    "Government Portal": [
+      {
+        "title": "Sikkim Government Portal",
+        "url": "https://www.sikkim.gov.in/",
+        "desc": "State departments and citizen e-services.",
+        "image": "entities/Sikkim/icons/sikkim-government-portal.svg"
+      }
+    ],
+    "Tourism Department": [
+      {
+        "title": "Sikkim Tourism",
+        "url": "https://sikkimtourism.gov.in/",
+        "desc": "Himalayan treks and monastery travel information.",
+        "image": "entities/Sikkim/icons/sikkim-tourism.svg"
+      }
+    ]
+  },
+  "stateServices": {
+    "Education": [
+      {
+        "title": "NIT Sikkim",
+        "url": "http://www.nitsikkim.ac.in/",
+        "desc": "National Institute of Technology — centrally funded engineering institute.",
+        "image": "entities/Sikkim/icons/nit-sikkim.svg"
+      }
+    ],
+    "Government Jobs": [
+      {
+        "title": "Sikkim Public Service Commission",
+        "url": "https://spscskm.gov.in/",
+        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
+        "image": "entities/Sikkim/icons/sikkim-public-service-commission.svg"
+      }
+    ],
+    "Services": [
+      {
+        "title": "Sikkim e-District",
+        "url": "https://edistrict.sikkim.gov.in/",
+        "desc": "Certificates and citizen services portal.",
+        "image": "entities/Sikkim/icons/sikkim-e-district.svg"
+      }
+    ]
+  }
+}
