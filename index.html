@@ -137,22 +137,20 @@ body{
    island group, which is normal map convention but meant the plain
    preserveAspectRatio="none" fill (mapping the WHOLE viewBox, islands
    included, to the box) left a visible band of flat white below the
-   mainland silhouette that the illustrated view doesn't have (that
-   view was deliberately cropped/zoomed to its own mainland-only
-   bounding box a few rounds back — see .decorative-map-view img).
-   Applying that identical technique here — crop-to-fill using the
-   mainland-only bounding box (measured directly from the live paths,
-   excluding the Andaman/Lakshadweep groups) — closes that gap so the
-   mainland itself fills the box edge-to-edge like the illustrated
-   view's does. The trade-off, same as on the illustrated view, is that
-   a sliver of the Andaman chain's own southern tip now falls slightly
-   past the box and is clipped away.
+   mainland silhouette that the illustrated view doesn't have.
+   An earlier attempt closed that gap by scaling/shifting this svg to
+   crop to a mainland-only bounding box, but that pushed the Andaman &
+   Nicobar group's own lower portion (the Nicobar islands specifically)
+   well past the box's bottom edge, visibly cutting off a real, sizeable
+   piece of it — not an acceptable trade-off. Reverted to a plain 1:1
+   fit (0/0/100%/100%): the mainland's own bottom whitespace band is
+   back, but the whole Andaman & Nicobar chain renders intact (only the
+   data's own ~0.4% overshoot past the nominal viewBox bottom is
+   clipped, same as it always was for every other state).
    .map-shell-tilt is a plain 100%-of-box wrapper carrying the tilt/
    perspective transform and the clip — kept separate from svg#india's
-   own (larger, shifted) box so the tilt's transform-origin still
-   pivots at the real box's own center-bottom, not the enlarged one's;
-   putting the crop sizing and the tilt on the same element would have
-   dragged that pivot point down and outside the visible box. */
+   own box so the tilt's transform-origin still pivots at the real
+   box's own center-bottom. */
 .map-shell-tilt{
   position:absolute;inset:0;overflow:hidden;
   transform:rotateX(16deg) rotateZ(0deg);
@@ -162,8 +160,8 @@ body{
   transition:transform .5s cubic-bezier(.2,.8,.3,1);
 }
 svg#india{
-  position:absolute;left:-0.1%;top:-0.09%;
-  width:100.2%;height:104.4%;display:block;
+  position:absolute;left:0;top:0;
+  width:100%;height:100%;display:block;
 }
 svg#india path{
   stroke:#E0E0E0;
@@ -812,7 +810,7 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
            from or depends on it. Delete all four pieces to remove it. ===== -->
       <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show interactive map" aria-label="Toggle illustrated 3D map view" aria-pressed="true">
         <img class="decorative-map-toggle-thumb" src="images/decorative-3d-map.png?v=5" alt="" aria-hidden="true">
-        <svg viewBox="0 0 24 24" stroke="none">
+        <svg viewBox="0 0 1000 1136" stroke="none">
           <defs>
             <!-- Showing the illustrated map: the icon reads as a tiny
                  tricolor flag-map — saffron/white/green bands, top to
@@ -827,7 +825,12 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
               <stop offset="100%" stop-color="#138808"/>
             </linearGradient>
           </defs>
-          <path fill="url(#indiaMapIconFlag)" stroke="#8A8A8A" stroke-width="0.4" d="M6.6 1.5 5.2 2.4 7.0 5.4 3.3 9.2 4.3 11.2 2.4 11.8 5.4 13.7 8.5 22.5 10.0 21.1 10.3 17.4 16.1 13.2 15.7 9.6 18.4 10.8 17.5 11.8 18.7 13.0 21.6 8.4 19.8 7.6 18.1 9.5 15.5 8.6 15.4 9.8 12.0 9.0 9.1 5.3 10.3 2.7Z"/>
+          <!-- d is filled in by JS from the real map's own accurate
+               per-state path data (mainland + every UT, including
+               Andaman & Nicobar and Lakshadweep) once it loads, so this
+               is a true miniature of the actual map rather than a
+               hand-drawn approximation. Empty until then. -->
+          <path id="mapIconIndiaShape" fill="url(#indiaMapIconFlag)" d=""/>
         </svg>
       </button>
       <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
@@ -1370,6 +1373,15 @@ ids.forEach((id, i) => {
     bindStateInteractions(hit, id, s);
   }
 });
+
+// Build the map-toggle icon's India shape directly from the live map's
+// own accurate per-state path data (mainland + every UT, Andaman &
+// Nicobar and Lakshadweep included) instead of a hand-drawn
+// approximation, so the icon is a true miniature of the real map.
+const mapIconPath = document.getElementById('mapIconIndiaShape');
+if(mapIconPath){
+  mapIconPath.setAttribute('d', ids.map(id => STATES[id].d).join(' '));
+}
 
 // English name labels, added after every path exists so labels
 // always render above every state's fill (not hidden under a
