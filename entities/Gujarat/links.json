@@ -22,6 +22,12 @@
         "url": "https://police.gujarat.gov.in/",
         "desc": "Citizen services and emergency contacts.",
         "image": "entities/Gujarat/icons/gujarat-police.svg"
+      },
+      {
+        "title": "Gujarat Police – e-FIR",
+        "url": "https://gujhome.gujarat.gov.in/",
+        "desc": "File an e-FIR online for vehicle and mobile-phone theft.",
+        "image": "entities/Gujarat/icons/gujarat-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

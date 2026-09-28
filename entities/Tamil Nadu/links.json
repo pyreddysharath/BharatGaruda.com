@@ -22,6 +22,12 @@
         "url": "https://tnpolice.gov.in/",
         "desc": "Citizen services and emergency contacts.",
         "image": "entities/Tamil Nadu/icons/tamil-nadu-police.svg"
+      },
+      {
+        "title": "Tamil Nadu Police – e-FIR",
+        "url": "https://eservices.tnpolice.gov.in/",
+        "desc": "Report lost documents and certificates online through the eServices citizen portal.",
+        "image": "entities/Tamil Nadu/icons/tamil-nadu-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

@@ -22,6 +22,12 @@
         "url": "https://biharpolice.gov.in/",
         "desc": "FIR status, citizen services and emergency numbers.",
         "image": "entities/Bihar/icons/bihar-police.svg"
+      },
+      {
+        "title": "Bihar Police – e-FIR",
+        "url": "https://citizenservicesportal.bihar.gov.in/portal/",
+        "desc": "Register an FIR and track complaint status online via Bihar Police's citizen services portal.",
+        "image": "entities/Bihar/icons/bihar-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

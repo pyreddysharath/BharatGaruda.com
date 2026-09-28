@@ -22,6 +22,12 @@
         "url": "https://haryanapolice.gov.in/",
         "desc": "Citizen services and emergency helplines.",
         "image": "entities/Haryana/icons/haryana-police.svg"
+      },
+      {
+        "title": "Haryana Police – e-FIR",
+        "url": "https://saralharyana.gov.in/getServiceDesc.html?serviceId=11180005",
+        "desc": "Register a lost-property report online via Haryana's SARAL citizen services portal.",
+        "image": "entities/Haryana/icons/haryana-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

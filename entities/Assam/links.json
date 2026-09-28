@@ -22,6 +22,12 @@
         "url": "https://assampolice.gov.in/",
         "desc": "Citizen services, FIR and emergency helplines.",
         "image": "entities/Assam/icons/assam-police.svg"
+      },
+      {
+        "title": "Assam Police – e-FIR",
+        "url": "https://sewasetu.assam.gov.in/site/service-apply/e-fir",
+        "desc": "File an e-FIR online for crimes against women, POCSO offences and vehicle theft.",
+        "image": "entities/Assam/icons/assam-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

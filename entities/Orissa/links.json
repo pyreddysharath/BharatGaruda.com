@@ -22,6 +22,12 @@
         "url": "https://odishapolice.gov.in/",
         "desc": "Citizen services and emergency contacts.",
         "image": "entities/Orissa/icons/odisha-police.svg"
+      },
+      {
+        "title": "Odisha Police – e-FIR",
+        "url": "https://services-op.odisha.gov.in/Citizen/AboutLostProperty.aspx",
+        "desc": "Report and register lost property or mobiles online through the citizen services portal.",
+        "image": "entities/Orissa/icons/odisha-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

@@ -22,6 +22,12 @@
         "url": "https://uttarakhandpolice.uk.gov.in/",
         "desc": "Citizen services and emergency contacts.",
         "image": "entities/Uttaranchal/icons/uttarakhand-police.svg"
+      },
+      {
+        "title": "Uttarakhand Police – e-FIR",
+        "url": "https://policecitizenportal.uk.gov.in/efir/Login.aspx",
+        "desc": "File an e-FIR online through the Uttarakhand Police Citizen Portal.",
+        "image": "entities/Uttaranchal/icons/uttarakhand-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

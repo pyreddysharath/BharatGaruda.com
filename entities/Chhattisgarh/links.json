@@ -22,6 +22,12 @@
         "url": "https://cgpolice.gov.in/",
         "desc": "Citizen services and emergency helplines.",
         "image": "entities/Chhattisgarh/icons/chhattisgarh-police.svg"
+      },
+      {
+        "title": "Chhattisgarh Police – e-FIR",
+        "url": "https://citizen.cgpolice.gov.in/citizen/login.htm",
+        "desc": "Lodge complaints and lost-article reports online without visiting a police station.",
+        "image": "entities/Chhattisgarh/icons/chhattisgarh-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

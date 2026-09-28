@@ -22,6 +22,12 @@
         "url": "https://www.jhpolice.gov.in/",
         "desc": "Citizen services and emergency helplines.",
         "image": "entities/Jharkhand/icons/jharkhand-police.svg"
+      },
+      {
+        "title": "Jharkhand Police – e-FIR",
+        "url": "https://citizen.jhpolice.gov.in/citizen/login.htm",
+        "desc": "Report lost articles or documents and file complaints online.",
+        "image": "entities/Jharkhand/icons/jharkhand-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

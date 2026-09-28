@@ -22,6 +22,12 @@
         "url": "https://mahapolice.gov.in/",
         "desc": "Citizen services, FIR and emergency helplines.",
         "image": "entities/Maharashtra/icons/maharashtra-police.svg"
+      },
+      {
+        "title": "Maharashtra Police – e-FIR",
+        "url": "https://citizen.mahapolice.gov.in/Citizen/MH/MobileMissingForm.aspx",
+        "desc": "File a mobile-missing or lost report online, which also triggers SIM/IMEI blocking.",
+        "image": "entities/Maharashtra/icons/maharashtra-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

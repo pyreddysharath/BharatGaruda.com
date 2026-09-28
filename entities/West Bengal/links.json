@@ -22,6 +22,12 @@
         "url": "https://www.wbpolice.gov.in/",
         "desc": "Citizen services and emergency contacts.",
         "image": "entities/West Bengal/icons/west-bengal-police.svg"
+      },
+      {
+        "title": "West Bengal Police – e-FIR",
+        "url": "https://cid.wb.gov.in/cid_records/public_report_stolen_mobile",
+        "desc": "Report a lost or stolen mobile phone online through West Bengal CID's citizen portal.",
+        "image": "entities/West Bengal/icons/west-bengal-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

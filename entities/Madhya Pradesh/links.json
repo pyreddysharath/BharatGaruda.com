@@ -22,6 +22,12 @@
         "url": "https://www.mppolice.gov.in/",
         "desc": "Citizen services and emergency contacts.",
         "image": "entities/Madhya Pradesh/icons/madhya-pradesh-police.svg"
+      },
+      {
+        "title": "Madhya Pradesh Police – e-FIR",
+        "url": "https://www.mppolice.gov.in/en/lost-article-report",
+        "desc": "Register a lost-article report online for mobiles, cards and certificates.",
+        "image": "entities/Madhya Pradesh/icons/madhya-pradesh-police-e-fir.svg"
       }
     ],
     "Tourism Department": [

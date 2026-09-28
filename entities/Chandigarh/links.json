@@ -22,6 +22,12 @@
         "url": "https://chandigarhpolice.gov.in/",
         "desc": "Citizen services and emergency contacts.",
         "image": "entities/Chandigarh/icons/chandigarh-police.svg"
+      },
+      {
+        "title": "Chandigarh Police – e-FIR",
+        "url": "https://portal.chandigarhpolice.gov.in/public/Home/MissingArticle",
+        "desc": "Report lost documents (Aadhaar, PAN, driving licence, passport) and articles online.",
+        "image": "entities/Chandigarh/icons/chandigarh-police-e-fir.svg"
       }
     ],
     "Tourism Department": [
