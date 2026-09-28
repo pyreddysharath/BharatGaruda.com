@@ -253,7 +253,7 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
 .site-search-input{
   width:100%;font-family:'Inter',sans-serif;font-size:.88rem;
   background:#E6EEF8;color:#0F2537;
-  border:1.5px solid var(--line);border-radius:0;
+  border:1.5px solid var(--line);border-radius:10px;
   padding:10px 36px 10px 14px;outline:none;
   transition:border-color .15s;
 }
@@ -265,7 +265,7 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
   position:absolute;right:8px;top:50%;transform:translateY(-50%);
   width:22px;height:22px;border:none;background:transparent;color:#5A7284;
   display:flex;align-items:center;justify-content:center;
-  cursor:pointer;padding:0;border-radius:0;
+  cursor:pointer;padding:0;border-radius:50%;
 }
 .search-clear-btn svg{width:14px;height:14px}
 .search-clear-btn:hover{color:#0F2537}
@@ -279,7 +279,7 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
 .search-chips:empty{display:none;margin-bottom:0}
 .search-chip{
   display:inline-flex;align-items:center;gap:6px;
-  background:#43A7C0;color:#fff;border-radius:0;
+  background:#43A7C0;color:#fff;border-radius:999px;
   font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;
   padding:5px 6px 5px 10px;
 }
@@ -316,7 +316,7 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
 }
 .site-search-dropdown{
   margin:0 24px 12px;
-  background:var(--white);border:1.5px solid var(--ink);border-radius:0;
+  background:var(--white);border:1.5px solid var(--ink);border-radius:10px;
   box-shadow:4px 4px 0 rgba(0,0,0,.4);
   max-height:min(420px, calc(100vh - 160px));overflow-y:auto;
   display:none;
@@ -638,12 +638,16 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   cursor:pointer;padding:0;
   display:flex;align-items:center;justify-content:center;
 }
-/* Chip is 22px, same footprint as the reset/trigger badges beside it. */
+/* Chip is 22px, same footprint as the reset/trigger badges beside it.
+   Light mode shows the moon (the icon for switching TO night mode) on
+   a black chip with a white glyph, by request — dark mode's chip
+   (showing the sun, for switching back to day mode) keeps its navy/
+   amber treatment. */
 .theme-toggle-chip{
   position:relative;
   width:22px;height:22px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  background:#FFF4DE;
+  background:#000000;
   box-shadow:inset 0 1px 2px rgba(0,0,0,.08);
   transition:background .3s ease, transform .2s ease;
 }
@@ -659,7 +663,7 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
 }
 /* Reversed by request: moon shows in light mode, sun shows in dark mode. */
 .theme-toggle-chip .icon-sun{color:#F5A623;opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(-90deg)}
-.theme-toggle-chip .icon-moon{color:#C9D6F5;opacity:1}
+.theme-toggle-chip .icon-moon{color:#FFFFFF;opacity:1}
 .theme-toggle[data-mode="dark"] .theme-toggle-chip .icon-sun{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg)}
 .theme-toggle[data-mode="dark"] .theme-toggle-chip .icon-moon{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(90deg)}
 
@@ -829,8 +833,12 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
                per-state path data (mainland + every UT, including
                Andaman & Nicobar and Lakshadweep) once it loads, so this
                is a true miniature of the actual map rather than a
-               hand-drawn approximation. Empty until then. -->
-          <path id="mapIconIndiaShape" fill="url(#indiaMapIconFlag)" d=""/>
+               hand-drawn approximation. Empty until then. A thin grey
+               outline (same ratio as the icon's old hand-drawn shape)
+               keeps its edges visible against a light/white page
+               background, since the shape's own white flag-band would
+               otherwise blend straight into it. -->
+          <path id="mapIconIndiaShape" fill="url(#indiaMapIconFlag)" stroke="#8A8A8A" stroke-width="16" d=""/>
         </svg>
       </button>
       <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
@@ -2094,16 +2102,32 @@ const SEARCH_INDEX = (function buildSearchIndex(){
   return items;
 })();
 
+// Strips spaces, hyphens and any other punctuation, keeping only
+// letters/digits (case already lowercased by the caller) — used so a
+// keyword and a field can be compared "loosely" as well as literally.
+function normalizeForSearch(s){
+  return s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+}
+
 // Each item must match EVERY keyword given (AND across keywords); a
 // single keyword matches if it's found in ANY of an item's fields (OR
 // across fields) — same per-keyword matching as before, just now
 // applied progressively as more keywords (chips) are committed.
+// Each keyword is tried two ways, case-insensitively: literally as
+// typed, and again with all spaces/hyphens/punctuation stripped from
+// both the keyword and the field — so "e-fir", "e fir" and "efir" (or
+// "e F i r") all find the same "e-FIR" entries regardless of which
+// form the keyword or the stored text uses.
 function itemMatchesKeyword(item, kw){
-  return (item.title && item.title.toLowerCase().includes(kw)) ||
-    (item.url && item.url.toLowerCase().includes(kw)) ||
-    (item.desc && item.desc.toLowerCase().includes(kw)) ||
-    (item.stateName && item.stateName.toLowerCase().includes(kw)) ||
-    (item.sectionTitle && item.sectionTitle.toLowerCase().includes(kw));
+  const strippedKw = normalizeForSearch(kw);
+  const fields = [item.title, item.url, item.desc, item.stateName, item.sectionTitle];
+  return fields.some(f=>{
+    if(!f) return false;
+    const fLower = f.toLowerCase();
+    if(fLower.includes(kw)) return true;
+    if(strippedKw && normalizeForSearch(fLower).includes(strippedKw)) return true;
+    return false;
+  });
 }
 
 function searchSites(queryOrKeywords){
