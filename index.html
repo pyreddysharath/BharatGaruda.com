@@ -652,7 +652,7 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   transition:background .3s ease, transform .2s ease;
 }
 .theme-toggle[data-mode="dark"] .theme-toggle-chip{
-  background:#1C2B4E;
+  background:#FFFFFF;
 }
 .theme-toggle:hover .theme-toggle-chip{transform:scale(1.06)}
 .theme-toggle-chip .track-icon{
@@ -751,11 +751,27 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   transform-style:preserve-3d;
   filter:drop-shadow(0 20px 24px rgba(0,0,0,.7));
   transition:transform .5s cubic-bezier(.2,.8,.3,1);
+  /* The source PNG's own painted pixels stop dead — a hard cutoff with
+     no fade — right at the Andaman & Nicobar islands' southern tip (its
+     lowest painted content); no amount of crop math can recover detail
+     the file itself doesn't have. This mask fades just the bottom ~3%
+     of the box to transparent so that hard line reads as an
+     intentional vignette instead of an abrupt cut. */
+  -webkit-mask-image:linear-gradient(to bottom, #000 0%, #000 97%, transparent 100%);
+  mask-image:linear-gradient(to bottom, #000 0%, #000 97%, transparent 100%);
 }
 .decorative-map-view img{
   position:absolute;
-  left:-7.56%;top:-5.96%;
-  width:115.47%;height:114.08%;
+  /* Recomputed directly from the source PNG's measured painted-pixel
+     bounding box (top 5.22%, bottom 96.02%, left 6.55%, right 93.15%
+     of the raw 1008x1054 canvas). The previous top/height pair assumed
+     the top and bottom margins were roughly equal; they aren't (the
+     bottom margin is thinner), so that version under-scaled just
+     enough to push the painted content's own bottom edge — the
+     Andaman & Nicobar islands, the lowest thing painted — about 3.6%
+     past the visible box and off the bottom, clipping them. */
+  left:-7.56%;top:-5.75%;
+  width:115.47%;height:110.14%;
   object-fit:fill;display:block;
 }
 .decorative-overlay-svg{
@@ -833,12 +849,21 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
                per-state path data (mainland + every UT, including
                Andaman & Nicobar and Lakshadweep) once it loads, so this
                is a true miniature of the actual map rather than a
-               hand-drawn approximation. Empty until then. A thin grey
-               outline (same ratio as the icon's old hand-drawn shape)
-               keeps its edges visible against a light/white page
-               background, since the shape's own white flag-band would
-               otherwise blend straight into it. -->
-          <path id="mapIconIndiaShape" fill="url(#indiaMapIconFlag)" stroke="#8A8A8A" stroke-width="16" d=""/>
+               hand-drawn approximation. Empty until then.
+               Two copies of the exact same shape, not one: the bottom
+               copy is stroke-only (no fill) and gives the country its
+               visible outline against a light page background; the top
+               copy is fill-only (no stroke) and is identical geometry,
+               so it fully covers the bottom copy's stroke everywhere
+               two states touch (both sides of that internal seam get
+               painted over by the top layer) — only the true outer
+               national boundary, where there's no neighbouring state to
+               cover it, is left showing. Net effect: one clean outline,
+               no internal state-division lines, unlike a single
+               stroked path (which strokes every state's full perimeter,
+               internal seams included). -->
+          <path id="mapIconIndiaOutline" fill="none" stroke="#8A8A8A" stroke-width="34" stroke-linejoin="round" d=""/>
+          <path id="mapIconIndiaShape" fill="url(#indiaMapIconFlag)" d=""/>
         </svg>
       </button>
       <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
@@ -1385,11 +1410,14 @@ ids.forEach((id, i) => {
 // Build the map-toggle icon's India shape directly from the live map's
 // own accurate per-state path data (mainland + every UT, Andaman &
 // Nicobar and Lakshadweep included) instead of a hand-drawn
-// approximation, so the icon is a true miniature of the real map.
+// approximation, so the icon is a true miniature of the real map. Both
+// the fill layer and the stroke-only outline layer beneath it (see the
+// markup comment above) share this same combined shape.
+const mapIconCombinedD = ids.map(id => STATES[id].d).join(' ');
 const mapIconPath = document.getElementById('mapIconIndiaShape');
-if(mapIconPath){
-  mapIconPath.setAttribute('d', ids.map(id => STATES[id].d).join(' '));
-}
+if(mapIconPath) mapIconPath.setAttribute('d', mapIconCombinedD);
+const mapIconOutlinePath = document.getElementById('mapIconIndiaOutline');
+if(mapIconOutlinePath) mapIconOutlinePath.setAttribute('d', mapIconCombinedD);
 
 // English name labels, added after every path exists so labels
 // always render above every state's fill (not hidden under a
