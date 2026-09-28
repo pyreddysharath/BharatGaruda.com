@@ -754,25 +754,27 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
 }
 .decorative-map-view img{
   position:absolute;
-  /* Recomputed from the CURRENT source PNG's measured painted-pixel
-     bounding box (top 5.31%, bottom 94.88%, left 6.55%, right 93.06%
-     of the 1008x1054 canvas), then padded out by an extra 1.5% of the
-     image on every side before converting to a crop box, so the
-     visible frame has real breathing room past the content's actual
-     edges rather than sitting flush against them. This file's Andaman
-     & Nicobar chain was patched in from a second, untrimmed
-     illustration (spliced in at matching scale/position — the two
-     pieces of art lined up almost exactly when overlaid) after
-     discovering the previous file had a genuine hard cutoff baked
-     into it — not a crop bug, the pixels themselves stopped dead with
-     no taper. The new bottom edge tapers off naturally over its last
-     several rows, confirming it's the islands' real tip rather than
-     another truncation. No fade overlay needed any more (the earlier
-     one masking that cutoff has been removed) since there's no hard
-     edge left to disguise, and the added padding means a flush,
-     zero-margin fit is no longer relied on to avoid clipping it. */
-  left:-5.64%;top:-4.12%;
-  width:111.72%;height:108.03%;
+  /* Cropped tight to the source PNG's own measured painted-pixel
+     bounding box (top 5.22%, bottom 95.07%, left 6.55%, right 93.15%
+     of the 1008x1054 canvas) and stretched to fill the stage box
+     exactly, so this illustrated view fills its frame edge-to-edge —
+     matching how the real interactive map fills the very same box
+     (its own path data spans ~0–100% of its viewBox, essentially
+     edge-to-edge too). An earlier version added an extra 1.5% padding
+     margin on every side "for safety," but that made this view visibly
+     smaller/more inset than the interactive map's own fill, breaking
+     the size/alignment match between the two — reverted back to the
+     tight, exact-bbox fit. This file's Andaman & Nicobar chain was
+     patched in from a second, untrimmed illustration (spliced in at
+     matching scale/position — the two pieces of art lined up almost
+     exactly when overlaid) after discovering the previous file had a
+     genuine hard cutoff baked into it — not a crop bug, the pixels
+     themselves stopped dead with no taper. The new bottom edge tapers
+     off naturally over its last several rows, confirming it's the
+     islands' real tip rather than another truncation, so a tight,
+     flush crop no longer risks clipping it. */
+  left:-7.56%;top:-5.81%;
+  width:115.46%;height:111.30%;
   object-fit:fill;display:block;
 }
 .decorative-overlay-svg{
