@@ -659,10 +659,11 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   transform:translate(-50%,-50%) scale(1) rotate(0deg);
   transition:opacity .25s ease, transform .25s ease;
 }
-.theme-toggle-chip .icon-sun{color:#F5A623;opacity:1}
-.theme-toggle-chip .icon-moon{color:#C9D6F5;opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(-90deg)}
-.theme-toggle[data-mode="dark"] .theme-toggle-chip .icon-sun{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(90deg)}
-.theme-toggle[data-mode="dark"] .theme-toggle-chip .icon-moon{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg)}
+/* Reversed by request: moon shows in light mode, sun shows in dark mode. */
+.theme-toggle-chip .icon-sun{color:#F5A623;opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(-90deg)}
+.theme-toggle-chip .icon-moon{color:#C9D6F5;opacity:1}
+.theme-toggle[data-mode="dark"] .theme-toggle-chip .icon-sun{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg)}
+.theme-toggle[data-mode="dark"] .theme-toggle-chip .icon-moon{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(90deg)}
 
 .toggle-labels-btn{
   width:24px;height:32px;
@@ -698,9 +699,8 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
    the optional illustrated-map toggle. Delete this whole block (plus
    its two markup blocks and its JS block) to remove the feature. Styled
    as a plain icon button, matching the theme/labels/reset buttons above
-   it, with an India-map glyph; aria-pressed="true" (decorative view
-   showing) is shown with a highlighted color/background instead of a
-   separate switch control. ===== */
+   it, with an India-map glyph; no background/box on the button itself
+   in either state — just the glyph or thumbnail on its own. ===== */
 .decorative-map-toggle{
   width:24px;height:32px;
   border:none;background:transparent;color:#757575;border-radius:8px;
@@ -720,13 +720,11 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
 .decorative-map-toggle-thumb{
   width:22px;height:22px;border-radius:6px;object-fit:cover;
   object-position:50% 38%;display:block;
-  box-shadow:0 0 0 1px rgba(0,0,0,.3) inset;
 }
 .decorative-map-toggle svg{display:none}
 .decorative-map-toggle[aria-pressed="true"] svg{display:block}
 .decorative-map-toggle[aria-pressed="true"] .decorative-map-toggle-thumb{display:none}
-.decorative-map-toggle{background:rgba(181,101,29,.16)}
-.decorative-map-toggle[aria-pressed="true"]{background:transparent}
+.decorative-map-toggle{background:transparent}
 
 .decorative-map-view{
   position:absolute;inset:0;
