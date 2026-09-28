@@ -752,34 +752,22 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   filter:drop-shadow(0 20px 24px rgba(0,0,0,.7));
   transition:transform .5s cubic-bezier(.2,.8,.3,1);
 }
-/* The source PNG's own painted pixels stop dead — a hard cutoff with no
-   fade — right at the Andaman & Nicobar islands' southern tip (its
-   lowest painted content); no amount of crop math can recover detail
-   the file itself doesn't have. A plain gradient overlay (fading to the
-   map column's own background) sits on top of just the bottom sliver so
-   that hard line reads as an intentional vignette instead of an abrupt
-   cut. (A CSS mask-image was tried first, but combined with this
-   element's 3D transform + drop-shadow it clipped diagonally across
-   multiple edges instead of just the bottom — browsers don't compute
-   mask geometry consistently under a rotateX transform. A same-tilt
-   overlay avoids that entirely: it's just another layer inside the
-   already-tilted container, not a mask trying to reshape it.) */
-.decorative-map-fade{
-  position:absolute;inset:0;pointer-events:none;
-  background:linear-gradient(to bottom, transparent 0%, transparent 95%, var(--map-bg) 100%);
-}
 .decorative-map-view img{
   position:absolute;
-  /* Recomputed directly from the source PNG's measured painted-pixel
-     bounding box (top 5.22%, bottom 96.02%, left 6.55%, right 93.15%
-     of the raw 1008x1054 canvas). The previous top/height pair assumed
-     the top and bottom margins were roughly equal; they aren't (the
-     bottom margin is thinner), so that version under-scaled just
-     enough to push the painted content's own bottom edge — the
-     Andaman & Nicobar islands, the lowest thing painted — about 3.6%
-     past the visible box and off the bottom, clipping them. */
-  left:-7.56%;top:-5.75%;
-  width:115.47%;height:110.14%;
+  /* Recomputed from the CURRENT source PNG's measured painted-pixel
+     bounding box (top 5.22%, bottom 95.07%, left 6.55%, right 93.15%
+     of the 1008x1054 canvas). This file's Andaman & Nicobar chain was
+     patched in from a second, untrimmed illustration (spliced in at
+     matching scale/position — the two pieces of art lined up almost
+     exactly when overlaid) after discovering the previous file had a
+     genuine hard cutoff baked into it — not a crop bug, the pixels
+     themselves stopped dead with no taper. The new bottom edge now
+     tapers off naturally over its last several rows, confirming it's
+     the islands' real tip rather than another truncation. No fade
+     overlay needed any more (the earlier one masking that cutoff has
+     been removed) since there's no hard edge left to disguise. */
+  left:-7.56%;top:-5.81%;
+  width:115.47%;height:111.30%;
   object-fit:fill;display:block;
 }
 .decorative-overlay-svg{
@@ -837,8 +825,8 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
            above: none of the existing map/search/state-select code reads
            from or depends on it. Delete all four pieces to remove it. ===== -->
       <button id="decorativeMapToggle" class="decorative-map-toggle" title="Show interactive map" aria-label="Toggle illustrated 3D map view" aria-pressed="true">
-        <img class="decorative-map-toggle-thumb" src="images/decorative-3d-map.png?v=5" alt="" aria-hidden="true">
-        <svg viewBox="0 0 1000 1136" stroke="none">
+        <img class="decorative-map-toggle-thumb" src="images/decorative-3d-map.png?v=7" alt="" aria-hidden="true">
+        <svg viewBox="0 0 1000 1136" preserveAspectRatio="xMidYMid slice" stroke="none">
           <defs>
             <!-- Showing the illustrated map: the icon reads as a tiny
                  tricolor flag-map — saffron/white/green bands, top to
@@ -945,8 +933,7 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
          image itself is never modified. -->
     <div class="decorative-map-view" id="decorativeMapView">
       <div class="decorative-map-crop">
-        <img src="images/decorative-3d-map.png?v=6" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
-        <div class="decorative-map-fade" aria-hidden="true"></div>
+        <img src="images/decorative-3d-map.png?v=7" alt="Illustrated 3D relief map of India with regional landmarks" loading="lazy">
       </div>
       <svg id="decorativeOverlay" class="decorative-overlay-svg" viewBox="0 0 1000 1136" preserveAspectRatio="none" aria-hidden="true"></svg>
     </div>
