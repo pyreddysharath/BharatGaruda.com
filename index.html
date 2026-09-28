@@ -628,48 +628,41 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   transition:max-width .35s ease, gap .35s ease, margin .35s ease;
 }
 .map-toolbar.open .toolbar-items{max-width:220px;gap:0;margin-right:0}
-/* A proper pill-shaped day/night switch (track + sliding thumb),
-   styled after the classic neumorphic day/night toggle reference —
-   sky-blue track with the thumb parked left in light mode, a dark
-   navy track with the thumb slid right in dark mode, tiny sun/moon
-   glyphs fixed at each end of the track so the thumb's position
-   alone tells you which mode you're in and which way it'll slide
-   next. Wider than the other square toolbar icons by design, since
-   it's a genuine switch control, not a single glyph. */
+/* Single swapping day/night icon: a round tinted chip that holds
+   both glyphs stacked on top of each other. The sun is shown (and
+   its warm chip background) in light mode; a click cross-fades +
+   rotates it out while the moon fades in and the chip background
+   flips to navy, and vice-versa. Nothing slides — only the glyph
+   and the chip color change. */
 .theme-toggle{
-  width:44px;height:32px;
+  width:24px;height:32px;
   border:none;background:transparent;
   cursor:pointer;padding:0;
   display:flex;align-items:center;justify-content:center;
 }
-.theme-switch-track{
+/* Chip is 22px, same footprint as the reset/trigger badges beside it. */
+.theme-toggle-chip{
   position:relative;
-  width:38px;height:19px;border-radius:10px;
-  background:linear-gradient(180deg,#7EC8F2,#4A9FE0);
-  box-shadow:inset 0 1px 3px rgba(0,0,0,.35), inset 0 -1px 1px rgba(255,255,255,.3);
-  transition:background .3s ease;
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  background:#FFF4DE;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,.08);
+  transition:background .3s ease, transform .2s ease;
 }
-.theme-toggle[data-mode="dark"] .theme-switch-track{
-  background:linear-gradient(180deg,#1C2B4E,#0D1730);
+.theme-toggle[data-mode="dark"] .theme-toggle-chip{
+  background:#1C2B4E;
 }
-.theme-switch-track .track-icon{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:11px;height:11px;
+.theme-toggle:hover .theme-toggle-chip{transform:scale(1.06)}
+.theme-toggle-chip .track-icon{
+  position:absolute;top:50%;left:50%;
+  width:14px;height:14px;
+  transform:translate(-50%,-50%) scale(1) rotate(0deg);
+  transition:opacity .25s ease, transform .25s ease;
 }
-.theme-switch-track .icon-sun{left:4px;color:#FFD84D}
-.theme-switch-track .icon-moon{right:4px;color:#C9D6F5}
-.theme-switch-thumb{
-  position:absolute;top:2px;left:21px;
-  width:15px;height:15px;border-radius:50%;
-  background:radial-gradient(circle at 32% 30%,#FFFFFF,#DCE2E8);
-  box-shadow:0 2px 4px rgba(0,0,0,.45);
-  transition:left .3s cubic-bezier(.4,0,.2,1), background .3s ease;
-}
-.theme-toggle[data-mode="dark"] .theme-switch-thumb{
-  left:2px;
-  background:radial-gradient(circle at 32% 30%,#4A5A82,#1A2340);
-}
-.theme-toggle:hover .theme-switch-thumb{transform:scale(1.05)}
+.theme-toggle-chip .icon-sun{color:#F5A623;opacity:1}
+.theme-toggle-chip .icon-moon{color:#C9D6F5;opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(-90deg)}
+.theme-toggle[data-mode="dark"] .theme-toggle-chip .icon-sun{opacity:0;transform:translate(-50%,-50%) scale(.4) rotate(90deg)}
+.theme-toggle[data-mode="dark"] .theme-toggle-chip .icon-moon{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg)}
 
 .toggle-labels-btn{
   width:24px;height:32px;
@@ -841,7 +834,7 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
       </button>
       <!-- ===== DECORATIVE 3D MAP TOGGLE — end (markup continues below the map-shell) ===== -->
       <button id="themeToggle" class="theme-toggle" title="Switch to light mode" aria-label="Toggle light/dark mode" data-mode="light">
-        <span class="theme-switch-track">
+        <span class="theme-toggle-chip">
           <svg class="track-icon icon-sun" viewBox="0 0 24 24" fill="currentColor">
             <circle cx="12" cy="12" r="5.5"/>
             <path d="M12 1v3M12 20v3M3.5 3.5l2.1 2.1M18.4 18.4l2.1 2.1M1 12h3M20 12h3M3.5 20.5l2.1-2.1M18.4 5.6l2.1-2.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" fill="none"/>
@@ -849,7 +842,6 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
           <svg class="track-icon icon-moon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
             <path d="M20.5 14.6A8.5 8.5 0 1 1 9.4 3.5a.75.75 0 0 1 .9.98A7 7 0 0 0 19.52 13.7a.75.75 0 0 1 .98.9Z"/>
           </svg>
-          <span class="theme-switch-thumb"></span>
         </span>
       </button>
       <button id="toggleLabels" class="toggle-labels-btn" title="Show state names" aria-label="Toggle state name labels" aria-pressed="true">
