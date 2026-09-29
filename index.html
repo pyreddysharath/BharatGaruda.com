@@ -486,8 +486,11 @@ footer.foot a{color:var(--teal-light)}
    both light and dark mode, and stay that colour when selected/active
    (no colour or glow change, no hover-lift "float"). */
 .footer-icon .footer-icon-svg{width:1.2rem;height:1.2rem;display:block;color:#8A8A8A}
-/* "Our Other Sites" icon — same flat grey as the other footer icons. */
-.icon-othersites .icon-svg{width:1.2rem;height:1.2rem;display:block;color:#8A8A8A}
+/* The "Our Other Sites" icon used a separate .icon-svg class + its own
+   copy of this same rule before the footer icons moved to
+   config/FooterIcons.json — now every icon (that one included) renders
+   with the shared .footer-icon-svg class above, so this duplicate rule
+   is gone. */
 
 .info-panel-body p{margin:0 0 12px}
 .info-panel-body p:last-child{margin-bottom:0}
@@ -550,10 +553,12 @@ footer.foot a{color:var(--teal-light)}
   padding:9px 16px;cursor:pointer;transition:background .15s,transform .15s;white-space:nowrap;
 }
 .feedback-actions .fb-btn:hover{background:var(--paper-dim);transform:translateY(-1px)}
+.feedback-actions .fb-btn:disabled{cursor:default;transform:none;opacity:.85}
 .feedback-actions .fb-btn.primary{background:var(--ink);color:var(--paper-dim);border-color:var(--ink)}
 .feedback-actions .fb-btn.primary:hover{background:var(--seal);border-color:var(--seal);color:#fff}
 .feedback-actions .fb-btn.primary:active,
-.feedback-actions .fb-btn.primary:focus-visible{background:#43A7C0;border-color:#43A7C0;color:#fff}
+.feedback-actions .fb-btn.primary:focus-visible,
+.feedback-actions .fb-btn.primary.clicked{background:linear-gradient(180deg, #43A7C0, #29606F);border-color:#29606F;color:#fff}
 .feedback-status{font-size:.8rem;color:var(--muted)}
 .feedback-status.ok{color:#2FA83F}
 .feedback-confirm{
@@ -998,45 +1003,14 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   <p class="footer-disclaimer"><strong>Disclaimer:</strong> BharatGaruda.com is an independent directory, not affiliated with any government body. <a href="#" id="readFullDisclaimerLink">[Read Full Disclaimer]</a></p>
   <div class="footer-row">
     <span class="footer-copyright">© <span id="footerYear"></span> BharatGaruda.com</span>
-    <div class="footer-icons-row">
-      <a href="#" id="disclaimerLink" class="footer-icon icon-info" title="Disclaimer" aria-label="Disclaimer" aria-expanded="false">
-        <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2 1 21h22L12 2Z"/>
-          <path d="M12 9v5"/>
-          <circle cx="12" cy="17.5" r="0.9" fill="currentColor" stroke="none"/>
-        </svg>
-      </a>
-      <a href="#" id="feedbackLink" class="footer-icon icon-feedback" title="Feedback" aria-label="Feedback" aria-expanded="false">
-        <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
-        </svg>
-      </a>
-      <a href="#" id="privacyLink" class="footer-icon icon-privacy" title="Privacy Policy" aria-label="Privacy Policy" aria-expanded="false">
-        <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/>
-          <path d="M9.5 12l1.8 1.8L15 10"/>
-        </svg>
-      </a>
-      <a href="#" id="cookiesLink" class="footer-icon icon-cookies" title="Cookies" aria-label="Cookies" aria-expanded="false">
-        <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 2a1 1 0 0 1 .96 1.28A2 2 0 0 0 15.5 6a2 2 0 0 0 2-2 1 1 0 0 1 1.6-.8A10 10 0 1 1 12 2z"/>
-          <circle cx="8.5" cy="10.5" r="1" fill="currentColor" stroke="none"/>
-          <circle cx="12" cy="15.5" r="1" fill="currentColor" stroke="none"/>
-          <circle cx="16" cy="11.5" r="1" fill="currentColor" stroke="none"/>
-        </svg>
-      </a>
-      <!-- ===== OTHER APPS — start. Single entry point that opens the
-           "Our Other Apps" panel below — delete this block, its CSS
-           rule and its JS block to remove. ===== -->
-      <a href="#" id="otherSitesLink" class="footer-icon icon-othersites" title="Check out our other apps" aria-label="Check out our other apps" aria-expanded="false">
-        <svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h6"/>
-          <polyline points="15 3 21 3 21 9"/>
-          <line x1="10" y1="14" x2="21" y2="3"/>
-        </svg>
-      </a>
-      <!-- ===== OTHER APPS — end ===== -->
-    </div>
+    <!-- Filled by JS from config/FooterIcons.json (id, extra class,
+         title/aria-label, and inner SVG markup for each icon) — same
+         pattern as the "Our Other Sites" panel's config/OurOtherSites.json
+         below: add, remove, or re-order an icon there, no HTML edits
+         needed. The "Our Other Apps" entry point (otherSitesLink) is
+         just one more entry in that same list now, not a separate
+         hand-maintained block. -->
+    <div class="footer-icons-row" id="footerIconsRow"></div>
   </div>
 </footer>
 <div id="feedbackContainer"></div>
@@ -1052,7 +1026,7 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   REGIONS_REQUIRING_CONSENT in the script.
 ============================================================ -->
 <div id="cookieNotice" class="cookie-notice-slim" role="dialog" aria-live="polite" aria-label="Cookie notice">
-  <span>This site uses cookies to show ads and improve your experience. <a href="config/privacy.html">Privacy Policy</a></span>
+  <span id="cookieNoticeText">This site uses cookies to show ads and improve your experience. <a href="config/privacy.html">Privacy Policy</a></span>
   <span class="cookie-notice-actions">
     <a href="#" id="cookieDecline">Decline</a>
     <button id="cookieAccept">Accept</button>
@@ -1078,7 +1052,16 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
 // The "Our Other Sites" footer panel is likewise driven by its own
 // config/OurOtherSites.json ({ content, sites: [{ site, url,
 // information }] }) — add or edit an entry there, no HTML edits
-// needed.
+// needed. The row of small footer icons (disclaimer, feedback, privacy,
+// cookies, our-other-apps) is driven the same way, from
+// config/FooterIcons.json ({ icons: [{ id, extraClass, label, svg }] }):
+// "svg" is the icon's inner SVG markup (paths/polylines/etc., single
+// quotes inside it so it drops straight into JSON), rendered inside a
+// shared <svg class="footer-icon-svg" viewBox="0 0 24 24" ...> wrapper.
+// Re-order, add, or swap an icon there — no HTML edits needed, and
+// nothing elsewhere in this file needs to change since every other
+// footer-icon behavior (open/close panels, the "active" highlight)
+// looks these elements up by the same ids the config still provides.
 // Everything is fetched once here and cached (in memory for this page
 // view, and in sessionStorage so a reload in the same tab doesn't
 // re-fetch over the network), then assembled back into the same
@@ -1088,6 +1071,68 @@ let STATE_IDS = [];
 let STATES = {};
 let PAN_INDIA = null;
 let OTHER_SITES_CONFIG = { content: '', sites: [] };
+// Fallback used only if config/FooterIcons.json can't be fetched —
+// keeps the footer's core nav (feedback/privacy/cookies links) working
+// even on a network hiccup, rather than rendering an empty row.
+const FOOTER_ICONS_FALLBACK = { icons: [
+  { id:'disclaimerLink', extraClass:'icon-info', label:'Disclaimer',
+    svg:"<path d='M12 2 1 21h22L12 2Z'/><path d='M12 9v5'/><circle cx='12' cy='17.5' r='0.9' fill='currentColor' stroke='none'/>" },
+  { id:'feedbackLink', extraClass:'icon-feedback', label:'Feedback',
+    svg:"<path d='M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z'/>" },
+  { id:'privacyLink', extraClass:'icon-privacy', label:'Privacy Policy',
+    svg:"<path d='M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z'/><path d='M9.5 12l1.8 1.8L15 10'/>" },
+  { id:'cookiesLink', extraClass:'icon-cookies', label:'Cookies',
+    svg:"<path d='M12 2a1 1 0 0 1 .96 1.28A2 2 0 0 0 15.5 6a2 2 0 0 0 2-2 1 1 0 0 1 1.6-.8A10 10 0 1 1 12 2z'/><circle cx='8.5' cy='10.5' r='1' fill='currentColor' stroke='none'/><circle cx='12' cy='15.5' r='1' fill='currentColor' stroke='none'/><circle cx='16' cy='11.5' r='1' fill='currentColor' stroke='none'/>" },
+  { id:'otherSitesLink', extraClass:'icon-othersites', label:'Check out our other apps',
+    svg:"<path d='M18 13v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h6'/><polyline points='15 3 21 3 21 9'/><line x1='10' y1='14' x2='21' y2='3'/>" }
+]};
+let FOOTER_ICONS_CONFIG = FOOTER_ICONS_FALLBACK;
+
+// The wording behind each footer panel — disclaimer, privacy, cookies,
+// feedback intro, and the slim cookie-consent banner — is likewise
+// config-driven now (config/DisclaimerText.json, PrivacyPolicy.json,
+// CookiesPanelText.json, FeedbackText.json, CookieBanner.json), each
+// with its own fallback below so a fetch hiccup never leaves a panel
+// blank. Edit the wording there; nothing here needs to change.
+const DISCLAIMER_FALLBACK = { sections: [
+  { heading:'1. Non-Government & Independent Status',
+    body:'BharatGaruda.com is an independently owned and operated information directory. This website is not an official platform of the Government of India, any State Government, Union Territory administration, or public sector undertaking. We do not claim any official status, authorization, or partnership with any government department or statutory body.' },
+  { heading:'2. Scope of Services & External Links', bullets:[
+    'This website functions strictly as an information directory designed to help users locate publicly accessible government links, portals, and online services.',
+    'All outbound links on this site direct users to official government domain extensions (such as .gov.in, .nic.in, or official state domains).',
+    'We do not host, process, alter, or re-transmit official applications, certificates, forms, or public records.'
+  ] },
+  { heading:'3. Accuracy & Verification',
+    body:'While we strive to maintain updated and accurate information, government schemes, portal addresses, and policies change frequently. BharatGaruda.com makes no representations or warranties regarding the completeness, timeliness, or accuracy of the information presented. Users are strongly advised to verify all details directly on the respective official government websites before proceeding with any application or transaction.' },
+  { heading:'4. No Collection of Personal Data or Fees',
+    body:'BharatGaruda.com will never ask for sensitive personal information (such as Aadhaar numbers, PAN details, bank credentials, or passwords) and will never charge any fees for providing links to government services. All official services should be accessed directly and securely through verified government web addresses.' },
+  { heading:'5. Limitation of Liability',
+    body:'BharatGaruda.com and its operators shall not be held liable for any loss, damage, inconvenience, or disruption resulting from the use of information or external links provided on this website.' }
+]};
+let DISCLAIMER_CONFIG = DISCLAIMER_FALLBACK;
+
+const PRIVACY_FALLBACK = {
+  paragraphs: [
+    "This site doesn't collect personal information directly — it's a static page with no account system or server-side database. The only thing stored locally is your cookie-consent choice and, if you've used it, your feedback submissions — both saved in this browser via <code>localStorage</code>.",
+    'If you accept cookies, this site loads <strong>Google AdSense</strong> to show ads, which may set cookies for ad personalisation. You can review or change your Google ad settings at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>.',
+    "Links to official government websites are covered by those sites' own privacy policies, not this one."
+  ],
+  readMoreLabel: 'Read the full Privacy Policy →',
+  readMoreUrl: 'config/privacy.html'
+};
+let PRIVACY_CONFIG = PRIVACY_FALLBACK;
+
+const COOKIES_PANEL_FALLBACK = { paragraphs: [
+  'This site uses cookies from <strong>Google AdSense</strong> to show and personalise ads, only after you accept. If you decline, no ad cookies are set.',
+  'You can change your choice at any time, just pick again below.'
+]};
+let COOKIES_PANEL_CONFIG = COOKIES_PANEL_FALLBACK;
+
+const FEEDBACK_TEXT_FALLBACK = { intro: 'Have a suggestion, spotted a broken link, or just want to say hello? Leave a note below.' };
+let FEEDBACK_TEXT_CONFIG = FEEDBACK_TEXT_FALLBACK;
+
+const COOKIE_BANNER_FALLBACK = { text: 'This site uses cookies to show ads and improve your experience. <a href="config/privacy.html">Privacy Policy</a>' };
+let COOKIE_BANNER_CONFIG = COOKIE_BANNER_FALLBACK;
 
 async function fetchJsonCached(url){
   const cacheKey = 'bgDataCache:' + url;
@@ -1152,6 +1197,65 @@ async function loadAllData(){
     console.error('Failed to load config/OurOtherSites.json', err);
     OTHER_SITES_CONFIG = { content: '', sites: [] };
   }
+
+  try{
+    const loaded = await fetchJsonCached('config/FooterIcons.json');
+    if(loaded && Array.isArray(loaded.icons) && loaded.icons.length) FOOTER_ICONS_CONFIG = loaded;
+  }catch(err){
+    console.error('Failed to load config/FooterIcons.json — using the built-in fallback icon set.', err);
+    // FOOTER_ICONS_CONFIG already defaults to FOOTER_ICONS_FALLBACK above.
+  }
+
+  try{
+    const loaded = await fetchJsonCached('config/DisclaimerText.json');
+    if(loaded && Array.isArray(loaded.sections) && loaded.sections.length) DISCLAIMER_CONFIG = loaded;
+  }catch(err){
+    console.error('Failed to load config/DisclaimerText.json — using the built-in fallback text.', err);
+  }
+
+  try{
+    const loaded = await fetchJsonCached('config/PrivacyPolicy.json');
+    if(loaded && Array.isArray(loaded.paragraphs) && loaded.paragraphs.length) PRIVACY_CONFIG = loaded;
+  }catch(err){
+    console.error('Failed to load config/PrivacyPolicy.json — using the built-in fallback text.', err);
+  }
+
+  try{
+    const loaded = await fetchJsonCached('config/CookiesPanelText.json');
+    if(loaded && Array.isArray(loaded.paragraphs) && loaded.paragraphs.length) COOKIES_PANEL_CONFIG = loaded;
+  }catch(err){
+    console.error('Failed to load config/CookiesPanelText.json — using the built-in fallback text.', err);
+  }
+
+  try{
+    const loaded = await fetchJsonCached('config/FeedbackText.json');
+    if(loaded && loaded.intro) FEEDBACK_TEXT_CONFIG = loaded;
+  }catch(err){
+    console.error('Failed to load config/FeedbackText.json — using the built-in fallback text.', err);
+  }
+
+  try{
+    const loaded = await fetchJsonCached('config/CookieBanner.json');
+    if(loaded && loaded.text) COOKIE_BANNER_CONFIG = loaded;
+  }catch(err){
+    console.error('Failed to load config/CookieBanner.json — using the built-in fallback text.', err);
+  }
+}
+
+// Renders the footer's disclaimer/feedback/privacy/cookies/other-apps
+// icon row from FOOTER_ICONS_CONFIG. Every id it outputs (disclaimerLink,
+// feedbackLink, etc.) is the same one the click handlers and
+// setActiveFooterIcon() further down already look up by id, so this
+// only needs to run once, before those handlers are attached.
+function renderFooterIcons(){
+  const row = document.getElementById('footerIconsRow');
+  if(!row) return;
+  const icons = (FOOTER_ICONS_CONFIG && Array.isArray(FOOTER_ICONS_CONFIG.icons)) ? FOOTER_ICONS_CONFIG.icons : [];
+  row.innerHTML = icons.map(ic => `
+    <a href="#" id="${ic.id}" class="footer-icon ${ic.extraClass || ''}" title="${ic.label}" aria-label="${ic.label}" aria-expanded="false">
+      <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ic.svg}</svg>
+    </a>
+  `).join('');
 }
 
 // Everything below reads STATES / PAN_INDIA (built by loadAllData()
@@ -1159,6 +1263,9 @@ async function loadAllData(){
 // data first, then runs exactly the same map/UI setup as before.
 async function main(){
 await loadAllData();
+renderFooterIcons();
+const cookieNoticeTextEl = document.getElementById('cookieNoticeText');
+if(cookieNoticeTextEl) cookieNoticeTextEl.innerHTML = (COOKIE_BANNER_CONFIG || COOKIE_BANNER_FALLBACK).text;
 
 // ---- Collapsible toolbar trigger ----
 const toolbarEl = document.querySelector('.map-toolbar');
@@ -1881,7 +1988,7 @@ function openFeedbackForm(){
   container.innerHTML = `
     <section class="feedback-section">
       <h2 class="state-name">Feedback</h2>
-      <p class="feedback-note">Have a suggestion, spotted a broken link, or just want to say hello? Leave a note below.</p>
+      <p class="feedback-note">${(FEEDBACK_TEXT_CONFIG || FEEDBACK_TEXT_FALLBACK).intro}</p>
       <form id="feedbackForm" class="feedback-form">
         <input type="hidden" name="Website" value="BharatGaruda.com">
         <input type="hidden" name="Status" value="Open">
@@ -1900,6 +2007,13 @@ function openFeedbackForm(){
     const name = document.getElementById('fbName').value.trim();
     const message = document.getElementById('fbMessage').value.trim();
     if(!name || !message) return;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    if(submitBtn){
+      submitBtn.classList.add('clicked');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+    }
 
     // Field order matters here — it controls the order the data
     // arrives in on the receiving end (e.g. spreadsheet columns).
@@ -1943,34 +2057,33 @@ function openFeedbackForm(){
 }
 
 // ---- Privacy Policy, Cookies, and Disclaimer footer panels ----
+// All three now build their HTML from the configs loaded in
+// loadAllData() (config/PrivacyPolicy.json, CookiesPanelText.json,
+// DisclaimerText.json) instead of hardcoded template strings, each
+// falling back to the *_FALLBACK constant declared above if its fetch
+// failed — edit the wording in those JSON files, not here.
 function privacyText(){
-  return `
-  <p>This site doesn't collect personal information directly — it's a static page with no account system or server-side database. The only thing stored locally is your cookie-consent choice and, if you've used it, your feedback submissions — both saved in this browser via <code>localStorage</code>.</p>
-  <p>If you accept cookies, this site loads <strong>Google AdSense</strong> to show ads, which may set cookies for ad personalisation. You can review or change your Google ad settings at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>.</p>
-  <p>Links to official government websites are covered by those sites' own privacy policies, not this one.</p>
-  <p><a href="config/privacy.html" target="_blank" rel="noopener">Read the full Privacy Policy →</a></p>
-`;
+  const cfg = PRIVACY_CONFIG || PRIVACY_FALLBACK;
+  const paras = (cfg.paragraphs || []).map(p => `<p>${p}</p>`).join('\n');
+  const readMore = cfg.readMoreUrl
+    ? `<p><a href="${cfg.readMoreUrl}" target="_blank" rel="noopener">${cfg.readMoreLabel || 'Read the full Privacy Policy →'}</a></p>`
+    : '';
+  return paras + readMore;
 }
-const COOKIES_TEXT = `
-  <p>This site uses cookies from <strong>Google AdSense</strong> to show and personalise ads, only after you accept. If you decline, no ad cookies are set.</p>
-  <p>You can change your choice at any time, just pick again below.</p>
-`;
-const DISCLAIMER_TEXT = `
-  <p><strong>1. Non-Government &amp; Independent Status</strong><br>
-  BharatGaruda.com is an independently owned and operated information directory. This website is not an official platform of the Government of India, any State Government, Union Territory administration, or public sector undertaking. We do not claim any official status, authorization, or partnership with any government department or statutory body.</p>
-  <p><strong>2. Scope of Services &amp; External Links</strong></p>
-  <ul>
-    <li>This website functions strictly as an information directory designed to help users locate publicly accessible government links, portals, and online services.</li>
-    <li>All outbound links on this site direct users to official government domain extensions (such as .gov.in, .nic.in, or official state domains).</li>
-    <li>We do not host, process, alter, or re-transmit official applications, certificates, forms, or public records.</li>
-  </ul>
-  <p><strong>3. Accuracy &amp; Verification</strong><br>
-  While we strive to maintain updated and accurate information, government schemes, portal addresses, and policies change frequently. BharatGaruda.com makes no representations or warranties regarding the completeness, timeliness, or accuracy of the information presented. Users are strongly advised to verify all details directly on the respective official government websites before proceeding with any application or transaction.</p>
-  <p><strong>4. No Collection of Personal Data or Fees</strong><br>
-  BharatGaruda.com will never ask for sensitive personal information (such as Aadhaar numbers, PAN details, bank credentials, or passwords) and will never charge any fees for providing links to government services. All official services should be accessed directly and securely through verified government web addresses.</p>
-  <p><strong>5. Limitation of Liability</strong><br>
-  BharatGaruda.com and its operators shall not be held liable for any loss, damage, inconvenience, or disruption resulting from the use of information or external links provided on this website.</p>
-`;
+function cookiesPanelText(){
+  const cfg = COOKIES_PANEL_CONFIG || COOKIES_PANEL_FALLBACK;
+  return (cfg.paragraphs || []).map(p => `<p>${p}</p>`).join('\n');
+}
+function disclaimerHtml(){
+  const cfg = DISCLAIMER_CONFIG || DISCLAIMER_FALLBACK;
+  return (cfg.sections || []).map(s => {
+    const bodyLine = s.body ? `<br>\n  ${s.body}` : '';
+    const bullets = Array.isArray(s.bullets) && s.bullets.length
+      ? `\n  <ul>\n    ${s.bullets.map(b => `<li>${b}</li>`).join('\n    ')}\n  </ul>`
+      : '';
+    return `<p><strong>${s.heading}</strong>${bodyLine}</p>${bullets}`;
+  }).join('\n  ');
+}
 
 function openInfoPanel(id, title, bodyHtml){
   const container = document.getElementById('feedbackContainer');
@@ -1988,7 +2101,7 @@ function openPrivacyPanel(){
   openInfoPanel('privacy', 'Privacy Policy', privacyText());
 }
 function openDisclaimerPanel(){
-  openInfoPanel('disclaimer', 'Disclaimer &amp; Terms of Use', DISCLAIMER_TEXT);
+  openInfoPanel('disclaimer', 'Disclaimer &amp; Terms of Use', disclaimerHtml());
 }
 const INFO_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"></circle><line x1="12" y1="10.5" x2="12" y2="16.5"></line><circle cx="12" cy="7.3" r="0.9" fill="currentColor" stroke="none"></circle></svg>`;
 // Slugify a site name into a safe id for element ids/data attributes,
@@ -2054,7 +2167,7 @@ function openCookiesPanel(){
   container.innerHTML = `
     <section class="feedback-section" data-panel="cookies">
       <h2 class="state-name">Cookies</h2>
-      <div class="feedback-note info-panel-body">${COOKIES_TEXT}</div>
+      <div class="feedback-note info-panel-body">${cookiesPanelText()}</div>
       ${currentLine}
       <div class="feedback-actions">
         <button type="button" id="cookiesPanelAccept" class="fb-btn primary">Accept</button>
