@@ -518,8 +518,8 @@ footer.foot a{color:var(--teal-light)}
 .other-sites-open:hover{text-decoration:underline}
 .other-sites-info{
   display:flex;align-items:center;justify-content:center;
-  width:20px;height:20px;border-radius:50%;padding:0;flex:none;
-  border:none;background:transparent;color:#43A7C0;
+  width:20px;height:20px;padding:0;flex:none;
+  border:none;background:none;box-shadow:none;color:#43A7C0;
   cursor:pointer;transition:color .2s ease;
 }
 .other-sites-info svg{width:14px;height:14px;display:block}
@@ -2103,7 +2103,7 @@ function openPrivacyPanel(){
 function openDisclaimerPanel(){
   openInfoPanel('disclaimer', 'Disclaimer &amp; Terms of Use', disclaimerHtml());
 }
-const INFO_ICON_SVG = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"></circle><line x1="12" y1="10.5" x2="12" y2="16.5"></line><circle cx="12" cy="7.3" r="0.9" fill="currentColor" stroke="none"></circle></svg>`;
+const INFO_ICON_SVG = `<svg viewBox="0 0 24 24" aria-hidden="true"><g transform="skewX(-10)"><ellipse cx="12" cy="12" rx="8" ry="9" fill="none" stroke="currentColor" stroke-width="2.3"></ellipse><rect x="10.7" y="9.6" width="2.6" height="6.6" rx="0.5" fill="currentColor"></rect><rect x="8.9" y="15.4" width="6.2" height="1.7" rx="0.4" fill="currentColor"></rect><ellipse cx="12.1" cy="7.3" rx="1.5" ry="1.3" fill="currentColor"></ellipse></g></svg>`;
 // Slugify a site name into a safe id for element ids/data attributes,
 // e.g. "AyuBase6.com" -> "ayubase6-com".
 function slugifySiteName(name){
