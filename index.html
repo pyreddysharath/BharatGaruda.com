@@ -601,12 +601,13 @@ footer.foot a{color:var(--teal-light)}
    tapping it reveals the four view-control buttons sliding out to its
    left, tapping again collapses them back down to just the trigger. */
 .toolbar-trigger{
-  /* margin-left kept equal to .toolbar-items' own gap (below) so the
-     visual spacing before the chevron matches the spacing between the
-     other icons exactly — each icon's 24px box already has a 1px
-     inset on every side around its 22px glyph, so with a 2px gap here
-     and there the visible gap works out the same (~4px) everywhere. */
-  width:24px;height:32px;flex:none;padding:0;margin-left:2px;
+  /* The chevron badge's glyph sits almost flush against its own box
+     edges (barely any inset), unlike the reset badge beside it, so
+     matching the plain 2px box-gap used elsewhere left a visibly
+     tighter gap here than between the other icons — a bigger
+     margin-left compensates so the gap reads the same width when the
+     toolbar is expanded. */
+  width:24px;height:32px;flex:none;padding:0;margin-left:5px;
   border:none;background:transparent;
   cursor:pointer;display:flex;align-items:center;justify-content:center;
   transition:transform .2s ease;
@@ -644,6 +645,12 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
    and the chip color change. */
 .theme-toggle{
   width:24px;height:32px;
+  /* The map-toggle icon's own visible glyph sits slightly further from
+     its box's right edge than this chip sits from its own left edge,
+     so the plain shared 2px box-gap alone left a visibly smaller gap
+     here than the one on the chip's other side (between it and the
+     pin icon) — this extra sliver of margin equalizes the two. */
+  margin-left:1.25px;
   border:none;background:transparent;
   cursor:pointer;padding:0;
   display:flex;align-items:center;justify-content:center;
@@ -684,7 +691,16 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
   display:flex;align-items:center;justify-content:center;
   transition:transform .2s ease, color .2s ease;
 }
-.toggle-labels-btn svg{width:22px;height:22px}
+/* The pin glyph's own path doesn't reach the edges of its viewBox the
+   way the other icons' circular badges fill theirs, so at the same
+   22px nominal size it reads visibly shorter than the reset/theme/
+   chevron badges — sized up so its actual visible height lines up
+   with theirs instead of just matching the invisible box size. */
+/* flex-shrink:0 matters here: the button is a flex container narrower
+   (24px) than this icon's own declared width (32px), so without it
+   the default flex-shrink:1 quietly squashed the svg's width back
+   down to the button's own 24px, undoing the resize below. */
+.toggle-labels-btn svg{width:26px;height:26px;flex-shrink:0}
 /* This icon is a plain pin glyph with no circular badge behind it
    (unlike the theme/reset buttons), so the same upward hover-lift
    used elsewhere in this toolbar read as the pin visibly jumping up
