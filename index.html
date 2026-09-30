@@ -2,6 +2,20 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<script>
+// Apply the saved theme before any CSS paints, so the page never flashes
+// dark-then-light (or vice versa) on load/refresh. Mirrors applyTheme()
+// further down — kept in sync manually since this must run standalone,
+// before the rest of the page's script has loaded.
+(function(){
+  try{
+    var saved = localStorage.getItem('themePreference') || 'light';
+    if(saved === 'light') document.documentElement.setAttribute('data-theme', 'light');
+  }catch(err){
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>India States & Union Territories — Interactive Explorer</title>
 <meta name="description" content="An interactive 3D map of India's 28 states and 8 union territories. Click any state for its official government websites, citizen services, and more — Aadhaar, passport, voter registration, and hundreds of state-specific portals in one place.">
