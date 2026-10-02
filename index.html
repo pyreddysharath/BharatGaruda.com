@@ -257,6 +257,24 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
 .detail-col::-webkit-scrollbar{width:10px}
 .detail-col::-webkit-scrollbar-thumb{background:var(--line);border-radius:6px}
 
+.skeleton-panel{padding:20px 24px}
+.skeleton-line,.skeleton-card{
+  border-radius:6px;margin-bottom:10px;
+  background:linear-gradient(90deg, var(--paper-dim) 25%, var(--line) 37%, var(--paper-dim) 63%);
+  background-size:400% 100%;
+  animation:skeleton-shimmer 1.4s ease infinite;
+}
+.skeleton-title{width:55%;height:22px;margin-bottom:18px}
+.skeleton-label{width:40%;height:13px;margin:18px 0 10px}
+.skeleton-card{height:36px}
+@keyframes skeleton-shimmer{
+  0%{background-position:100% 50%}
+  100%{background-position:0 50%}
+}
+@media (prefers-reduced-motion: reduce){
+  .skeleton-line,.skeleton-card{animation:none}
+}
+
 .site-search-wrap{
   position:sticky;top:0;z-index:15;
   background:var(--paper);
@@ -994,7 +1012,24 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#fff;c
       </div>
     </div>
     <div id="siteSearchResults" class="site-search-dropdown"></div>
-    <div id="detailContent"></div>
+    <!-- Static skeleton so the column is never empty while loadAllData()
+         is still in flight — renderDefault()/renderDetail() replace this
+         whole innerHTML the moment the real content is ready. Without it,
+         a slow connection could leave this column blank for a moment,
+         letting the footer below (disclaimer line included) show through
+         before Pan-India's content arrives. -->
+    <div id="detailContent">
+      <div class="state-panel skeleton-panel" aria-hidden="true">
+        <div class="skeleton-line skeleton-title"></div>
+        <div class="skeleton-line skeleton-label"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-line skeleton-label"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+      </div>
+    </div>
   </section>
 </div>
 
@@ -1162,24 +1197,32 @@ async function fetchJsonCached(url){
 }
 
 async function loadAllData(){
-  STATE_IDS = await fetchJsonCached('config/index.json');
+  // All of the small, independent config/text files below used to be
+  // awaited one after another — each a full network round trip before the
+  // next even started. On a slow connection that serialized latency was
+  // long enough that the page would paint with the detail column still
+  // empty (so the footer, disclaimer line included, briefly showed through
+  // where Pan-India's content was about to go). None of these fetches
+  // depend on each other, so they're all kicked off together up front and
+  // only awaited where their result is actually needed, letting the
+  // browser run them concurrently instead of back-to-back.
+  const panIndiaPromise = fetchJsonCached('entities/Pan-India/links.json');
+  const otherSitesPromise = fetchJsonCached('config/OurOtherSites.json');
+  const footerIconsPromise = fetchJsonCached('config/FooterIcons.json');
+  const disclaimerPromise = fetchJsonCached('config/DisclaimerText.json');
+  const privacyPromise = fetchJsonCached('config/PrivacyPolicy.json');
+  const cookiesPanelPromise = fetchJsonCached('config/CookiesPanelText.json');
+  const feedbackTextPromise = fetchJsonCached('config/FeedbackText.json');
+  const cookieBannerPromise = fetchJsonCached('config/CookieBanner.json');
 
-  try{
-    PAN_INDIA = await fetchJsonCached('entities/Pan-India/links.json');
-  }catch(err){
-    // Pan-India is central enough that the site can't really work without
-    // it, but it's still its own try/catch (rather than failing the whole
-    // Promise.all below) so one broken state file elsewhere can't take
-    // this down too, and vice versa.
-    console.error('Failed to load entities/Pan-India/links.json', err);
-    PAN_INDIA = { citizenId: {}, nationalServices: {} };
-  }
+  STATE_IDS = await fetchJsonCached('config/index.json');
 
   // Each state is loaded independently (Promise.allSettled, not
   // Promise.all) so a single state with a malformed/missing links.json —
   // e.g. a bad hand-edit, or a partial file copy during deployment —
   // only drops that one state from the map instead of taking down the
-  // entire site with the generic "site data failed to load" error.
+  // entire site with the generic "site data failed to load" error. This
+  // also runs concurrently with the config fetches above, not after them.
   const settled = await Promise.allSettled(STATE_IDS.map(id => Promise.all([
     fetchJsonCached('entities/' + encodeURIComponent(id) + '/meta.json'),
     fetchJsonCached('entities/' + encodeURIComponent(id) + '/links.json')
@@ -1206,14 +1249,25 @@ async function loadAllData(){
   }
 
   try{
-    OTHER_SITES_CONFIG = await fetchJsonCached('config/OurOtherSites.json');
+    PAN_INDIA = await panIndiaPromise;
+  }catch(err){
+    // Pan-India is central enough that the site can't really work without
+    // it, but it's still its own try/catch (rather than failing the whole
+    // Promise.all above) so one broken state file elsewhere can't take
+    // this down too, and vice versa.
+    console.error('Failed to load entities/Pan-India/links.json', err);
+    PAN_INDIA = { citizenId: {}, nationalServices: {} };
+  }
+
+  try{
+    OTHER_SITES_CONFIG = await otherSitesPromise;
   }catch(err){
     console.error('Failed to load config/OurOtherSites.json', err);
     OTHER_SITES_CONFIG = { content: '', sites: [] };
   }
 
   try{
-    const loaded = await fetchJsonCached('config/FooterIcons.json');
+    const loaded = await footerIconsPromise;
     if(loaded && Array.isArray(loaded.icons) && loaded.icons.length) FOOTER_ICONS_CONFIG = loaded;
   }catch(err){
     console.error('Failed to load config/FooterIcons.json — using the built-in fallback icon set.', err);
@@ -1221,35 +1275,35 @@ async function loadAllData(){
   }
 
   try{
-    const loaded = await fetchJsonCached('config/DisclaimerText.json');
+    const loaded = await disclaimerPromise;
     if(loaded && Array.isArray(loaded.sections) && loaded.sections.length) DISCLAIMER_CONFIG = loaded;
   }catch(err){
     console.error('Failed to load config/DisclaimerText.json — using the built-in fallback text.', err);
   }
 
   try{
-    const loaded = await fetchJsonCached('config/PrivacyPolicy.json');
+    const loaded = await privacyPromise;
     if(loaded && Array.isArray(loaded.paragraphs) && loaded.paragraphs.length) PRIVACY_CONFIG = loaded;
   }catch(err){
     console.error('Failed to load config/PrivacyPolicy.json — using the built-in fallback text.', err);
   }
 
   try{
-    const loaded = await fetchJsonCached('config/CookiesPanelText.json');
+    const loaded = await cookiesPanelPromise;
     if(loaded && Array.isArray(loaded.paragraphs) && loaded.paragraphs.length) COOKIES_PANEL_CONFIG = loaded;
   }catch(err){
     console.error('Failed to load config/CookiesPanelText.json — using the built-in fallback text.', err);
   }
 
   try{
-    const loaded = await fetchJsonCached('config/FeedbackText.json');
+    const loaded = await feedbackTextPromise;
     if(loaded && loaded.intro) FEEDBACK_TEXT_CONFIG = loaded;
   }catch(err){
     console.error('Failed to load config/FeedbackText.json — using the built-in fallback text.', err);
   }
 
   try{
-    const loaded = await fetchJsonCached('config/CookieBanner.json');
+    const loaded = await cookieBannerPromise;
     if(loaded && loaded.text) COOKIE_BANNER_CONFIG = loaded;
   }catch(err){
     console.error('Failed to load config/CookieBanner.json — using the built-in fallback text.', err);
