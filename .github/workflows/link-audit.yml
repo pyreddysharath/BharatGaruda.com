@@ -1,0 +1,52 @@
+name: Weekly link audit
+
+# Runs every Monday at 03:00 UTC (08:30 IST). Can also be triggered by hand
+# from the Actions tab to test it without waiting for the schedule.
+on:
+  schedule:
+    - cron: '0 3 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
+      - name: Install audit script dependencies
+        working-directory: scripts/link-audit
+        run: npm install --no-save
+
+      - name: Run link audit (dead-link removal + IGOD discovery)
+        id: audit
+        working-directory: scripts/link-audit
+        env:
+          REPO_ROOT: ${{ github.workspace }}
+        run: node run.mjs
+
+      - name: Open pull request with any changes
+        if: steps.audit.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: 'chore(links): weekly link audit'
+          branch: automated/link-audit
+          delete-branch: true
+          title: 'Weekly link audit — dead links removed / new sites found'
+          body-path: link-audit-summary.md
+          labels: |
+            automated
+            link-audit
+          add-paths: |
+            site/entities/**
+            entities/**
