@@ -36,7 +36,7 @@ jobs:
 
       - name: Open pull request with any changes
         if: steps.audit.outputs.changed == 'true'
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: 'chore(links): weekly link audit'
