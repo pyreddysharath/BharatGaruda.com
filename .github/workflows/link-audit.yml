@@ -27,12 +27,19 @@ jobs:
         working-directory: scripts/link-audit
         run: npm install --no-save
 
-      - name: Run link audit (dead-link removal + IGOD discovery)
+      - name: Run link audit (report suspect links + IGOD discovery)
         id: audit
         working-directory: scripts/link-audit
         env:
           REPO_ROOT: ${{ github.workspace }}
         run: node run.mjs
+
+      - name: Upload audit report
+        if: always() && steps.audit.outcome == 'success'
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-audit-summary
+          path: link-audit-summary.md
 
       - name: Open pull request with any changes
         if: steps.audit.outputs.changed == 'true'
@@ -42,7 +49,7 @@ jobs:
           commit-message: 'chore(links): weekly link audit'
           branch: automated/link-audit
           delete-branch: true
-          title: 'Weekly link audit — dead links removed / new sites found'
+          title: 'Weekly link audit — new government links for review'
           body-path: link-audit-summary.md
           labels: |
             automated

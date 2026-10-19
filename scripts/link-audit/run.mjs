@@ -1,100 +1,67 @@
-// Orchestrates the weekly audit: dead-link removal, then new-site
-// discovery, then writes a markdown summary the workflow uses as the PR
-// body. Exits 0 with GITHUB_OUTPUT "changed=true"/"false" so the workflow
-// knows whether to open a PR at all.
-
+// Weekly audit: report suspect links without deleting them, discover new
+// government links via IGOD, and propose new entries in a reviewable PR.
 import path from 'node:path';
 import { existsSync } from 'node:fs';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, appendFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { appendFile } from 'node:fs/promises';
 import { runLinkCheck } from './check-links.mjs';
 import { runDiscovery } from './discover-sites.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const safeCell = (value) => String(value ?? '').replace(/\|/g, '\\|').replace(/[\r\n]+/g, ' ');
 
 async function main() {
   const repoRoot = process.env.REPO_ROOT || path.resolve(__dirname, '..', '..');
-  // Works whether the data lives at <repo>/site/entities or <repo>/entities;
-  // set ENTITIES_DIR to override.
   const candidates = [
     process.env.ENTITIES_DIR && path.resolve(repoRoot, process.env.ENTITIES_DIR),
     path.join(repoRoot, 'site', 'entities'),
     path.join(repoRoot, 'entities'),
   ].filter(Boolean);
-  const entitiesRoot = candidates.find((c) => existsSync(c));
-  if (!entitiesRoot) {
-    throw new Error('Could not find the entities folder. Looked in: ' + candidates.join(', '));
-  }
+  const entitiesRoot = candidates.find((p) => existsSync(p));
+  if (!entitiesRoot) throw new Error('Entities directory not found: ' + candidates.join(', '));
   console.log('Using entities folder:', entitiesRoot);
   const stateCodes = JSON.parse(await readFile(path.join(__dirname, 'state-codes.json'), 'utf8'));
 
-  console.log('--- Checking existing links for dead URLs ---');
-  const { removed, uncertain } = await runLinkCheck(entitiesRoot);
-  console.log(`Removed: ${removed.length}, uncertain (left alone): ${uncertain.length}`);
+  const { suspected, uncertain } = await runLinkCheck(entitiesRoot);
+  console.log(`Suspected unavailable: ${suspected.length}; uncertain: ${uncertain.length}; removed: 0`);
 
-  console.log('--- Discovering new government sites via IGOD ---');
+  // Existing discovery code checks for duplicate URLs and queues newly
+  // discovered government sites in "Newly Added (Needs Review)".
   const { added } = await runDiscovery(entitiesRoot, stateCodes);
-  console.log(`Added: ${added.length}`);
+  console.log(`New IGOD government links queued for review: ${added.length}`);
 
-  const changed = removed.length > 0 || added.length > 0;
+  const lines = [
+    '## Weekly government link audit',
+    '',
+    '**No existing links were removed automatically.** Suspected failures require manual verification.',
+    '',
+    `### New government links: ${added.length} (review before merging)`,
+    '',
+  ];
+  if (added.length) {
+    lines.push('New links were discovered through [IGOD](https://igod.gov.in) and placed in **Newly Added (Needs Review)**. Verify the URL and category before merging.', '');
+    lines.push('| State | Title | URL |', '|---|---|---|');
+    for (const a of added) lines.push(`| ${safeCell(a.state)} | ${safeCell(a.title)} | ${safeCell(a.url)} |`);
+  } else lines.push('No new government links discovered this run.');
 
-  const lines = [];
-  lines.push('## Weekly link audit');
-  lines.push('');
-  if (!changed) {
-    lines.push('No dead links found and no new government sites discovered this week.');
-  } else {
-    if (removed.length) {
-      lines.push(`### Removed ${removed.length} dead link(s)`);
-      lines.push('');
-      lines.push('| State | Category | Title | URL | Reason |');
-      lines.push('|---|---|---|---|---|');
-      for (const r of removed) {
-        lines.push(`| ${r.state} | ${r.category} | ${r.title} | ${r.url} | ${r.reason} |`);
-      }
-      lines.push('');
-    } else {
-      lines.push('### No links needed removing');
-      lines.push('');
-    }
-    if (added.length) {
-      lines.push(`### Added ${added.length} newly-discovered site(s) — needs human review`);
-      lines.push('');
-      lines.push(
-        'These were found via [IGOD](https://igod.gov.in) and filed under a **"Newly Added (Needs Review)"** category in each state\'s `links.json`, with an auto-generated description and icon. Please re-file each into the right existing category (or edit/remove it) before merging.'
-      );
-      lines.push('');
-      lines.push('| State | Title | URL |');
-      lines.push('|---|---|---|');
-      for (const a of added) {
-        lines.push(`| ${a.state} | ${a.title} | ${a.url} |`);
-      }
-      lines.push('');
-    }
-    if (uncertain.length) {
-      lines.push(`<details><summary>${uncertain.length} link(s) could not be confirmed either way this run (left untouched)</summary>`);
-      lines.push('');
-      lines.push('| State | Title | URL | Reason |');
-      lines.push('|---|---|---|---|');
-      for (const u of uncertain) {
-        lines.push(`| ${u.state} | ${u.title} | ${u.url} | ${u.reason} |`);
-      }
-      lines.push('');
-      lines.push('</details>');
-    }
-  }
+  lines.push('', `### Potentially unavailable links: ${suspected.length} (retained)`, '');
+  if (suspected.length) {
+    lines.push('These responses may be temporary or bot-specific. Check manually; none were deleted.', '');
+    lines.push('| State | Category | Title | URL | Reason |', '|---|---|---|---|---|');
+    for (const r of suspected) lines.push(`| ${safeCell(r.state)} | ${safeCell(r.category)} | ${safeCell(r.title)} | ${safeCell(r.url)} | ${safeCell(r.reason)} |`);
+  } else lines.push('No potentially unavailable links flagged.');
 
-  const summaryPath = path.join(repoRoot, 'link-audit-summary.md');
-  await writeFile(summaryPath, lines.join('\n') + '\n', 'utf8');
-  console.log(`Summary written to ${summaryPath}`);
+  lines.push('', `<details><summary>Uncertain link checks: ${uncertain.length} (retained)</summary>`, '');
+  if (uncertain.length) {
+    lines.push('| State | Category | Title | URL | Reason |', '|---|---|---|---|---|');
+    for (const r of uncertain) lines.push(`| ${safeCell(r.state)} | ${safeCell(r.category)} | ${safeCell(r.title)} | ${safeCell(r.url)} | ${safeCell(r.reason)} |`);
+  } else lines.push('None.');
+  lines.push('', '</details>', '');
 
+  await writeFile(path.join(repoRoot, 'link-audit-summary.md'), lines.join('\n'), 'utf8');
   if (process.env.GITHUB_OUTPUT) {
-    await appendFile(process.env.GITHUB_OUTPUT, `changed=${changed}\n`);
+    // Only new links modify repository data. Link failures never trigger PRs.
+    await appendFile(process.env.GITHUB_OUTPUT, `changed=${added.length > 0}\n`);
   }
 }
-
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+main().catch((err) => { console.error(err); process.exit(1); });
