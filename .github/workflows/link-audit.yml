@@ -48,5 +48,4 @@ jobs:
             automated
             link-audit
           add-paths: |
-            site/entities/**
-            entities/**
+            entities/
