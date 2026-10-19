@@ -28,12 +28,6 @@
   "stateServices": {
     "Education": [
       {
-        "title": "NIT Agartala",
-        "url": "https://www.nita.ac.in/",
-        "desc": "National Institute of Technology — centrally funded engineering institute.",
-        "image": "entities/Tripura/icons/nit-agartala.svg"
-      },
-      {
         "title": "Tripura Board of Secondary Education (TBSE)",
         "url": "https://www.tbse.in/",
         "desc": "State board conducting secondary/higher-secondary school examinations.",

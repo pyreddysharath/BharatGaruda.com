@@ -65,12 +65,6 @@
         "image": "entities/Maharashtra/icons/iit-bombay.svg"
       },
       {
-        "title": "Maharashtra State Board (MSBSHSE)",
-        "url": "http://www.msbshse.ac.in/",
-        "desc": "State board conducting secondary/higher-secondary school examinations.",
-        "image": "entities/Maharashtra/icons/maharashtra-state-board-msbshse.svg"
-      },
-      {
         "title": "VNIT Nagpur",
         "url": "http://www.vnit.ac.in/",
         "desc": "National Institute of Technology — centrally funded engineering institute.",

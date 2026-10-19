@@ -17,15 +17,7 @@
         "image": "entities/Dadra and Nagar Haveli/icons/dnh-and-dd-administration-portal.svg"
       }
     ],
-    "Tourism Department": [
-      {
-        "title": "DNH & DD Tourism",
-        "url": "https://ddtourism.gov.in/",
-        "desc": "Beach and fort travel information.",
-        "abbrFull": "Dadra and Nagar Haveli (DNH)",
-        "image": "entities/Dadra and Nagar Haveli/icons/dnh-and-dd-tourism.svg"
-      }
-    ]
+    "Tourism Department": []
   },
   "stateServices": {}
 }

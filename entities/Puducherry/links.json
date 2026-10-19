@@ -16,14 +16,7 @@
         "image": "entities/Puducherry/icons/puducherry-government-portal.svg"
       }
     ],
-    "Tourism Department": [
-      {
-        "title": "Puducherry Tourism",
-        "url": "https://tourism.puducherry.gov.in/",
-        "desc": "French Quarter and Auroville travel planning.",
-        "image": "entities/Puducherry/icons/puducherry-tourism.svg"
-      }
-    ]
+    "Tourism Department": []
   },
   "stateServices": {
     "Education": [

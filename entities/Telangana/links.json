@@ -16,14 +16,7 @@
         "image": "entities/Telangana/icons/telangana-government-portal.svg"
       }
     ],
-    "Police & Public Safety": [
-      {
-        "title": "Telangana Police",
-        "url": "https://www.telanganapolice.gov.in/",
-        "desc": "Citizen services and emergency contacts.",
-        "image": "entities/Telangana/icons/telangana-police.svg"
-      }
-    ],
+    "Police & Public Safety": [],
     "Tourism Department": [
       {
         "title": "Telangana Tourism",
@@ -49,14 +42,7 @@
         "image": "entities/Telangana/icons/agriculture-department-telangana.svg"
       }
     ],
-    "Anti-Corruption": [
-      {
-        "title": "Anti-Corruption Bureau, Telangana",
-        "url": "https://acbtelangana.org/",
-        "desc": "File or track complaints about corruption or bribery involving state government officials.",
-        "image": "entities/Telangana/icons/anti-corruption-bureau-telangana.svg"
-      }
-    ],
+    "Anti-Corruption": [],
     "Education": [
       {
         "title": "Board of Secondary Education, Telangana",
@@ -131,14 +117,7 @@
         "image": "entities/Telangana/icons/ts-meeseva.svg"
       }
     ],
-    "Temples": [
-      {
-        "title": "Telangana Endowments Department",
-        "url": "https://endowments.telangana.gov.in/",
-        "desc": "Temple administration and endowment services.",
-        "image": "entities/Telangana/icons/telangana-endowments-department.svg"
-      }
-    ],
+    "Temples": [],
     "Toll-Free Numbers": [
       {
         "title": "Telangana Prajavani",

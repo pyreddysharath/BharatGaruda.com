@@ -18,12 +18,6 @@
     ],
     "Police & Public Safety": [
       {
-        "title": "Assam Police",
-        "url": "https://assampolice.gov.in/",
-        "desc": "Citizen services, FIR and emergency helplines.",
-        "image": "entities/Assam/icons/assam-police.svg"
-      },
-      {
         "title": "Assam Police – e-FIR",
         "url": "https://sewasetu.assam.gov.in/site/service-apply/e-fir",
         "desc": "File an e-FIR online for crimes against women, POCSO offences and vehicle theft.",
@@ -40,14 +34,7 @@
     ]
   },
   "stateServices": {
-    "Agriculture": [
-      {
-        "title": "Agriculture Department Assam",
-        "url": "https://agriculture.assam.gov.in/",
-        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
-        "image": "entities/Assam/icons/agriculture-department-assam.svg"
-      }
-    ],
+    "Agriculture": [],
     "Education": [
       {
         "title": "IIT Guwahati",
@@ -85,22 +72,7 @@
         "image": "entities/Assam/icons/apsc-assam-public-service-commission.svg"
       }
     ],
-    "Registration & Stamps": [
-      {
-        "title": "IGRS Assam",
-        "url": "https://registration.assam.gov.in/",
-        "desc": "Property registration and stamp duty services.",
-        "abbrFull": "Inspector General of Registration & Stamps (IGRS)",
-        "image": "entities/Assam/icons/igrs-assam.svg"
-      }
-    ],
-    "Services & Certificates": [
-      {
-        "title": "Seva Setu Assam",
-        "url": "https://sevasetu.assam.gov.in/",
-        "desc": "Certificate and citizen service portal.",
-        "image": "entities/Assam/icons/seva-setu-assam.svg"
-      }
-    ]
+    "Registration & Stamps": [],
+    "Services & Certificates": []
   }
 }

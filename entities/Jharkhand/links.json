@@ -40,26 +40,13 @@
     ]
   },
   "stateServices": {
-    "Agriculture": [
-      {
-        "title": "Krishi Jharkhand (Agriculture Dept.)",
-        "url": "https://krishi.jharkhand.gov.in/",
-        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
-        "image": "entities/Jharkhand/icons/krishi-jharkhand-agriculture-dept.svg"
-      }
-    ],
+    "Agriculture": [],
     "Education": [
       {
         "title": "IIT (ISM) Dhanbad",
         "url": "https://www.iitism.ac.in/",
         "desc": "Premier central engineering & technology institute (IIT).",
         "image": "entities/Jharkhand/icons/iit-ism-dhanbad.svg"
-      },
-      {
-        "title": "Jharkhand Academic Council (JAC)",
-        "url": "http://www.jac.nic.in/",
-        "desc": "State board conducting secondary/higher-secondary school examinations.",
-        "image": "entities/Jharkhand/icons/jharkhand-academic-council-jac.svg"
       },
       {
         "title": "NIT Jamshedpur",

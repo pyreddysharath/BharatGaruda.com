@@ -68,14 +68,7 @@
         "image": "entities/Punjab/icons/punjab-school-education-board-pseb.svg"
       }
     ],
-    "Electricity": [
-      {
-        "title": "PSPCL",
-        "url": "https://www.pspcl.in/",
-        "desc": "Punjab State Power Corporation bill payment and services.",
-        "image": "entities/Punjab/icons/pspcl.svg"
-      }
-    ],
+    "Electricity": [],
     "Government Jobs": [
       {
         "title": "PPSC – Punjab Public Service Commission",

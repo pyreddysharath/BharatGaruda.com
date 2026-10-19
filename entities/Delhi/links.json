@@ -23,12 +23,6 @@
         "url": "https://www.delhipolice.gov.in/",
         "desc": "Citizen services, FIR and emergency helplines.",
         "image": "entities/Delhi/icons/delhi-police.svg"
-      },
-      {
-        "title": "Delhi Police – e-FIR",
-        "url": "https://lostfound.delhipolice.gov.in/LostApp/index.aspx",
-        "desc": "Register an online lost report for missing documents, mobiles or property.",
-        "image": "entities/Delhi/icons/delhi-police-e-fir.svg"
       }
     ],
     "Tourism Department": [
@@ -42,14 +36,7 @@
     ]
   },
   "stateServices": {
-    "Anti-Corruption": [
-      {
-        "title": "Anti-Corruption Branch, Delhi",
-        "url": "https://acb.delhi.gov.in/",
-        "desc": "File or track complaints about corruption or bribery involving state government officials.",
-        "image": "entities/Delhi/icons/anti-corruption-branch-delhi.svg"
-      }
-    ],
+    "Anti-Corruption": [],
     "Education": [
       {
         "title": "IIT Delhi",

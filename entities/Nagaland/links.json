@@ -49,13 +49,6 @@
         "image": "entities/Nagaland/icons/npsc-nagaland-public-service-commission.svg"
       }
     ],
-    "Services": [
-      {
-        "title": "Nagaland e-District",
-        "url": "https://edistrict.nagaland.gov.in/",
-        "desc": "Certificates and citizen services portal.",
-        "image": "entities/Nagaland/icons/nagaland-e-district.svg"
-      }
-    ]
+    "Services": []
   }
 }

@@ -103,15 +103,7 @@
         "image": "entities/Karnataka/icons/kpsc-karnataka-public-service-commission.svg"
       }
     ],
-    "Property Tax & Municipality": [
-      {
-        "title": "BBMP Property Tax",
-        "url": "https://bbmptax.karnataka.gov.in/",
-        "desc": "Bengaluru municipal property tax services.",
-        "abbrFull": "Bruhat Bengaluru Mahanagara Palike (BBMP)",
-        "image": "entities/Karnataka/icons/bbmp-property-tax.svg"
-      }
-    ],
+    "Property Tax & Municipality": [],
     "Registration & Stamps": [
       {
         "title": "K-RERA – Karnataka RERA",

@@ -30,24 +30,10 @@
         "image": "entities/Chhattisgarh/icons/chhattisgarh-police-e-fir.svg"
       }
     ],
-    "Tourism Department": [
-      {
-        "title": "Chhattisgarh Tourism",
-        "url": "https://cgtourism.in/",
-        "desc": "Waterfalls, tribal heritage and forest travel guides.",
-        "image": "entities/Chhattisgarh/icons/chhattisgarh-tourism.svg"
-      }
-    ]
+    "Tourism Department": []
   },
   "stateServices": {
-    "Agriculture": [
-      {
-        "title": "Krishi Chhattisgarh (Agriculture Dept.)",
-        "url": "https://krishi.cg.gov.in/",
-        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
-        "image": "entities/Chhattisgarh/icons/krishi-chhattisgarh-agriculture-dept.svg"
-      }
-    ],
+    "Agriculture": [],
     "Education": [
       {
         "title": "Chhattisgarh Board of Secondary Education (CGBSE)",
@@ -85,14 +71,7 @@
         "image": "entities/Chhattisgarh/icons/cgpsc-chhattisgarh-public-service-commission.svg"
       }
     ],
-    "Property Tax & Municipality": [
-      {
-        "title": "Urban Administration Chhattisgarh",
-        "url": "https://cgsuda.gov.in/",
-        "desc": "Urban development and municipal administration.",
-        "image": "entities/Chhattisgarh/icons/urban-administration-chhattisgarh.svg"
-      }
-    ],
+    "Property Tax & Municipality": [],
     "Services": [
       {
         "title": "e-District Chhattisgarh",

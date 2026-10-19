@@ -40,14 +40,7 @@
     ]
   },
   "stateServices": {
-    "Agriculture": [
-      {
-        "title": "Krishi Bihar (Agriculture Dept.)",
-        "url": "https://krishi.bihar.gov.in/",
-        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
-        "image": "entities/Bihar/icons/krishi-bihar-agriculture-dept.svg"
-      }
-    ],
+    "Agriculture": [],
     "Education": [
       {
         "title": "Bihar School Examination Board (BSEB)",
@@ -100,13 +93,6 @@
       }
     ],
     "Registration & Stamps": [
-      {
-        "title": "IGRS Bihar",
-        "url": "https://registration.bihar.gov.in/",
-        "desc": "Property registration and stamp duty services.",
-        "abbrFull": "Inspector General of Registration & Stamps (IGRS)",
-        "image": "entities/Bihar/icons/igrs-bihar.svg"
-      },
       {
         "title": "RERA Bihar",
         "url": "https://rera.bihar.gov.in/",

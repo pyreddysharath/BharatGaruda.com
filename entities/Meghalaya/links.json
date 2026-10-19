@@ -40,22 +40,7 @@
         "image": "entities/Meghalaya/icons/nit-meghalaya.svg"
       }
     ],
-    "Government Jobs": [
-      {
-        "title": "MPSC – Meghalaya Public Service Commission",
-        "url": "https://mpsc.nic.in/",
-        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
-        "abbrFull": "Meghalaya Public Service Commission (MPSC)",
-        "image": "entities/Meghalaya/icons/mpsc-meghalaya-public-service-commission.svg"
-      }
-    ],
-    "Services": [
-      {
-        "title": "Meghalaya e-District",
-        "url": "https://meghalaya.gov.in/edistrict",
-        "desc": "Certificates and citizen services portal.",
-        "image": "entities/Meghalaya/icons/meghalaya-e-district.svg"
-      }
-    ]
+    "Government Jobs": [],
+    "Services": []
   }
 }

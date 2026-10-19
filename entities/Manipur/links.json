@@ -49,13 +49,6 @@
         "image": "entities/Manipur/icons/mpsc-manipur-public-service-commission.svg"
       }
     ],
-    "Services": [
-      {
-        "title": "e-District Manipur",
-        "url": "https://edistrict.mn.gov.in/",
-        "desc": "Certificates and citizen services portal.",
-        "image": "entities/Manipur/icons/e-district-manipur.svg"
-      }
-    ]
+    "Services": []
   }
 }

@@ -8,14 +8,7 @@
         "image": "entities/Sikkim/icons/all-sikkim-government-departments.svg"
       }
     ],
-    "Government Portal": [
-      {
-        "title": "Sikkim Government Portal",
-        "url": "https://www.sikkim.gov.in/",
-        "desc": "State departments and citizen e-services.",
-        "image": "entities/Sikkim/icons/sikkim-government-portal.svg"
-      }
-    ],
+    "Government Portal": [],
     "Tourism Department": [
       {
         "title": "Sikkim Tourism",
@@ -42,13 +35,6 @@
         "image": "entities/Sikkim/icons/sikkim-public-service-commission.svg"
       }
     ],
-    "Services": [
-      {
-        "title": "Sikkim e-District",
-        "url": "https://edistrict.sikkim.gov.in/",
-        "desc": "Certificates and citizen services portal.",
-        "image": "entities/Sikkim/icons/sikkim-e-district.svg"
-      }
-    ]
+    "Services": []
   }
 }

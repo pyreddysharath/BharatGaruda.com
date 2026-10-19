@@ -48,21 +48,8 @@
         "image": "entities/Rajasthan/icons/agriculture-department-rajasthan.svg"
       }
     ],
-    "Anti-Corruption": [
-      {
-        "title": "Anti-Corruption Bureau, Rajasthan",
-        "url": "https://acbrajasthan.gov.in/",
-        "desc": "File or track complaints about corruption or bribery involving state government officials.",
-        "image": "entities/Rajasthan/icons/anti-corruption-bureau-rajasthan.svg"
-      }
-    ],
+    "Anti-Corruption": [],
     "Education": [
-      {
-        "title": "Board of Secondary Education, Rajasthan (RBSE)",
-        "url": "http://rajeduboard.nic.in/",
-        "desc": "State board conducting secondary/higher-secondary school examinations.",
-        "image": "entities/Rajasthan/icons/board-of-secondary-education-rajasthan-rbse.svg"
-      },
       {
         "title": "IIT Jodhpur",
         "url": "https://www.iitj.ac.in/",
@@ -77,18 +64,6 @@
       }
     ],
     "Electricity": [
-      {
-        "title": "AVVNL",
-        "url": "https://www.avvnl.co.in/",
-        "desc": "Ajmer Vidyut Vitran Nigam bill payment and services.",
-        "image": "entities/Rajasthan/icons/avvnl.svg"
-      },
-      {
-        "title": "JDVVNL",
-        "url": "https://www.jdvvnl.org/",
-        "desc": "Jodhpur Vidyut Vitran Nigam bill payment and services.",
-        "image": "entities/Rajasthan/icons/jdvvnl.svg"
-      },
       {
         "title": "JVVNL",
         "url": "https://www.jvvnl.org/",
@@ -113,15 +88,7 @@
         "image": "entities/Rajasthan/icons/local-self-government-rajasthan.svg"
       }
     ],
-    "Registration & Stamps": [
-      {
-        "title": "RAJRERA – Rajasthan RERA",
-        "url": "https://rera.rajasthan.gov.in/",
-        "desc": "Real Estate Regulatory Authority — check registered projects, developer details and file complaints against builders.",
-        "abbrFull": "Rajasthan RERA (RAJRERA)",
-        "image": "entities/Rajasthan/icons/rajrera-rajasthan-rera.svg"
-      }
-    ],
+    "Registration & Stamps": [],
     "Services & Certificates": [
       {
         "title": "e-Mitra Rajasthan",

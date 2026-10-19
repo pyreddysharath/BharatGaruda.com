@@ -88,15 +88,7 @@
         "image": "entities/Uttar Pradesh/icons/uppcl.svg"
       }
     ],
-    "Government Jobs": [
-      {
-        "title": "UPPSC – Uttar Pradesh Public Service Commission",
-        "url": "https://uppsc.up.nic.in/",
-        "desc": "State Public Service Commission — recruitment notifications, exam results and government job vacancies.",
-        "abbrFull": "Uttar Pradesh Public Service Commission (UPPSC)",
-        "image": "entities/Uttar Pradesh/icons/uppsc-uttar-pradesh-public-service-commission.svg"
-      }
-    ],
+    "Government Jobs": [],
     "Property Tax & Municipality": [
       {
         "title": "UP Urban Local Bodies",

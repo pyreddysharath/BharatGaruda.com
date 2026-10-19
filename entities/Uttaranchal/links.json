@@ -60,12 +60,6 @@
         "url": "http://www.nituk.ac.in/",
         "desc": "National Institute of Technology — centrally funded engineering institute.",
         "image": "entities/Uttaranchal/icons/nit-uttarakhand.svg"
-      },
-      {
-        "title": "Uttarakhand Board of School Education (UBSE)",
-        "url": "http://www.ubse.uk.gov.in/",
-        "desc": "State board conducting secondary/higher-secondary school examinations.",
-        "image": "entities/Uttaranchal/icons/uttarakhand-board-of-school-education-ubse.svg"
       }
     ],
     "Electricity": [
@@ -85,13 +79,6 @@
         "image": "entities/Uttaranchal/icons/ukpsc-uttarakhand-public-service-commission.svg"
       }
     ],
-    "Services": [
-      {
-        "title": "Apuni Sarkar Uttarakhand",
-        "url": "https://apunisarkar.uk.gov.in/",
-        "desc": "Certificates and citizen services portal.",
-        "image": "entities/Uttaranchal/icons/apuni-sarkar-uttarakhand.svg"
-      }
-    ]
+    "Services": []
   }
 }

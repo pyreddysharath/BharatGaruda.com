@@ -22,12 +22,6 @@
         "url": "https://www.goapolice.gov.in/",
         "desc": "Citizen services, FIR and tourist helpline.",
         "image": "entities/Goa/icons/goa-police.svg"
-      },
-      {
-        "title": "Goa Police – e-FIR",
-        "url": "https://citizen.goapolice.gov.in/web/guest/sign-in",
-        "desc": "File an e-FIR or report missing items online through the citizen portal.",
-        "image": "entities/Goa/icons/goa-police-e-fir.svg"
       }
     ],
     "Tourism Department": [
@@ -60,14 +54,7 @@
         "image": "entities/Goa/icons/nit-goa.svg"
       }
     ],
-    "Electricity": [
-      {
-        "title": "Electricity Department Goa",
-        "url": "https://egoa.gov.in/Department/electricity",
-        "desc": "State electricity department services.",
-        "image": "entities/Goa/icons/electricity-department-goa.svg"
-      }
-    ],
+    "Electricity": [],
     "Government Jobs": [
       {
         "title": "Goa Public Service Commission",
@@ -76,13 +63,6 @@
         "image": "entities/Goa/icons/goa-public-service-commission.svg"
       }
     ],
-    "Services": [
-      {
-        "title": "Goa Online Services",
-        "url": "https://goaonline.gov.in/",
-        "desc": "Unified citizen services and certificate portal.",
-        "image": "entities/Goa/icons/goa-online-services.svg"
-      }
-    ]
+    "Services": []
   }
 }

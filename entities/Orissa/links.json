@@ -40,14 +40,7 @@
     ]
   },
   "stateServices": {
-    "Agriculture": [
-      {
-        "title": "Agriculture & Farmers' Empowerment Dept., Odisha",
-        "url": "https://agriodisha.nic.in/",
-        "desc": "State agriculture department — farming schemes, subsidies, advisories and market information.",
-        "image": "entities/Orissa/icons/agriculture-and-farmers-empowerment-dept-odisha.svg"
-      }
-    ],
+    "Agriculture": [],
     "Education": [
       {
         "title": "Board of Secondary Education, Odisha (BSE)",
@@ -60,21 +53,9 @@
         "url": "https://www.iitbbs.ac.in/",
         "desc": "Premier central engineering & technology institute (IIT).",
         "image": "entities/Orissa/icons/iit-bhubaneswar.svg"
-      },
-      {
-        "title": "NIT Rourkela",
-        "url": "http://www.nitrkl.ac.in/",
-        "desc": "National Institute of Technology — centrally funded engineering institute.",
-        "image": "entities/Orissa/icons/nit-rourkela.svg"
       }
     ],
     "Electricity": [
-      {
-        "title": "TPCODL",
-        "url": "https://www.tpcodl.com/",
-        "desc": "Central Odisha electricity distribution services.",
-        "image": "entities/Orissa/icons/tpcodl.svg"
-      },
       {
         "title": "TPNODL",
         "url": "https://www.tpnodl.com/",
@@ -111,13 +92,6 @@
         "image": "entities/Orissa/icons/mo-urban-odisha.svg"
       }
     ],
-    "Services & Certificates": [
-      {
-        "title": "Odisha Service Plus",
-        "url": "https://serviceonline.odisha.gov.in/",
-        "desc": "Certificates and citizen services portal.",
-        "image": "entities/Orissa/icons/odisha-service-plus.svg"
-      }
-    ]
+    "Services & Certificates": []
   }
 }

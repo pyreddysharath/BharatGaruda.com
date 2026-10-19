@@ -62,14 +62,7 @@
         "image": "entities/Kerala/icons/nit-calicut.svg"
       }
     ],
-    "Electricity": [
-      {
-        "title": "KSEB",
-        "url": "https://www.kseb.in/",
-        "desc": "Kerala State Electricity Board bill payment and services.",
-        "image": "entities/Kerala/icons/kseb.svg"
-      }
-    ],
+    "Electricity": [],
     "Government Jobs": [
       {
         "title": "Kerala Public Service Commission",
