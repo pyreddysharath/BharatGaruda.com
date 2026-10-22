@@ -955,6 +955,26 @@ html:not([data-theme="light"]) .site-card{background:#213b4b;border-color:#38576
 .site-search-dropdown .site-card{margin:2px 10px 5px}
 @media(max-width:600px){.site-card{min-height:0}.card-text{padding:5px 9px}}
 
+
+/* Restore original state heading typography and divider */
+.state-name{font-family:'Spectral',serif;font-size:2.1rem;font-weight:700;letter-spacing:normal;line-height:1.1;border-bottom:2px solid var(--ink);padding-bottom:18px;margin:0 0 8px}
+.state-name .state-name-native{font-size:1.3rem;letter-spacing:normal;color:var(--muted);font-weight:400}
+@media(max-width:600px){.state-name{font-size:2.1rem}}
+
+/* Modern navy links: original angled geometry, compact content-driven height */
+.site-card,html[data-theme="light"] .site-card,html:not([data-theme="light"]) .site-card{
+ background:transparent;border:0;border-radius:0 12px 0 12px;
+ min-height:0;height:auto;overflow:hidden;box-shadow:none;margin-bottom:7px;
+}
+.site-card:hover{transform:translate(-1px,-1px);box-shadow:none;border-color:transparent}
+.card-visual{width:34px;background:#fff;border:0;clip-path:polygon(0 0,100% 0,calc(100% - 5px) 100%,0 100%);border-radius:0 0 0 10px}
+.card-text{padding:5px 13px 5px 12px;min-height:0;background:linear-gradient(135deg,#315C82,#173B5B);border-radius:0 10px 0 0;clip-path:polygon(5px 0,100% 0,100% 100%,0 100%)}
+.card-text .title-text{color:#fff;text-shadow:none;font-size:.88rem;line-height:1.3}
+.card-url{color:rgba(255,255,255,.78);font-size:.7rem;line-height:1.25}
+.site-desc{color:rgba(255,255,255,.9)}
+.site-desc-abbr{color:#fff}
+html:not([data-theme="light"]) .card-text{background:linear-gradient(135deg,#37668b,#204460)}
+@media(max-width:600px){.site-card{min-height:0}.card-text{padding:5px 11px 5px 12px}}
 </style>
 </head>
 <body>
