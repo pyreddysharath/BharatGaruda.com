@@ -1001,11 +1001,15 @@ html:not([data-theme="light"]) .card-text{background:linear-gradient(135deg,#376
 .site-search-dropdown .site-card{margin-left:2px;margin-right:2px;width:calc(100% - 4px);}
 @media(max-width:600px){.state-panel{padding-left:8px;padding-right:8px}.site-search-wrap{padding-left:8px;padding-right:8px}.site-search-dropdown{margin-left:8px;margin-right:8px}.card-text{padding:4px 27px 4px 7px !important}.card-external-link{right:6px}}
 
+/* Divider spanning from the map column across the explorer. */
+.wrap{border-bottom:1px solid var(--line)}
 /* Pan-India landing heading: flag and title stay side by side. */
 .pan-india-heading{display:flex;align-items:center;gap:14px;margin-bottom:16px;min-width:0}
 .pan-india-heading .medallion{width:56px;height:56px;flex-shrink:0}
 .pan-india-heading .state-name{flex:1;min-width:0;margin:0;padding:0 0 10px;white-space:nowrap}
-@media(max-width:420px){.pan-india-heading{gap:10px}.pan-india-heading .medallion{width:48px;height:48px}.pan-india-heading .state-name{font-size:1.75rem}}
+@media(max-width:420px){.pan-india-heading{gap:10px}.pan-india-heading .medallion{width:48px;height:48px}.pan-india-heading .state-name{font-size:2.1rem}}
+.pan-india-below{margin-top:40px}
+.pan-india-below .state-name.section-gap{margin-top:0}
 </style>
 </head>
 <body>
@@ -1897,7 +1901,13 @@ function renderDetail(id){
       <div class="section-label">${tLabel(lang, 'stateWebsites', 'STATE GOVERNMENT WEBSITES')}</div>
       ${sitesHtml}
       ${stateServicesHtml}
-      <h2 class="state-name section-gap">Pan-India</h2>
+      <div class="pan-india-heading pan-india-below">
+        <div class="medallion" style="background:var(--paper-dim)">
+          <div class="ring"></div>
+          <span style="font-size:1.8rem">🇮🇳</span>
+        </div>
+        <h2 class="state-name section-gap">Pan-India</h2>
+      </div>
       ${idHtml}
       ${nationalHtml}
     </div>
