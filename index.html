@@ -1002,7 +1002,10 @@ html:not([data-theme="light"]) .card-text{background:linear-gradient(135deg,#376
 @media(max-width:600px){.state-panel{padding-left:8px;padding-right:8px}.site-search-wrap{padding-left:8px;padding-right:8px}.site-search-dropdown{margin-left:8px;margin-right:8px}.card-text{padding:4px 27px 4px 7px !important}.card-external-link{right:6px}}
 
 /* Divider spanning from the map column across the explorer. */
-.wrap{border-bottom:1px solid var(--line)}
+.wrap{position:relative}
+.wrap::after{content:"";position:absolute;left:0;right:0;top:var(--heading-divider-y,-100px);height:1px;background:var(--line);pointer-events:none;z-index:3}
+/* The shared divider is drawn by the wrapper, not only beneath the text. */
+.pan-india-heading .state-name{border-bottom:none!important}
 /* Pan-India landing heading: flag and title stay side by side. */
 .pan-india-heading{display:flex;align-items:center;gap:14px;margin-bottom:16px;min-width:0}
 .pan-india-heading .medallion{width:56px;height:56px;flex-shrink:0}
@@ -2742,6 +2745,26 @@ main().catch(err=>{
   const col = document.getElementById('detailContent');
   if(col) col.innerHTML = '<p style="padding:24px">Sorry — the site data failed to load. Please refresh the page.</p>';
 });
+</script>
+<script>
+/* Align the full-width divider with the Pan-India heading, from the map edge. */
+(function(){
+  const wrap=document.querySelector('.wrap');
+  if(!wrap)return;
+  function alignDivider(){
+    const heading=wrap.querySelector('.pan-india-heading .state-name');
+    if(!heading){wrap.style.setProperty('--heading-divider-y','-100px');return;}
+    const a=heading.getBoundingClientRect(), b=wrap.getBoundingClientRect();
+    wrap.style.setProperty('--heading-divider-y',(a.bottom-b.top+8)+'px');
+  }
+  window.addEventListener('resize',alignDivider,{passive:true});
+  const detail=wrap.querySelector('.detail-col');
+  if(detail){
+    new MutationObserver(alignDivider).observe(detail,{childList:true,subtree:true});
+    detail.addEventListener('scroll',alignDivider,{passive:true});
+  }
+  requestAnimationFrame(alignDivider);
+})();
 </script>
 </body>
 </html>
