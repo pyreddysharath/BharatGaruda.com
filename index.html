@@ -17,7 +17,7 @@
 })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BharatGaruda – Eagle's-Eye View of Government</title>
+<title>India States & Union Territories — Interactive Explorer</title>
 <meta name="description" content="An interactive 3D map of India's 28 states and 8 union territories. Click any state for its official government websites, citizen services, and more — Aadhaar, passport, voter registration, and hundreds of state-specific portals in one place.">
 <meta property="og:title" content="India States & Union Territories — Interactive Explorer">
 <meta property="og:description" content="Click any state on an interactive 3D map to find its official government websites and citizen services, all in one place.">
@@ -889,6 +889,59 @@ html:not([data-theme="light"]) .toolbar-trigger .trigger-badge{background:#000;c
 }
 .decorative-overlay-svg.labels-shown text.decorative-state-label{opacity:1}
 /* ===== DECORATIVE 3D MAP TOGGLE — end ===== */
+
+/* BharatGaruda visual refresh — presentation-only overrides */
+:root{
+ --ink:#edf4fa;--paper:#111c2a;--paper-dim:#1b2b3d;--seal:#ffb86b;
+ --seal-dark:#dc9246;--teal:#213b4b;--teal-light:#79d5cc;
+ --line:#34475b;--white:#1b2b3d;--muted:#b1c1d0;
+ --map-bg:#101b29;--map-border:#34475b;
+}
+html[data-theme="light"]{
+ --ink:#192d42;--paper:#f4f7fb;--paper-dim:#e8eff6;
+ --seal:#bd6930;--seal-dark:#955020;--teal:#e2f2f1;
+ --teal-light:#126b70;--line:#d5e0eb;--white:#ffffff;
+ --muted:#526779;--map-bg:#f8fbff;--map-border:#d5e0eb;
+}
+body{font-size:15px;line-height:1.55;letter-spacing:-.008em}
+.map-col{background:var(--map-bg)}
+.detail-col{background:var(--paper);border-left:1px solid var(--line)}
+.site-search-wrap{padding:18px 24px 14px;background:var(--paper);border-bottom:1px solid var(--line)}
+.site-search-input{background:var(--white);color:var(--ink);border:1px solid var(--line);border-radius:14px;font-size:.94rem;min-height:46px;box-shadow:0 2px 9px rgba(16,35,53,.035)}
+.site-search-input:focus{border-color:#218c96;box-shadow:0 0 0 3px rgba(33,140,150,.13)}
+.search-placeholder-icon{color:var(--muted)}
+.search-placeholder-text{font-size:.9rem;color:var(--muted)}
+.search-chip{background:#176e7a;border-radius:9px}
+.site-search-dropdown{border:1px solid var(--line);border-radius:14px;box-shadow:0 14px 35px rgba(9,27,46,.16)}
+.state-panel{padding:28px 28px 64px}
+.state-name{font-family:'Inter',sans-serif;font-size:clamp(1.6rem,2.5vw,2.1rem);font-weight:800;letter-spacing:-.04em;line-height:1.22;border-bottom:1px solid var(--line);padding-bottom:16px}
+.state-name .state-name-native{font-size:1.08rem;letter-spacing:0;color:var(--muted)}
+.section-label{font-family:'Inter',sans-serif;font-size:.79rem;font-weight:800;letter-spacing:.065em;color:var(--teal-light);margin:26px 0 12px}
+.section-label::after{background:var(--line)}
+.cat-title{font-size:.94rem;font-weight:750;margin:20px 0 10px;line-height:1.4}
+.cat-title .dot{width:7px;height:7px;background:#d99052;margin-top:7px}
+.site-card{border-radius:12px;background:var(--white);border:1px solid var(--line);min-height:49px;margin-bottom:9px;box-shadow:0 2px 8px rgba(16,35,53,.045);transition:transform .18s,box-shadow .18s,border-color .18s}
+.site-card:hover{transform:translateY(-2px);border-color:#64aeb2;box-shadow:0 7px 18px rgba(16,35,53,.12)}
+.card-visual{width:42px;background:var(--white);clip-path:none;border-radius:0;border-right:1px solid var(--line)}
+.card-visual[role="button"]:hover,.site-card.desc-open .card-visual[role="button"]{background:var(--teal)}
+.card-icon{font-size:1.15rem}.card-icon.img-icon{width:21px;height:21px}
+.card-text{padding:9px 14px;background:transparent;clip-path:none;border-radius:0}
+.card-text .title-text{font-size:.89rem;font-weight:700;color:var(--ink);text-shadow:none}
+.card-url{font-size:.73rem;color:var(--muted)}
+.site-desc{font-size:.8rem;line-height:1.55;color:var(--muted)}
+.site-desc-abbr{color:var(--teal-light)}
+.site-search-group-label{font-family:'Inter',sans-serif;font-size:.82rem;letter-spacing:.05em}
+.site-search-section-label{font-family:'Inter',sans-serif;font-size:.7rem}
+footer.foot{background:var(--paper);border-bottom:1px solid var(--line);padding:12px 24px 10px}
+.footer-icon .footer-icon-svg{color:var(--muted)}
+.footer-icon:hover .footer-icon-svg{color:var(--teal-light)}
+.feedback-form input,.feedback-form textarea{border-radius:12px;background:var(--white);font-size:.94rem;padding:12px 14px}
+.feedback-actions .fb-btn{border-radius:10px;padding:10px 18px}
+.feedback-actions .fb-btn.primary{background:#176e7a;border-color:#176e7a;color:white}
+.cookie-notice-slim{background:var(--white);box-shadow:0 -8px 30px rgba(0,0,0,.08)}
+@media(max-width:940px){.detail-col{border-left:0;border-top:1px solid var(--line)}}
+@media(max-width:600px){.state-panel{padding:22px 16px 48px}.site-search-wrap{padding:12px 16px}.state-name{font-size:1.65rem}.card-text{padding:9px 11px}.site-card{min-height:48px}}
+
 </style>
 </head>
 <body>
