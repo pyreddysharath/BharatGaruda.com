@@ -460,6 +460,10 @@ svg#india path.active{animation:pathIn .5s ease forwards, stampIn .35s ease-out}
   border-radius:0 10px 0 0;
   clip-path:polygon(5px 0, 100% 0, 100% 100%, 0 100%);
 }
+/* Subtle external-link indicator, decorative only; the entire card stays clickable. */
+.card-text{position:relative;padding-right:36px}
+.card-external-link{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;color:#fff;opacity:.85;pointer-events:none;flex:none}
+.site-card:hover .card-external-link{opacity:1}
 .card-text h4{margin:0;min-width:0}
 .card-text .title-text{
   font-size:.88rem;font-weight:700;color:#fff;
@@ -975,6 +979,9 @@ html:not([data-theme="light"]) .site-card{background:#213b4b;border-color:#38576
 .site-desc-abbr{color:#fff}
 html:not([data-theme="light"]) .card-text{background:linear-gradient(135deg,#37668b,#204460)}
 @media(max-width:600px){.site-card{min-height:0}.card-text{padding:5px 11px 5px 12px}}
+/* Original BharatGaruda teal gradient, retaining compact angled cards */
+.card-text,html:not([data-theme="light"]) .card-text{background:linear-gradient(180deg,#43A7C0,#29606F)}
+
 </style>
 </head>
 <body>
@@ -1980,6 +1987,7 @@ function siteCardHtml(site, accent){
       ${iconHtml}
     </div>
     <div class="card-text">
+      <svg class="card-external-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M20 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6"/></svg>
       <h4><span class="title-text">${site.title}</span></h4>
       <span class="card-url">${site.url}</span>
       ${hasDesc ? `${site.abbrFull ? `<span class="site-desc-abbr">${site.abbrFull}</span>` : ''}<p class="site-desc">${site.desc}</p>` : ''}
