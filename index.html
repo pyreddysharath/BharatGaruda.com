@@ -1013,6 +1013,27 @@ html:not([data-theme="light"]) .card-text{background:linear-gradient(135deg,#376
 @media(max-width:420px){.pan-india-heading{gap:10px}.pan-india-heading .medallion{width:48px;height:48px}.pan-india-heading .state-name{font-size:2.1rem}}
 .pan-india-below{margin-top:40px}
 .pan-india-below .state-name.section-gap{margin-top:0}
+
+/* Refined search field: retain shape and all interactive behaviour. */
+.site-search-input{
+  background:#fff;
+  border:1px solid #A9CCD3;
+  border-radius:12px;
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+.site-search-input:focus{
+  border-color:#288DA1;
+  box-shadow:0 0 0 3px rgba(40,141,161,.12);
+}
+html:not([data-theme="light"]) .site-search-input{
+  background:#1D3445;
+  color:#F1F7FA;
+  border-color:#578A98;
+}
+html:not([data-theme="light"]) .site-search-input:focus{
+  border-color:#65C0D0;
+  box-shadow:0 0 0 3px rgba(101,192,208,.15);
+}
 </style>
 </head>
 <body>
