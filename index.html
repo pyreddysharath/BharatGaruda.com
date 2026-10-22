@@ -1001,11 +1001,14 @@ html:not([data-theme="light"]) .card-text{background:linear-gradient(135deg,#376
 .site-search-dropdown .site-card{margin-left:2px;margin-right:2px;width:calc(100% - 4px);}
 @media(max-width:600px){.state-panel{padding-left:8px;padding-right:8px}.site-search-wrap{padding-left:8px;padding-right:8px}.site-search-dropdown{margin-left:8px;margin-right:8px}.card-text{padding:4px 27px 4px 7px !important}.card-external-link{right:6px}}
 
-/* Divider spanning from the map column across the explorer. */
+/* Pan-India divider: state-heading weight, attached to content rather than a scrolling overlay. */
 .wrap{position:relative}
-.wrap::after{content:"";position:absolute;left:0;right:0;top:var(--heading-divider-y,-100px);height:1px;background:var(--line);pointer-events:none;z-index:3}
-/* The shared divider is drawn by the wrapper, not only beneath the text. */
-.pan-india-heading .state-name{border-bottom:none!important}
+.wrap::after{display:none!important}
+.pan-india-heading{position:relative;border-bottom:2px solid var(--ink);padding-bottom:16px}
+.pan-india-heading .state-name{border-bottom:0!important;padding-bottom:0!important}
+/* Extend the line into the map column only while the heading is at its initial position. */
+.map-col::after{content:"";position:absolute;left:0;right:0;top:var(--map-divider-y,-9999px);height:2px;background:var(--ink);pointer-events:none;display:none}
+.wrap.show-map-divider .map-col::after{display:block}
 /* Pan-India landing heading: flag and title stay side by side. */
 .pan-india-heading{display:flex;align-items:center;gap:14px;margin-bottom:16px;min-width:0}
 .pan-india-heading .medallion{width:56px;height:56px;flex-shrink:0}
@@ -2768,23 +2771,24 @@ main().catch(err=>{
 });
 </script>
 <script>
-/* Align the full-width divider with the Pan-India heading, from the map edge. */
+/* Match the map-side segment to the in-flow Pan-India divider without a floating overlay. */
 (function(){
-  const wrap=document.querySelector('.wrap');
-  if(!wrap)return;
-  function alignDivider(){
-    const heading=wrap.querySelector('.pan-india-heading .state-name');
-    if(!heading){wrap.style.setProperty('--heading-divider-y','-100px');return;}
-    const a=heading.getBoundingClientRect(), b=wrap.getBoundingClientRect();
-    wrap.style.setProperty('--heading-divider-y',(a.bottom-b.top+8)+'px');
-  }
-  window.addEventListener('resize',alignDivider,{passive:true});
-  const detail=wrap.querySelector('.detail-col');
-  if(detail){
-    new MutationObserver(alignDivider).observe(detail,{childList:true,subtree:true});
-    detail.addEventListener('scroll',alignDivider,{passive:true});
-  }
-  requestAnimationFrame(alignDivider);
+ const wrap=document.querySelector('.wrap');
+ const detail=document.getElementById('detailCol');
+ const map=wrap && wrap.querySelector('.map-col');
+ if(!wrap||!detail||!map)return;
+ function syncDivider(){
+   const heading=detail.querySelector('.pan-india-heading');
+   if(!heading){wrap.classList.remove('show-map-divider');return;}
+   const h=heading.getBoundingClientRect(),m=map.getBoundingClientRect();
+   const y=h.bottom-m.top-2;
+   map.style.setProperty('--map-divider-y',y+'px');
+   wrap.classList.toggle('show-map-divider',detail.scrollTop<2 && y>=0 && y<=m.height);
+ }
+ new MutationObserver(syncDivider).observe(document.getElementById('detailContent'),{childList:true});
+ detail.addEventListener('scroll',syncDivider,{passive:true});
+ window.addEventListener('resize',syncDivider,{passive:true});
+ requestAnimationFrame(syncDivider);
 })();
 </script>
 </body>
