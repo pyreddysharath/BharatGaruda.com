@@ -982,6 +982,14 @@ html:not([data-theme="light"]) .card-text{background:linear-gradient(135deg,#376
 /* Original BharatGaruda teal gradient, retaining compact angled cards */
 .card-text,html:not([data-theme="light"]) .card-text{background:linear-gradient(180deg,#43A7C0,#29606F)}
 
+
+/* Link card spacing: dedicated icon lane; titles remain fully readable. */
+.site-card{width:100%;max-width:100%;}
+.card-text{position:relative;min-width:0;padding:5px 40px 5px 10px !important;}
+.card-text h4{min-width:0;max-width:100%;}
+.card-text .title-text,.site-card.desc-open .card-text .title-text{white-space:normal;overflow-wrap:break-word;word-break:normal;text-overflow:clip;overflow:visible;}
+.card-external-link{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;flex-shrink:0;pointer-events:none;}
+@media(max-width:600px){.state-panel{padding-left:12px;padding-right:12px}.site-search-dropdown{margin-left:12px;margin-right:12px}.site-search-dropdown .site-card{margin-left:4px;margin-right:4px}.card-text{padding:5px 35px 5px 9px !important}.card-external-link{right:10px}}
 </style>
 </head>
 <body>
