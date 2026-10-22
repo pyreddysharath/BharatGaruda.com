@@ -990,6 +990,16 @@ html:not([data-theme="light"]) .card-text{background:linear-gradient(135deg,#376
 .card-text .title-text,.site-card.desc-open .card-text .title-text{white-space:normal;overflow-wrap:break-word;word-break:normal;text-overflow:clip;overflow:visible;}
 .card-external-link{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:15px;height:15px;flex-shrink:0;pointer-events:none;}
 @media(max-width:600px){.state-panel{padding-left:12px;padding-right:12px}.site-search-dropdown{margin-left:12px;margin-right:12px}.site-search-dropdown .site-card{margin-left:4px;margin-right:4px}.card-text{padding:5px 35px 5px 9px !important}.card-external-link{right:10px}}
+
+/* Compact, width-first link cards: keep title single-line and icon separate. */
+.site-card{width:100%;max-width:100%;min-height:0;height:auto;}
+.card-text{min-width:0;padding:4px 30px 4px 8px !important;}
+.card-text h4{min-width:0;max-width:100%;}
+.card-text .title-text,.site-card.desc-open .card-text .title-text{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;overflow-wrap:normal;word-break:normal;line-height:1.3;}
+.card-external-link{right:7px;width:14px;height:14px;}
+.site-search-dropdown{margin-left:12px;margin-right:12px;}
+.site-search-dropdown .site-card{margin-left:2px;margin-right:2px;width:calc(100% - 4px);}
+@media(max-width:600px){.state-panel{padding-left:8px;padding-right:8px}.site-search-wrap{padding-left:8px;padding-right:8px}.site-search-dropdown{margin-left:8px;margin-right:8px}.card-text{padding:4px 27px 4px 7px !important}.card-external-link{right:6px}}
 </style>
 </head>
 <body>
