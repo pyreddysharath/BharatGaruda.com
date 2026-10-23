@@ -1078,6 +1078,18 @@ footer.foot .footer-row,footer.foot .footer-icons-row{margin-bottom:0!important;
 /* Hide the unused feedback host, but retain it when a feedback form opens. */
 #feedbackContainer:empty{display:none!important;}
 html,body{margin-bottom:0!important;padding-bottom:0!important;}
+
+/* Footer gap fix: fill the viewport without inserting space after footer. */
+html{min-height:100%;}
+body{
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+}
+body > .wrap{flex:1 0 auto;}
+body > footer.foot{flex:0 0 auto;}
+body > #feedbackContainer:empty{display:none!important;}
 </style>
 </head>
 <body>
