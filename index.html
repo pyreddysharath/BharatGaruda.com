@@ -1040,10 +1040,14 @@ html:not([data-theme="light"]) .site-search-input:focus{
 
 /* Desktop map must remain unobstructed by Pan-India heading rules. */
 .map-col::after,.wrap.show-map-divider .map-col::after{display:none!important;content:none!important}
-/* Leave extra room below the map for the viewport edge and browser chrome. */
+/* Restore the original map dimensions; avoid adding an empty strip beneath it. */
 @media (min-width:941px){
- .map-stage{width:min(1400px, calc((100dvh - 122px) * 0.8803));}
+ .map-col{padding-bottom:0;}
+ 
 }
+/* No decorative rule or extra spacing below the footer. */
+footer.foot{border-bottom:0!important;margin-bottom:0!important;}
+html,body{padding-bottom:0!important;}
 </style>
 </head>
 <body>
