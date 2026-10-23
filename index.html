@@ -1062,7 +1062,7 @@ footer.foot{padding-bottom:0!important;}
 
 /* Desktop map placement: lift the complete map farther without scaling it. */
 @media (min-width:941px){
-  .map-stage{transform:translateY(-48px)!important;margin-bottom:-48px!important;}
+  .map-stage{transform:translateY(-40px)!important;margin-bottom:-40px!important;}
   /* Remove the coloured rectangular strip extending beyond the map stage. */
   .map-col{background:transparent!important;padding-bottom:0!important;}
 }
@@ -1071,6 +1071,13 @@ footer.foot{padding-bottom:0!important;margin-bottom:0!important;border-bottom:0
 footer.foot .footer-row,footer.foot .footer-icons-row{padding-bottom:0!important;margin-bottom:0!important;min-height:0!important;}
 #feedbackContainer:empty{display:none!important;height:0!important;margin:0!important;padding:0!important;}
 body{margin-bottom:0!important;}
+
+/* Footer should participate in normal page flow rather than stick to viewport. */
+footer.foot{position:relative!important;top:auto!important;bottom:auto!important;transform:none!important;padding-bottom:0!important;margin-bottom:0!important;border-bottom:0!important;}
+footer.foot .footer-row,footer.foot .footer-icons-row{margin-bottom:0!important;padding-bottom:0!important;}
+/* Hide the unused feedback host, but retain it when a feedback form opens. */
+#feedbackContainer:empty{display:none!important;}
+html,body{margin-bottom:0!important;padding-bottom:0!important;}
 </style>
 </head>
 <body>
