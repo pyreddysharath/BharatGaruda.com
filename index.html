@@ -1048,6 +1048,17 @@ html:not([data-theme="light"]) .site-search-input:focus{
 /* No decorative rule or extra spacing below the footer. */
 footer.foot{border-bottom:0!important;margin-bottom:0!important;}
 html,body{padding-bottom:0!important;}
+
+/* Desktop: raise the entire map stage without shrinking or clipping its islands. */
+@media (min-width:941px){
+  .map-stage{transform:translateY(-22px);margin-bottom:-22px;}
+  .map-col{overflow:visible;}
+}
+/* Remove leftover space below the footer icon row. */
+footer.foot{padding-bottom:0!important;}
+.footer-row{margin-bottom:0!important;padding-bottom:0!important;}
+.footer-icons-row{margin-bottom:0!important;padding-bottom:0!important;}
+#feedbackContainer:empty{display:none!important;}
 </style>
 </head>
 <body>
