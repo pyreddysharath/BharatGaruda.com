@@ -1037,6 +1037,13 @@ html:not([data-theme="light"]) .site-search-input:focus{
   border-color:#65C0D0;
   box-shadow:0 0 0 3px rgba(101,192,208,.15);
 }
+
+/* Desktop map must remain unobstructed by Pan-India heading rules. */
+.map-col::after,.wrap.show-map-divider .map-col::after{display:none!important;content:none!important}
+/* Leave extra room below the map for the viewport edge and browser chrome. */
+@media (min-width:941px){
+ .map-stage{width:min(1400px, calc((100dvh - 122px) * 0.8803));}
+}
 </style>
 </head>
 <body>
