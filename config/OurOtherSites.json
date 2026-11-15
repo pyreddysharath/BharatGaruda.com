@@ -7,14 +7,19 @@
       "information": "A health companion covering exercises, yoga, food, reminders, and vital checks — everything you need to keep track of your daily wellbeing in one place."
     },
     {
+      "site": "DataEkam.com",
+      "url": "https://dataekam.com",
+      "information": "A single-page tool that formats, validates, and converts data across formats like JSON, YAML, XML, CSV, and more, plus a text comparison tab. Its name nods to 'Ekam' (Sanskrit for 'one') — one tool for handling many formats in one place."
+    },
+    {
       "site": "IntiGuttu.com",
       "url": "https://intiguttu.com",
       "information": "A private, no-login home reference app for household DIY fixes, everyday tips, and recipes from every state of India and every country in the world."
     },
     {
-      "site": "DataEkam.com",
-      "url": "https://dataekam.com",
-      "information": "A single-page tool that formats, validates, and converts data across formats like JSON, YAML, XML, CSV, and more, plus a text comparison tab. Its name nods to 'Ekam' (Sanskrit for 'one') — one tool for handling many formats in one place."
+      "site": "RummyTally.com",
+      "url": "https://rummytally.com",
+      "information": "A free rummy scoreboard, live on every phone."
     }
   ]
 }

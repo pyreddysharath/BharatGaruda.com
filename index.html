@@ -2391,7 +2391,8 @@ function slugifySiteName(name){
   return String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 function otherSitesListHtml(){
-  const sites = (OTHER_SITES_CONFIG && Array.isArray(OTHER_SITES_CONFIG.sites)) ? OTHER_SITES_CONFIG.sites : [];
+  const sites = ((OTHER_SITES_CONFIG && Array.isArray(OTHER_SITES_CONFIG.sites)) ? OTHER_SITES_CONFIG.sites : [])
+    .slice().sort((a, b) => String(a.site).localeCompare(String(b.site), undefined, { sensitivity: 'base' }));   // A to Z
   const intro = (OTHER_SITES_CONFIG && OTHER_SITES_CONFIG.content) || '';
   return `
     ${intro ? `<p class="other-sites-intro">${intro}</p>` : ''}
